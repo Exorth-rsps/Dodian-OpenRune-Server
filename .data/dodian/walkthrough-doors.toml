@@ -3,6 +3,4 @@
 # Add a door by its loc name (Examine shows the id; look the name up in the editor or the cache).
 # Restart the server after changes; no buildCache needed.
 doors = [
-    "loc.magicguild_door_l",
-    "loc.magicguild_door_r",
 ]
