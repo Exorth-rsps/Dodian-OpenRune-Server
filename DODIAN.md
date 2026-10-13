@@ -87,6 +87,14 @@ de wereld.
   NPC-type. `DodianSpawnSettings` leest deze velden bij het opstarten uit de spawnbestanden en past
   ze toe als de NPC spawnt (gekoppeld op NPC + tegel), dus alleen een herstart is nodig. De
   cache-build negeert de extra velden.
+- **NPC-configs (naam, combat, formaat, stats):** tabblad **NPC-config** in de editor, opgeslagen
+  in `.data/dodian/configs/npcs.toml` (alleen ingepakt in Dodian-modus). *Aanpassen* wijzigt een
+  bestaande NPC (`id` = `inherit`, geldt voor al zijn spawns); *Kopie* maakt een nieuwe NPC
+  (nieuwe id vanaf 64000 in `content/dodian/.../gamevals.toml`). Velden: `name`, `examine`,
+  `combatLevel`, `size`, `widthScale`/`heightScale` (128 = 100%), `hitpoints`, `attack`,
+  `strength`, `defence`, `ranged`, `magic`, `respawnRate`, `wanderRange`. Daarna `gradlew buildCache`
+  en server herstarten. Let op: zet geen gameval-namen (iets als npc punt naam) in commentaar in dat
+  bestand, de config-packer probeert die ook op te lossen.
 - **Muziekeditor:** `python tools/dodian-editor/server.py` opent in je browser een editor met je
   Dodian-kaarten (mainland, dungeons, altaren elk apart). Teken regio's door te klikken, zoek
   OSRS-nummers, beluister ze (opnames van de OSRS Wiki, internet nodig) en wijs ze toe. Opslaan
@@ -154,7 +162,7 @@ Alle wijzigingen zijn gemarkeerd met `DODIAN:` (zoek daarop bij merge-conflicten
 | `or-cache/.../map/packing/MapNpcPacker.kt` | 1 regel: `resourceDir` via `DodianMapPaths` | spawnmap per modus |
 | `or-cache/.../map/packing/MapObjPacker.kt` | idem | idem |
 | `or-cache/.../map/packing/MapAreaPacker.kt` | 1 regel: `areaDir` via `DodianMapPaths` | idem |
-| `or-cache/.../pack/PluginPacks.kt` | 1 regel in `buildPackTasks`: `DodianMapPaths.mapTasks()` | kaarten per modus |
+| `or-cache/.../pack/PluginPacks.kt` | 1 regel in `buildPackTasks`: `DodianMapPaths.mapTasks()`; 1 regel in `configDirectories()`: `+ DodianMapPaths.configDirectories()` | kaarten en NPC-configs per modus |
 | `or-cache/.../CacheTools.kt` | 1 regel in `tablesToPack`: `DodianMusic.modern(...)` | muziekregio's per modus |
 | `or-cache/build.gradle.kts` | 1 regel in `buildCache`: `-Pgamemode` doorgeven | modus eenmalig overschrijven |
 | `engine/game/.../entity/Npc.kt` | 2 regels: `wanderRangeOverride` + `wanderRange` gebruikt die | wander per spawn |

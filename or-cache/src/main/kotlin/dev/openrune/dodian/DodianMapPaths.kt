@@ -37,6 +37,11 @@ public object DodianMapPaths {
             DodianEditorExport(packDir))
     }
 
+    public fun configDirectories(): List<File> {
+        val dir = File("../.data/dodian/configs")
+        return if (isDodian && dir.isDirectory) listOf(dir) else emptyList()
+    }
+
     private fun resolveGamemode(): String {
         val override = System.getProperty("gamemode")
         if (!override.isNullOrBlank()) {

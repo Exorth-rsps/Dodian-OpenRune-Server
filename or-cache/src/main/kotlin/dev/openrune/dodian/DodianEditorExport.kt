@@ -120,7 +120,12 @@ public class DodianEditorExport(private val packDir: File) : CacheTask() {
             if (name.isBlank() || name == "null") {
                 continue
             }
-            npcs += """{"id":$id,"name":${json(name)},"combat":${npc.combatLevel},"size":${npc.size}}"""
+            npcs +=
+                """{"id":$id,"name":${json(name)},"combat":${npc.combatLevel},"size":${npc.size},""" +
+                    """"examine":${json(npc.examine)},"widthScale":${npc.widthScale},""" +
+                    """"heightScale":${npc.heightScale},"hitpoints":${npc.hitpoints},""" +
+                    """"attack":${npc.attack},"strength":${npc.strength},"defence":${npc.defence},""" +
+                    """"ranged":${npc.ranged},"magic":${npc.magic}}"""
         }
         File(outputDir, "npcs.json").writeText(npcs.joinToString(",\n", "[\n", "\n]\n"))
     }

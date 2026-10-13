@@ -25,7 +25,7 @@ class PluginPacks(val projectRoot: File, val all: List<PluginPack>) {
     fun nameOf(pack: PluginPack): String =
         pack::class.java.name.substringAfterLast('.').removeSuffix("PluginPack").lowercase()
 
-    fun configDirectories(): List<File> = all.mapNotNull { it.configDirectory() }
+    fun configDirectories(): List<File> = all.mapNotNull { it.configDirectory() } + dev.openrune.dodian.DodianMapPaths.configDirectories() // DODIAN
 
     fun validate() {
         active.forEach { it.validate(projectRoot) }

@@ -1,0 +1,5 @@
+# NPC configs in dodian mode, edited with tools/dodian-editor (tab "NPC-config").
+# Run `gradlew buildCache` after changes. Each [[npc]] block either changes an existing npc
+# (id and inherit are the same) or makes a new one (a new id, registered in
+# content/dodian/src/main/resources/gamevals.toml). Fields that are left out keep the value of the
+# inherited npc; do not write gameval names in comments here: the config packer resolves them too.

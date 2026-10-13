@@ -21,6 +21,25 @@ MUSIC_FILE = ROOT / ".data/dodian/music.toml"
 AREA_DIR = ROOT / ".data/dodian/map/area"
 EDITOR_AREA_FILE = AREA_DIR / "music_regions.toml"
 NPC_DIR = ROOT / ".data/dodian/map/npcs"
+NPC_CONFIG_FILE = ROOT / ".data/dodian/configs/npcs.toml"
+FIRST_CUSTOM_NPC_ID = 64000
+NPC_NAME_PATTERN = re.compile(r"^npc\.[a-z0-9_]+$")
+NPC_CONFIG_FIELDS = {
+    "name": (str, None),
+    "examine": (str, None),
+    "combatLevel": (int, (0, 9999)),
+    "size": (int, (1, 5)),
+    "widthScale": (int, (1, 1024)),
+    "heightScale": (int, (1, 1024)),
+    "hitpoints": (int, (1, 99999)),
+    "attack": (int, (0, 9999)),
+    "strength": (int, (0, 9999)),
+    "defence": (int, (0, 9999)),
+    "ranged": (int, (0, 9999)),
+    "magic": (int, (0, 9999)),
+    "respawnRate": (int, (1, 100000)),
+    "wanderRange": (int, (0, 64)),
+}
 NPC_FILE_PATTERN = re.compile(r"^[a-z0-9_-]+\.toml$")
 DIRECTIONS = {"north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"}
 DODIAN_GAMEVALS = ROOT / "content/dodian/src/main/resources/gamevals.toml"
@@ -118,23 +137,93 @@ def load_maps():
     return json.loads((EXPORT_DIR / "maps.json").read_text(encoding="utf-8"))
 
 
-def npc_state():
-    maps = load_maps()
+def custom_gamevals(table):
+    """name -> id for `table` from every gamevals.toml under content/ and api/."""
+    values = {}
+    for base in (ROOT / "content", ROOT / "api"):
+        for path in base.rglob("gamevals.toml"):
+            if "build" in path.relative_to(ROOT).parts:
+                continue
+            section = load_toml(path).get("gamevals", {}).get(table, {})
+            values.update({k: int(v) for k, v in section.items()})
+    return values
+
+
+def npc_gamevals():
+    names = read_binary_gamevals("npc")
+    names.update(custom_gamevals("npc"))
+    return names
+
+
+def npc_list():
     npcs_file = EXPORT_DIR / "npcs.json"
     if not npcs_file.exists():
         raise ValueError("Geen NPC-lijst gevonden. Draai `gradlew buildCache` in dodian-modus.")
-    names = {v: k for k, v in read_binary_gamevals("npc").items()}
+    names = {v: k for k, v in npc_gamevals().items()}
     npcs = []
     for npc in json.loads(npcs_file.read_text(encoding="utf-8"), strict=False):
         gameval = names.get(npc["id"])
         if gameval:
-            npcs.append({
-                "gameval": f"npc.{gameval}",
-                "name": npc["name"],
-                "combat": npc["combat"],
-                "size": npc["size"],
-            })
+            entry = dict(npc)
+            entry["gameval"] = f"npc.{gameval}"
+            npcs.append(entry)
     npcs.sort(key=lambda n: (n["name"].lower(), n["combat"]))
+    return npcs
+
+
+def npc_config_state():
+    configs = load_toml(NPC_CONFIG_FILE).get("npc", []) if NPC_CONFIG_FILE.exists() else []
+    return {"npcs": npc_list(), "configs": configs}
+
+
+def npc_config_save(payload):
+    known = {f"npc.{name}" for name in npc_gamevals()}
+    configs = payload.get("configs", [])
+    ids = set()
+    new_names = []
+    for config in configs:
+        npc_id, inherit = config.get("id", ""), config.get("inherit", "")
+        if not NPC_NAME_PATTERN.match(npc_id):
+            raise ValueError(f"Ongeldige id '{npc_id}': gebruik npc. + kleine letters, cijfers en _.")
+        if npc_id in ids:
+            raise ValueError(f"'{npc_id}' staat er twee keer in.")
+        ids.add(npc_id)
+        if inherit not in known:
+            raise ValueError(f"'{npc_id}': onbekende basis-NPC '{inherit}'.")
+        if npc_id not in known:
+            new_names.append(npc_id.removeprefix("npc."))
+        for field, value in config.items():
+            if field in ("id", "inherit"):
+                continue
+            if field not in NPC_CONFIG_FIELDS:
+                raise ValueError(f"'{npc_id}': onbekend veld '{field}'.")
+            kind, bounds = NPC_CONFIG_FIELDS[field]
+            if not isinstance(value, kind) or isinstance(value, bool):
+                raise ValueError(f"'{npc_id}': {field} moet een {'getal' if kind is int else 'tekst'} zijn.")
+            if bounds and not bounds[0] <= value <= bounds[1]:
+                raise ValueError(f"'{npc_id}': {field} moet tussen {bounds[0]} en {bounds[1]} liggen.")
+
+    added = register_gamevals("npc", new_names, npc_gamevals(), FIRST_CUSTOM_NPC_ID)
+
+    header = NPC_CONFIG_FILE.read_text(encoding="utf-8").split("\n\n[[npc]]")[0].rstrip() if NPC_CONFIG_FILE.exists() else ""
+    lines = [header, ""] if header else []
+    for config in configs:
+        lines.append("[[npc]]")
+        lines.append(f'id = "{config["id"]}"')
+        lines.append(f'inherit = "{config["inherit"]}"')
+        for field in NPC_CONFIG_FIELDS:
+            if field in config:
+                value = config[field]
+                lines.append(f"{field} = {json.dumps(value) if isinstance(value, str) else int(value)}")
+        lines.append("")
+    NPC_CONFIG_FILE.parent.mkdir(parents=True, exist_ok=True)
+    NPC_CONFIG_FILE.write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    return {"ok": True, "addedGamevals": added}
+
+
+def npc_state():
+    maps = load_maps()
+    npcs = npc_list()
 
     files = {}
     for path in sorted(NPC_DIR.glob("*.toml")):
@@ -154,7 +243,7 @@ def npc_state():
 
 
 def npc_save(payload):
-    known = {f"npc.{name}" for name in read_binary_gamevals("npc")}
+    known = {f"npc.{name}" for name in npc_gamevals()}
     files = payload.get("files", {})
     for name, spawns in files.items():
         if not NPC_FILE_PATTERN.match(name):
@@ -272,23 +361,27 @@ def save(payload):
 
 
 def register_area_gamevals(names):
-    known = known_areas()
-    missing = sorted(name for name in names if name not in known)
+    return register_gamevals("area", names, known_areas(), FIRST_CUSTOM_AREA_ID)
+
+
+def register_gamevals(table, names, known, first_id):
+    """Adds every name not in `known` to content/dodian's gamevals.toml with the next free id."""
+    missing = sorted(name for name in set(names) if name not in known)
     if not missing:
         return []
     data = load_toml(DODIAN_GAMEVALS) if DODIAN_GAMEVALS.exists() else {}
     tables = data.get("gamevals", {})
-    area_table = dict(tables.get("area", {}))
+    values = dict(tables.get(table, {}))
     used_ids = set(known.values())
-    next_id = FIRST_CUSTOM_AREA_ID
+    next_id = first_id
     added = []
     for name in missing:
         while next_id in used_ids:
             next_id += 1
-        area_table[name] = next_id
+        values[name] = next_id
         used_ids.add(next_id)
-        added.append(f"area.{name} = {next_id}")
-    tables["area"] = area_table
+        added.append(f"{table}.{name} = {next_id}")
+    tables[table] = values
     lines = []
     for table, values in tables.items():
         lines.append(f"[gamevals.{table}]")
@@ -306,6 +399,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json(state)
         elif self.path == "/api/npc-state":
             self.send_json(npc_state)
+        elif self.path == "/api/npc-config-state":
+            self.send_json(npc_config_state)
         elif self.path.startswith("/maps/"):
             file = EXPORT_DIR / Path(self.path.removeprefix("/maps/")).name
             self.send_file(file, "image/png")
@@ -313,7 +408,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_error(404)
 
     def do_POST(self):
-        handlers = {"/api/save": save, "/api/npc-save": npc_save}
+        handlers = {"/api/save": save, "/api/npc-save": npc_save, "/api/npc-config-save": npc_config_save}
         handler = handlers.get(self.path)
         if handler is None:
             self.send_error(404)
