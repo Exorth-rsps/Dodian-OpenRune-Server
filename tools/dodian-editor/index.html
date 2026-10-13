@@ -819,7 +819,12 @@ function setMode(next) {
 async function loadNpcs() {
   setStatus("NPC's laden…");
   const response = await fetch("/api/npc-state");
-  const data = await response.json();
+  const data = await response.json().catch(() => null);
+  if (!data) {
+    setStatus("De editor-server is verouderd: stop hem (Ctrl+C) en start python tools/dodian-editor/server.py opnieuw.", "error");
+    $("npcResults").innerHTML = `<div class="empty">NPC-lijst niet geladen.</div>`;
+    return;
+  }
   if (!response.ok) { setStatus(data.error, "error"); return; }
   npcLoaded = true;
   npcList = data.npcs;
