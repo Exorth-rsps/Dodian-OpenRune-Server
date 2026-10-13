@@ -11,8 +11,145 @@
 [[region]]
 area = "area.dodian_home"
 tracks = [
-    "dbrow.music_baroque",
-    "dbrow.music_knightly",
+    "dbrow.music_big_chords",
+    "dbrow.music_in_the_manor",
+    "dbrow.music_magic_dance",
+]
+
+[[region]]
+area = "area.dodian_regio_2"
+tracks = [
+    "dbrow.music_long_ago",
+    "dbrow.music_yesteryear",
+    "dbrow.music_autumn_voyage",
+]
+
+[[region]]
+area = "area.dodian_regio_3"
+tracks = [
+    "dbrow.music_in_the_manor",
+]
+
+[[region]]
+area = "area.dodian_regio_4"
+tracks = [
+    "dbrow.music_melodrama",
+    "dbrow.music_serenade",
+    "dbrow.music_soundscape",
+]
+
+[[region]]
+area = "area.dodian_regio_5"
+tracks = [
+    "dbrow.music_ice_melody",
+]
+
+[[region]]
+area = "area.dodian_regio_6"
+tracks = [
+    "dbrow.music_long_way_home",
+    "dbrow.music_nightfall",
+    "dbrow.music_miles_away",
+]
+
+[[region]]
+area = "area.dodian_regio_7"
+tracks = [
+    "dbrow.music_fishing",
+]
+
+[[region]]
+area = "area.dodian_regio_8"
+tracks = [
+    "dbrow.music_lightwalk",
+]
+
+[[region]]
+area = "area.dodian_regio_9"
+tracks = [
+    "dbrow.music_gnome_village",
+    "dbrow.music_gnome_village2",
+]
+
+[[region]]
+area = "area.dodian_regio_10"
+tracks = [
+    "dbrow.music_narnodes",
+]
+
+[[region]]
+area = "area.dodian_regio_11"
+tracks = [
+    "dbrow.music_trinity",
+]
+
+[[region]]
+area = "area.dodian_regio_12"
+tracks = [
+    "dbrow.music_warriors_guild",
+]
+
+[[region]]
+area = "area.dodian_regio_13"
+tracks = [
+    "dbrow.music_legion",
+]
+
+[[region]]
+area = "area.dodian_regio_14"
+tracks = [
     "dbrow.music_magical_journey",
-    "dbrow.music_fanfare",
+    "dbrow.music_wonderous",
+]
+
+[[region]]
+area = "area.dodian_regio_15"
+tracks = [
+    "dbrow.music_monarch_waltz",
+    "dbrow.music_overture",
+    "dbrow.music_talking_forest",
+]
+
+[[region]]
+area = "area.dodian_regio_16"
+tracks = [
+    "dbrow.music_wally_cutscene",
+]
+
+[[region]]
+area = "area.dodian_regio_17"
+tracks = [
+    "dbrow.music_splendour",
+]
+
+[[region]]
+area = "area.dodian_regio_18"
+tracks = [
+    "dbrow.music_horizon",
+    "dbrow.music_royale",
+]
+
+[[region]]
+area = "area.dodian_regio_19"
+tracks = [
+    "dbrow.music_greatness",
+    "dbrow.music_expanse",
+]
+
+[[region]]
+area = "area.dodian_regio_20"
+tracks = [
+    "dbrow.music_sunset_coast",
+]
+
+[[region]]
+area = "area.dodian_regio_21"
+tracks = [
+    "dbrow.music_making_waves",
+]
+
+[[region]]
+area = "area.dodian_regio_22"
+tracks = [
+    "dbrow.music_zaniks_theme",
 ]
