@@ -14,13 +14,79 @@ osrs_labels = false
 #   area  = world map area, default "main"
 
 [[label]]
-text = "Kingdom of<br>Kandarin"
-x = 2578
-y = 3370
+text = "Ub3r<br> Kingdom"
+x = 2587
+y = 3328
 style = "region"
 
 [[label]]
-text = "Dodian<br>Home"
-x = 2670
-y = 3231
+text = "Yanille"
+x = 2663
+y = 3242
+style = "town"
+
+[[label]]
+text = "Catherby"
+x = 2490
+y = 3167
+style = "town"
+
+[[label]]
+text = "Warriors Guild"
+x = 2524
+y = 3306
+style = "town"
+
+[[label]]
+text = "Moo's Farm"
+x = 2586
+y = 3276
+style = "town"
+
+[[label]]
+text = "Gnome Town"
+x = 2643
+y = 3302
+style = "town"
+
+[[label]]
+text = "Legend's Guild"
+x = 2709
+y = 3328
+style = "town"
+
+[[label]]
+text = "Fishing Guild"
+x = 2709
+y = 3389
+style = "town"
+
+[[label]]
+text = "Taverly"
+x = 2616
+y = 3395
+style = "town"
+
+[[label]]
+text = "Hero's Guild"
+x = 2565
+y = 3394
+style = "town"
+
+[[label]]
+text = "Seers Village"
+x = 2503
+y = 3420
+style = "town"
+
+[[label]]
+text = "Long Beach"
+x = 2609
+y = 3444
+style = "town"
+
+[[label]]
+text = "Crafting Guild"
+x = 2471
+y = 3362
 style = "town"
