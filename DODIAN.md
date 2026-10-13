@@ -174,7 +174,7 @@ Nieuwe (Dodian-eigen) bestanden — geen conflicten te verwachten:
 
 - **Startlocatie:** de server zet nieuwe spelers op de realm-spawn uit de central-database
   (Lumbridge). In Dodian-modus verplaatst `DodianHomeScript` iedereen die buiten de kaarten inlogt
-  naar `START`. Respawn na doodgaan gaat nog naar de realm-respawn; `::dodian home` brengt je terug.
+  naar `START`. Respawn na doodgaan gaat nog naar de realm-respawn; `::dodianhome` brengt je terug.
 - **Wereldkaart:** wordt opnieuw opgebouwd als kaartvakken veranderen (`freshCache`, een gewijzigd
   `.pack`-bestand) of als `labels.toml` verandert. Wereldkaart-gebieden die helemaal leeg zijn
   (OSRS-dungeons e.d.) blijven in de lijst staan, maar tonen alleen achtergrond.

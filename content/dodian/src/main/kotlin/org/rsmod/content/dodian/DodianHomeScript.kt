@@ -49,14 +49,18 @@ constructor(
         }
 
         onCommand("dodian") {
-            desc = "Show the gamemode; ::dodian home teleports home, ::dodian music shows music state"
-            cheat {
-                player.mes("Gamemode: ${config.gamemode.name.lowercase()}")
-                when (args.firstOrNull()) {
-                    "home" -> protectedAccess.launch(player) { telejump(START, TeleportType.Exempt) }
-                    "music" -> player.showMusicState()
-                }
-            }
+            desc = "Show the active gamemode"
+            cheat { player.mes("Gamemode: ${config.gamemode.name.lowercase()}") }
+        }
+
+        onCommand("dodianhome") {
+            desc = "Teleport to the Dodian start location"
+            cheat { protectedAccess.launch(player) { telejump(START, TeleportType.Exempt) } }
+        }
+
+        onCommand("dodianmusic") {
+            desc = "Show the server-side music state"
+            cheat { player.showMusicState() }
         }
     }
 
