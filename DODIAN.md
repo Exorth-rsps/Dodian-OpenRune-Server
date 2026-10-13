@@ -22,6 +22,10 @@ gamemodus **`dodian`**. In `normal` (standaard) gedraagt de server zich precies 
 
 3. Start de server: `gradlew run`.
 
+**Van `dodian` terug naar `normal`:** in Dodian-modus worden de originele OSRS-kaarten echt uit de
+cache verwijderd. Draai dan `gradlew freshCache` in plaats van `buildCache`; dat haalt de cache
+opnieuw op en bouwt hem. Vergeet je dat, dan stopt `buildCache` met een melding.
+
 De cache-build schrijft de gebouwde modus naar `.data/cache/gamemode.txt`. Klopt die niet met
 `game.yml`, dan logt de server bij het opstarten een waarschuwing
 (`... the cache was built for '...'`). Vergeten `buildCache` te draaien merk je dus meteen.
@@ -30,6 +34,7 @@ De cache-build schrijft de gebouwde modus naar `.data/cache/gamemode.txt`. Klopt
 
 | | `normal` | `dodian` |
 |---|---|---|
+| Kaarten (terrein + objecten) | alle OSRS-kaarten | **alleen** `.data/raw-cache/map/dodian/*.pack` |
 | NPC-spawns | `.data/raw-cache/map/npcs/` | `.data/dodian/map/npcs/` |
 | Item-spawns (grond) | `.data/raw-cache/map/objs/` | `.data/dodian/map/objs/` |
 | Areas (multi, wildy, …) | `.data/raw-cache/map/area/` | `.data/dodian/map/area/` |
@@ -52,6 +57,13 @@ compileren), maar de plugin-loader start de scripts uit die packages niet. Guice
 de wereld.
 
 ## Waar staat wat
+
+- **Kaarten:** `.data/raw-cache/map/dodian/` — RSPSi `.pack`-bestanden. Het getal aan het eind van
+  de naam is het basis-regio-id (`mainlands_9520.pack`). In Dodian-modus verwijdert de build alle
+  OSRS-kaartvakken die niet in deze bestanden zitten (`DodianMapClear`) en pakt daarna deze
+  bestanden in (`PackMaps`). Nieuwe `.pack` erbij → `gradlew buildCache`.
+- **Startlocatie (tijdelijk):** `DodianHomeScript.kt`, `START = (2575, 3152, 0)`. Wie inlogt op een
+  plek waar geen kaart is (bijv. de standaard-spawn in Lumbridge), wordt daarheen verplaatst.
 
 - **Spawns:** `.data/dodian/map/npcs/`, `objs/`, `area/` — elk `.toml`-bestand in die map wordt
   ingelezen. `home.toml` is het voorbeeld (Yanille bank).
@@ -110,12 +122,14 @@ Alle wijzigingen zijn gemarkeerd met `DODIAN:` (zoek daarop bij merge-conflicten
 | `or-cache/.../map/packing/MapNpcPacker.kt` | 1 regel: `resourceDir` via `DodianMapPaths` | spawnmap per modus |
 | `or-cache/.../map/packing/MapObjPacker.kt` | idem | idem |
 | `or-cache/.../map/packing/MapAreaPacker.kt` | 1 regel: `areaDir` via `DodianMapPaths` | idem |
+| `or-cache/.../pack/PluginPacks.kt` | 1 regel in `buildPackTasks`: `DodianMapPaths.mapTasks()` | kaarten per modus |
 | `or-cache/build.gradle.kts` | 1 regel in `buildCache`: `-Pgamemode` doorgeven | modus eenmalig overschrijven |
 | `server/shared/.../loader/PluginScriptLoader.kt` | 2 regels: `DodianScriptFilter` | content aan/uit per modus |
 | `.data/.gitignore` | `!dodian/` | `.data/dodian/` in git houden |
 
 Nieuwe (Dodian-eigen) bestanden — geen conflicten te verwachten:
-`api/server-config/.../GameMode.kt`, `or-cache/.../dodian/DodianMapPaths.kt`,
+`api/server-config/.../GameMode.kt`, `or-cache/.../dodian/` (`DodianMapPaths`, `DodianMapClear`,
+`DodianMapGuard`),
 `server/shared/.../loader/DodianScriptFilter.kt`, `content/dodian/`, `.data/dodian/`, `DODIAN.md`.
 
 ## Na een upstream-merge controleren
@@ -135,9 +149,12 @@ Nieuwe (Dodian-eigen) bestanden — geen conflicten te verwachten:
 
 ## Bekende beperkingen
 
-- **Startlocatie:** nieuwe spelers en respawns gebruiken de realm-instelling uit de
-  central-database (standaard Lumbridge, `0_50_50_21_18`), niet `game.yml`. In Dodian-modus kom je
-  dus in een lege wereld in Lumbridge uit; `::dodian home` brengt je naar Yanille.
+- **Startlocatie:** de server zet nieuwe spelers op de realm-spawn uit de central-database
+  (Lumbridge). In Dodian-modus verplaatst `DodianHomeScript` iedereen die buiten de kaarten inlogt
+  naar `START`. Respawn na doodgaan gaat nog naar de realm-respawn; `::dodian home` brengt je terug.
+- **Wereldkaart:** de wereldkaart in het spel toont nog de OSRS-kaart.
+- **Cache-tool slikt fouten in:** een fout in een cache-taak geeft vaak toch `BUILD SUCCESSFUL`.
+  Kijk bij twijfel in de uitvoer naar `Exception`. (Upstream-gedrag.)
 - **Areas:** in Dodian-modus bestaan alleen de areas uit `.data/dodian/map/area/`. Multi-combat,
   wildernis e.d. werken pas als je ze daar zelf definieert.
 - **Upstream `content/areas`** bevat ook kleine dingen zoals deuren, trappen en NPC-dialogen van

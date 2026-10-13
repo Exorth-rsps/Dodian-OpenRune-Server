@@ -1,5 +1,8 @@
 package dev.openrune.dodian
 
+import dev.openrune.cache.tools.tasks.CacheTask
+import dev.openrune.cache.tools.tasks.impl.PackMaps
+import java.io.File
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.readLines
@@ -23,6 +26,14 @@ public object DodianMapPaths {
         } else {
             Path.of("../.data/raw-cache/map/$kind")
         }
+    }
+
+    public fun mapTasks(): List<CacheTask> {
+        if (!isDodian) {
+            return listOf(DodianMapGuard())
+        }
+        val packDir = File("../.data/raw-cache/map/dodian")
+        return listOf(DodianMapClear(packDir), PackMaps(packDir))
     }
 
     private fun resolveGamemode(): String {

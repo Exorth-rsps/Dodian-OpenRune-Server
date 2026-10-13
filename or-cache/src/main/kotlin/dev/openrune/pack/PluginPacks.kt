@@ -54,6 +54,7 @@ class PluginPacks(val projectRoot: File, val all: List<PluginPack>) {
             PackModels(File("../.data/raw-cache/models")),
             PackConfig(File("../.data/raw-cache/")),
         )
+        tasks += dev.openrune.dodian.DodianMapPaths.mapTasks() // DODIAN: maps per gamemode
 
         configDirectories().forEach { tasks += PackConfig(it) }
         active.mapNotNull { it.modelDirectory() }.forEach { tasks += PackModels(it) }
