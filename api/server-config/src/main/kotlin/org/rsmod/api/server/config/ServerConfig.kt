@@ -66,4 +66,5 @@ public data class ServerConfig(
     val central: OpenRuneCentralGameConfig? = null,
     @JsonProperty("login-timing-logs") val loginTimingLogs: Boolean = false,
     @JsonProperty("social-pm-trace-logs") val socialPmTraceLogs: Boolean = false,
+    val gamemode: GameMode = GameMode.Normal, // DODIAN: gamemode switch, see DODIAN.md
 )

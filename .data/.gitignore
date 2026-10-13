@@ -3,6 +3,8 @@ symbols/.local/
 !gamevals/
 !gamevals-binary/
 !raw-cache/
+# DODIAN: Dodian spawns and content config, see DODIAN.md
+!dodian/
 !symbols/
 !.gitignore
 

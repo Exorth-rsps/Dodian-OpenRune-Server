@@ -1,0 +1,10 @@
+## Dodian home (Yanille bank) - ground item spawns
+# Same coords format as npcs.
+
+[[spawn]]
+obj = "obj.coins"
+coords = "0_40_48_50_20"
+
+[[spawn]]
+obj = "obj.bones"
+coords = "0_40_48_50_22"

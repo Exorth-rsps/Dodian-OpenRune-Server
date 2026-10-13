@@ -5,6 +5,9 @@ game-port: 43594
 revision: 241
 environment: "LIVE"
 world: 255
+# DODIAN: "normal" behaves exactly like upstream OpenRune; "dodian" loads the Dodian spawns and
+# content instead. Run `gradlew buildCache` after changing this. See DODIAN.md.
+gamemode: "normal"
 
 gameplay:
   drop-rates:

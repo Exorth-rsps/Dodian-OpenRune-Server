@@ -17,6 +17,7 @@ class PluginScriptLoader @Inject constructor() {
         injector: Injector,
         lenient: Boolean = false,
     ): Collection<T> {
+        val dodianFilter = DodianScriptFilter.from(injector) // DODIAN: per-gamemode content
         val (classes, lookupDuration) =
             measureTimedValue {
                 PluginClasspathScan.scan
@@ -26,6 +27,7 @@ class PluginScriptLoader @Inject constructor() {
                     .filter { clazz ->
                         !Modifier.isAbstract(clazz.modifiers) && !Modifier.isInterface(clazz.modifiers)
                     }
+                    .filter(dodianFilter::allows) // DODIAN: per-gamemode content
                     .toList()
             }
 

@@ -1,0 +1,38 @@
+package dev.openrune.dodian
+
+import java.nio.file.Path
+import kotlin.io.path.exists
+import kotlin.io.path.readLines
+
+public object DodianMapPaths {
+    private val gameYml: Path = Path.of("../game.yml")
+    private val gamemodeLine = Regex("""^gamemode:\s*["']?(\w+)["']?""")
+
+    public val gamemode: String by lazy { resolveGamemode() }
+
+    public val isDodian: Boolean
+        get() = gamemode == "dodian"
+
+    public fun mapDir(kind: String): Path =
+        if (isDodian) Path.of("../.data/dodian/map/$kind") else Path.of("../.data/raw-cache/map/$kind")
+
+    private fun resolveGamemode(): String {
+        val override = System.getProperty("gamemode")
+        if (!override.isNullOrBlank()) {
+            return validate(override.trim().lowercase())
+        }
+        if (!gameYml.exists()) {
+            return "normal"
+        }
+        val mode =
+            gameYml.readLines().firstNotNullOfOrNull { gamemodeLine.find(it.trim()) }?.groupValues?.get(1)
+        return validate(mode?.lowercase() ?: "normal")
+    }
+
+    private fun validate(mode: String): String {
+        require(mode == "normal" || mode == "dodian") {
+            "Unknown gamemode '$mode' (expected \"normal\" or \"dodian\")."
+        }
+        return mode
+    }
+}

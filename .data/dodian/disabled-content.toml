@@ -1,0 +1,10 @@
+# Plugin-script packages that do NOT start when `gamemode: "dodian"` is set in game.yml.
+# A package also disables everything below it (org.rsmod.content.areas also covers
+# org.rsmod.content.areas.city.lumbridge). Normal mode ignores this file.
+packages = [
+    "org.rsmod.content.areas",
+    "org.rsmod.content.bosses",
+    "org.rsmod.content.quest",
+    # content/events/shooting-stars lives in a skills package
+    "org.rsmod.content.skills.shootingstars",
+]

@@ -1,0 +1,16 @@
+# Areas use plain tile coordinates [x, z] for the polygon corners.
+# area_id must be an existing `area.*` gameval (see .data/gamevals/area.rscm,
+# or add your own in content/dodian/src/main/resources/gamevals.toml).
+
+[[area]]
+name = "Dodian home multi-combat example"
+area_id = "area.multiway"
+levels = [0]
+
+[[area.polygons]]
+vertices = [
+    [2600, 3080],
+    [2600, 3100],
+    [2620, 3100],
+    [2620, 3080],
+]
