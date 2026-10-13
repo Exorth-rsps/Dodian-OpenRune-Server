@@ -21,7 +21,7 @@ import org.rsmod.map.square.MapSquareKey
 public object MapAreaPacker {
 
     private val toml = tomlMapper {}
-    private val areaDir: Path = Path.of("../.data/raw-cache/map/area")
+    private val areaDir: Path = dev.openrune.dodian.DodianMapPaths.mapDir("area") // DODIAN: per-gamemode spawns
 
     private fun listTomlFiles(dir: Path): List<Path> {
         Files.list(dir).use { paths ->

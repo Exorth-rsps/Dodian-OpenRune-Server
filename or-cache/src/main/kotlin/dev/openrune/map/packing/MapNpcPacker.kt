@@ -13,7 +13,7 @@ import org.rsmod.map.square.MapSquareGrid
 import org.rsmod.map.square.MapSquareKey
 
 public object MapNpcPacker : MapSpawnPackerBase<MapNpcListDefinition>() {
-    override val resourceDir: Path = Path.of("../.data/raw-cache/map/npcs")
+    override val resourceDir: Path = dev.openrune.dodian.DodianMapPaths.mapDir("npcs") // DODIAN: per-gamemode spawns
 
     public fun encodeCacheMapNpc(cache: Cache) {
         MapNpcListEncoder.encodeAll(cache, loadAndCollect())

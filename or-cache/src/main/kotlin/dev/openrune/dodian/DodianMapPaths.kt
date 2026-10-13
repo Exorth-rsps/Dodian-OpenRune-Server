@@ -3,6 +3,7 @@ package dev.openrune.dodian
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.readLines
+import kotlin.io.path.writeText
 
 public object DodianMapPaths {
     private val gameYml: Path = Path.of("../game.yml")
@@ -13,8 +14,16 @@ public object DodianMapPaths {
     public val isDodian: Boolean
         get() = gamemode == "dodian"
 
-    public fun mapDir(kind: String): Path =
-        if (isDodian) Path.of("../.data/dodian/map/$kind") else Path.of("../.data/raw-cache/map/$kind")
+    private val cacheGamemodeFile: Path = Path.of("../.data/cache/gamemode.txt")
+
+    public fun mapDir(kind: String): Path {
+        cacheGamemodeFile.writeText(gamemode)
+        return if (isDodian) {
+            Path.of("../.data/dodian/map/$kind")
+        } else {
+            Path.of("../.data/raw-cache/map/$kind")
+        }
+    }
 
     private fun resolveGamemode(): String {
         val override = System.getProperty("gamemode")

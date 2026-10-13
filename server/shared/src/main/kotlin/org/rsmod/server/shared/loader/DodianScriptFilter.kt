@@ -5,6 +5,7 @@ import com.github.michaelbull.logging.InlineLogger
 import com.google.inject.Injector
 import java.nio.file.Path
 import kotlin.io.path.exists
+import kotlin.io.path.readText
 import org.rsmod.api.server.config.GameMode
 import org.rsmod.api.server.config.ServerConfig
 
@@ -24,16 +25,29 @@ class DodianScriptFilter(private val disabledPrefixes: List<String>) {
     companion object {
         private const val DODIAN_PACKAGE = "org.rsmod.content.dodian"
         private val disabledContentFile: Path = Path.of(".data/dodian/disabled-content.toml")
+        private val cacheGamemodeFile: Path = Path.of(".data/cache/gamemode.txt")
         private val logger = InlineLogger()
 
         fun from(injector: Injector): DodianScriptFilter {
             val mode = injector.getInstance(ServerConfig::class.java).gamemode
+            warnOnCacheMismatch(mode)
             if (mode == GameMode.Normal) {
                 return DodianScriptFilter(listOf(DODIAN_PACKAGE))
             }
             val disabled = readDisabledPackages()
             logger.info { "Dodian gamemode: skipping scripts in $disabled" }
             return DodianScriptFilter(disabled)
+        }
+
+        private fun warnOnCacheMismatch(mode: GameMode) {
+            val expected = mode.name.lowercase()
+            val built = if (cacheGamemodeFile.exists()) cacheGamemodeFile.readText().trim() else "normal"
+            if (built != expected) {
+                logger.warn {
+                    "game.yml gamemode is '$expected' but the cache was built for '$built'. " +
+                        "Map spawns will not match until you run `gradlew buildCache`."
+                }
+            }
         }
 
         private fun readDisabledPackages(): List<String> {

@@ -14,7 +14,7 @@ import org.rsmod.map.square.MapSquareKey
 
 public object MapObjPacker : MapSpawnPackerBase<MapObjListDefinition>() {
 
-    override val resourceDir: Path = Path.of("../.data/raw-cache/map/objs")
+    override val resourceDir: Path = dev.openrune.dodian.DodianMapPaths.mapDir("objs") // DODIAN: per-gamemode spawns
 
     public fun encodeCacheMapObj(cache: Cache) {
         MapObjListEncoder.encodeAll(cache, loadAndCollect())

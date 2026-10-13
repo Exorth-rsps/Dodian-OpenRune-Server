@@ -42,6 +42,7 @@ tasks {
         classpath = sourceSets["main"].runtimeClasspath
         mainClass.set("dev.openrune.CacheToolsKt")
         args = listOf("BUILD")
+        providers.gradleProperty("gamemode").orNull?.let { systemProperty("gamemode", it) } // DODIAN
     }
 
     register("freshCache",JavaExec::class) {
