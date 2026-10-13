@@ -59,3 +59,4 @@ logs/
 .claude/settings.local.json
 .mcp.json
 /bench
+*.pack
