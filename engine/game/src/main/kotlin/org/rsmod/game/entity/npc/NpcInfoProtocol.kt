@@ -14,6 +14,8 @@ public interface NpcInfoProtocol {
 
     public fun setFaceAngle(angle: Int, instant: Boolean)
 
+    public fun setSpawnDirection(direction: Int) {} // DODIAN: per-spawn facing
+
     public fun setTransmog(type: Int)
 
     public fun resetTransmog(originalType: Int)

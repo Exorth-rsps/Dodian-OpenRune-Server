@@ -36,6 +36,7 @@ class DodianSpawnSettings : PluginScript() {
         setting.wander?.let { npc.wanderRangeOverride = it }
         setting.face?.let {
             npc.respawnDir = it
+            npc.infoProtocol.setSpawnDirection(it.id)
             npc.faceDirection(it)
         }
     }

@@ -29,6 +29,8 @@ class RspNpcInfo(val rspAvatar: NpcAvatar) : NpcInfoProtocol {
         rspAvatar.extendedInfo.setFaceAngle(angle, instant)
     }
 
+    override fun setSpawnDirection(direction: Int) = rspAvatar.setDirection(direction) // DODIAN
+
     override fun setTransmog(type: Int) {
         rspAvatar.setId(type)
         rspAvatar.extendedInfo.setTransmogrification(type)

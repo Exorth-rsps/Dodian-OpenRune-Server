@@ -158,6 +158,8 @@ Alle wijzigingen zijn gemarkeerd met `DODIAN:` (zoek daarop bij merge-conflicten
 | `or-cache/.../CacheTools.kt` | 1 regel in `tablesToPack`: `DodianMusic.modern(...)` | muziekregio's per modus |
 | `or-cache/build.gradle.kts` | 1 regel in `buildCache`: `-Pgamemode` doorgeven | modus eenmalig overschrijven |
 | `engine/game/.../entity/Npc.kt` | 2 regels: `wanderRangeOverride` + `wanderRange` gebruikt die | wander per spawn |
+| `engine/game/.../entity/npc/NpcInfoProtocol.kt` | 1 regel: `setSpawnDirection` (lege standaard) | spawnrichting van een bestaande NPC bijwerken |
+| `api/net/.../rsprot/RspNpcInfo.kt` | 1 regel: `setSpawnDirection` → rsprot `setDirection` | idem |
 | `server/shared/.../loader/PluginScriptLoader.kt` | 2 regels: `DodianScriptFilter` | content aan/uit per modus |
 | `.data/.gitignore` | `!dodian/` | `.data/dodian/` in git houden |
 
