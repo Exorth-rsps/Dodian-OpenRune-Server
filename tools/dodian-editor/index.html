@@ -95,6 +95,10 @@
   .levels label { display: inline-flex; gap: 4px; align-items: center; margin-right: 10px; }
   .note { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
   #editor { overflow-y: auto; flex: 1; min-height: 0; }
+  #regionSection { flex: none; display: flex; flex-direction: column; max-height: 38vh; }
+  #regionFilter { width: 100%; margin-bottom: 6px; }
+  #regionList { overflow-y: auto; min-height: 0; flex: 1; padding-right: 2px; }
+  #regionCount { color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
   .track {
     display: flex; align-items: center; gap: 8px; padding: 4px 6px; border-radius: 4px;
   }
@@ -135,8 +139,9 @@
     <div id="hint" hidden></div>
   </div>
   <aside>
-    <section>
-      <h2>Regio's <button id="newRegion" class="icon" title="Nieuwe regio">+ Nieuw</button></h2>
+    <section id="regionSection">
+      <h2><span>Regio's <span id="regionCount"></span></span> <button id="newRegion" class="icon" title="Nieuwe regio">+ Nieuw</button></h2>
+      <input type="text" id="regionFilter" placeholder="Regio zoeken…" spellcheck="false">
       <div id="regionList" class="list"></div>
     </section>
     <div id="editor"></div>
@@ -584,13 +589,26 @@ function trackRow(gameval, action) {
     ${button}</div>`;
 }
 
-function renderSidebar() {
-  $("regionList").innerHTML = regions.length
-    ? regions.map((r, i) => `<div class="region-item${i === selected ? " selected" : ""}" data-region="${i}">
+function renderRegionList() {
+  const query = $("regionFilter").value.trim().toLowerCase();
+  const visible = regions
+    .map((r, i) => [r, i])
+    .filter(([r, i]) => !query || i === selected || r.name.includes(query) ||
+      r.tracks.some((g) => (trackByGameval.get(g)?.name || g).toLowerCase().includes(query)));
+  $("regionCount").textContent = query ? `(${visible.length}/${regions.length})` : `(${regions.length})`;
+  $("regionList").innerHTML = !regions.length
+    ? `<div class="empty">Nog geen regio's. Klik op “+ Nieuw”.</div>`
+    : visible.length
+      ? visible.map(([r, i]) => `<div class="region-item${i === selected ? " selected" : ""}" data-region="${i}">
         <span class="swatch" style="background:${COLORS[i % COLORS.length]}"></span>
         <span class="name">${escapeHtml(r.name)}</span>
         <span class="count">${r.tracks.length} nr${r.polygons.length ? "" : " · geen vorm"}</span></div>`).join("")
-    : `<div class="empty">Nog geen regio's. Klik op “+ Nieuw”.</div>`;
+      : `<div class="empty">Geen regio's gevonden.</div>`;
+  document.querySelector(".region-item.selected")?.scrollIntoView({ block: "nearest" });
+}
+
+function renderSidebar() {
+  renderRegionList();
 
   const region = regions[selected];
   if (!region) {
@@ -639,7 +657,8 @@ function renderSidebar() {
     region.name = nameInput.value.trim().toLowerCase().replace(/[^a-z0-9_]/g, "_");
     markDirty();
     draw();
-    document.querySelectorAll(".region-item .name")[selected].textContent = region.name;
+    const item = document.querySelector(`.region-item[data-region="${selected}"] .name`);
+    if (item) item.textContent = region.name;
   });
   nameInput.addEventListener("change", renderSidebar);
   const searchInput = $("search");
@@ -671,6 +690,7 @@ document.addEventListener("click", (event) => {
 });
 
 $("newRegion").addEventListener("click", newRegion);
+$("regionFilter").addEventListener("input", renderRegionList);
 $("mapSelect").addEventListener("change", (e) => selectMap(Number(e.target.value)));
 $("showOthers").addEventListener("change", draw);
 
