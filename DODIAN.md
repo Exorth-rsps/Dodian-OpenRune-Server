@@ -87,6 +87,12 @@ de wereld.
   NPC-type. `DodianSpawnSettings` leest deze velden bij het opstarten uit de spawnbestanden en past
   ze toe als de NPC spawnt (gekoppeld op NPC + tegel), dus alleen een herstart is nodig. De
   cache-build negeert de extra velden.
+- **Deuren:** `.data/dodian/configs/doors.toml` (alleen Dodian-modus). Een deur werkt als het dichte
+  en het open object elk een `contentGroup` hebben en via `param.next_loc_stage` naar elkaar
+  verwijzen (zie `docs/doors.md`). De gewone OSRS-deuren uit `.data/raw-cache/server/loc/` werken
+  ook in Dodian-modus. Dit bestand bevat de deuren van de Dodian-kaarten die daar nog misten en een
+  open variant hebben; gilde-, quest- en slotdeuren hebben geen open variant en staan er niet in.
+  Daarna `gradlew buildCache`.
 - **NPC-configs (naam, combat, formaat, stats):** tabblad **NPC-config** in de editor, opgeslagen
   in `.data/dodian/configs/npcs.toml` (alleen ingepakt in Dodian-modus). *Aanpassen* wijzigt een
   bestaande NPC (`id` = `inherit`, geldt voor al zijn spawns); *Kopie* maakt een nieuwe NPC

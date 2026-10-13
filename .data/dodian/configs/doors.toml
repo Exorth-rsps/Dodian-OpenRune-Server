@@ -1,0 +1,213 @@
+# Doors on the Dodian maps that open and close (dodian mode only, packed with this folder).
+# Each door needs two blocks: the closed object and the open object, pointing at each other with
+# next_loc_stage. Single doors use the single door content groups, double doors the left/right ones.
+# See docs/doors.md. Do not write gameval names in comments here: the config packer resolves them too.
+
+# Door (6x on the Dodian maps)
+[[object]]
+id = "loc.kr_poordoor"
+inherit = "loc.kr_poordoor"
+contentGroup = "content.closed_single_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.kr_poordooropen"
+"param.opensound" = "synth.nicedoor_open"
+
+[[object]]
+id = "loc.kr_poordooropen"
+inherit = "loc.kr_poordooropen"
+contentGroup = "content.opened_single_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.kr_poordoor"
+"param.closesound" = "synth.nicedoor_close"
+
+# Door (3x on the Dodian maps)
+[[object]]
+id = "loc.grim_witch_house_door"
+inherit = "loc.grim_witch_house_door"
+contentGroup = "content.closed_single_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.grim_witch_house_door_open"
+"param.opensound" = "synth.nicedoor_open"
+
+[[object]]
+id = "loc.grim_witch_house_door_open"
+inherit = "loc.grim_witch_house_door_open"
+contentGroup = "content.opened_single_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.grim_witch_house_door"
+"param.closesound" = "synth.nicedoor_close"
+
+# Door (2x on the Dodian maps)
+[[object]]
+id = "loc.prisondoor_r"
+inherit = "loc.prisondoor_r"
+contentGroup = "content.closed_right_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.prisondooropen_r"
+"param.opensound" = "synth.nicedoor_open"
+
+[[object]]
+id = "loc.prisondooropen_r"
+inherit = "loc.prisondooropen_r"
+contentGroup = "content.opened_right_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.prisondoor_r"
+"param.closesound" = "synth.nicedoor_close"
+
+# Door (2x on the Dodian maps)
+[[object]]
+id = "loc.prisondoor_l"
+inherit = "loc.prisondoor_l"
+contentGroup = "content.closed_left_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.prisondooropen_l"
+"param.opensound" = "synth.nicedoor_open"
+
+[[object]]
+id = "loc.prisondooropen_l"
+inherit = "loc.prisondooropen_l"
+contentGroup = "content.opened_left_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.prisondoor_l"
+"param.closesound" = "synth.nicedoor_close"
+
+# Large door (2x on the Dodian maps)
+[[object]]
+id = "loc.xbowsdoubledoorl"
+inherit = "loc.xbowsdoubledoorl"
+contentGroup = "content.closed_left_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.xbowsdoubledoor_openl"
+"param.opensound" = "synth.nicedoor_open"
+
+[[object]]
+id = "loc.xbowsdoubledoor_openl"
+inherit = "loc.xbowsdoubledoor_openl"
+contentGroup = "content.opened_left_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.xbowsdoubledoorl"
+"param.closesound" = "synth.nicedoor_close"
+
+# Large door (2x on the Dodian maps)
+[[object]]
+id = "loc.xbowsdoubledoorr"
+inherit = "loc.xbowsdoubledoorr"
+contentGroup = "content.closed_right_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.xbowsdoubledoor_openr"
+"param.opensound" = "synth.nicedoor_open"
+
+[[object]]
+id = "loc.xbowsdoubledoor_openr"
+inherit = "loc.xbowsdoubledoor_openr"
+contentGroup = "content.opened_right_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.xbowsdoubledoorr"
+"param.closesound" = "synth.nicedoor_close"
+
+# Gate (1x on the Dodian maps)
+[[object]]
+id = "loc.metalgateclosedl"
+inherit = "loc.metalgateclosedl"
+contentGroup = "content.closed_left_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.metalgateopenl"
+"param.opensound" = "synth.picketgate_open"
+
+[[object]]
+id = "loc.metalgateopenl"
+inherit = "loc.metalgateopenl"
+contentGroup = "content.opened_left_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.metalgateclosedl"
+"param.closesound" = "synth.picketgate_close"
+
+# Gate (1x on the Dodian maps)
+[[object]]
+id = "loc.metalgateclosedr"
+inherit = "loc.metalgateclosedr"
+contentGroup = "content.closed_right_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.metalgateopenr"
+"param.opensound" = "synth.picketgate_open"
+
+[[object]]
+id = "loc.metalgateopenr"
+inherit = "loc.metalgateopenr"
+contentGroup = "content.opened_right_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.metalgateclosedr"
+"param.closesound" = "synth.picketgate_close"
+
+# Door (1x on the Dodian maps)
+[[object]]
+id = "loc.kr_poshdoor"
+inherit = "loc.kr_poshdoor"
+contentGroup = "content.closed_single_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.kr_poshdooropen"
+"param.opensound" = "synth.nicedoor_open"
+
+[[object]]
+id = "loc.kr_poshdooropen"
+inherit = "loc.kr_poshdooropen"
+contentGroup = "content.opened_single_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.kr_poshdoor"
+"param.closesound" = "synth.nicedoor_close"
+
+# Door (1x on the Dodian maps)
+[[object]]
+id = "loc.kr_courthouse_double_door_l"
+inherit = "loc.kr_courthouse_double_door_l"
+contentGroup = "content.closed_left_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.kr_courthouse_double_door_l_open"
+"param.opensound" = "synth.nicedoor_open"
+
+[[object]]
+id = "loc.kr_courthouse_double_door_l_open"
+inherit = "loc.kr_courthouse_double_door_l_open"
+contentGroup = "content.opened_left_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.kr_courthouse_double_door_l"
+"param.closesound" = "synth.nicedoor_close"
+
+# Door (1x on the Dodian maps)
+[[object]]
+id = "loc.kr_courthouse_double_door_r"
+inherit = "loc.kr_courthouse_double_door_r"
+contentGroup = "content.closed_right_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.kr_courthouse_double_door_r_open"
+"param.opensound" = "synth.nicedoor_open"
+
+[[object]]
+id = "loc.kr_courthouse_double_door_r_open"
+inherit = "loc.kr_courthouse_double_door_r_open"
+contentGroup = "content.opened_right_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.kr_courthouse_double_door_r"
+"param.closesound" = "synth.nicedoor_close"
