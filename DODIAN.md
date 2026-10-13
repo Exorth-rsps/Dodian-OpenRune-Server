@@ -65,6 +65,10 @@ de wereld.
   Daarna bouwt `DodianWorldMap` alle wereldkaart-gebieden volledig opnieuw op uit de kaarten die
   over zijn (de upstream-`PackWorldMap` doet dat alleen incrementeel en laat verwijderde vakken
   staan).
+- **Namen op de wereldkaart:** `.data/dodian/worldmap/labels.toml`. Zet `osrs_labels = false` om
+  alle OSRS-namen weg te halen (of `true` om die binnen je kaarten te houden) en voeg per naam een
+  `[[label]]` toe met `text`, `x`, `y` en `style` (`region` = groot oranje, `town` = middel wit,
+  `place` = klein wit). `<br>` geeft een nieuwe regel. Daarna `gradlew buildCache`.
 - **Startlocatie (tijdelijk):** `DodianHomeScript.kt`, `START = (2670, 3231, 0)`. Wie inlogt op een
   plek waar geen kaart is (bijv. de standaard-spawn in Lumbridge), wordt daarheen verplaatst.
 
@@ -132,7 +136,7 @@ Alle wijzigingen zijn gemarkeerd met `DODIAN:` (zoek daarop bij merge-conflicten
 
 Nieuwe (Dodian-eigen) bestanden — geen conflicten te verwachten:
 `api/server-config/.../GameMode.kt`, `or-cache/.../dodian/` (`DodianMapPaths`, `DodianMapClear`,
-`DodianMapGuard`, `DodianWorldMap`),
+`DodianMapGuard`, `DodianWorldMap`, `DodianLabels`),
 `server/shared/.../loader/DodianScriptFilter.kt`, `content/dodian/`, `.data/dodian/`, `DODIAN.md`.
 
 ## Na een upstream-merge controleren
@@ -155,9 +159,11 @@ Nieuwe (Dodian-eigen) bestanden — geen conflicten te verwachten:
 - **Startlocatie:** de server zet nieuwe spelers op de realm-spawn uit de central-database
   (Lumbridge). In Dodian-modus verplaatst `DodianHomeScript` iedereen die buiten de kaarten inlogt
   naar `START`. Respawn na doodgaan gaat nog naar de realm-respawn; `::dodian home` brengt je terug.
-- **Wereldkaart:** wordt alleen opnieuw opgebouwd in een build waarin kaartvakken veranderen
-  (`freshCache`, of een gewijzigd `.pack`-bestand). OSRS-labels buiten de Dodian-kaartvakken
-  verdwijnen; voor gebieden die geheel leeg zijn blijft alleen de achtergrond over.
+- **Wereldkaart:** wordt opnieuw opgebouwd als kaartvakken veranderen (`freshCache`, een gewijzigd
+  `.pack`-bestand) of als `labels.toml` verandert. Wereldkaart-gebieden die helemaal leeg zijn
+  (OSRS-dungeons e.d.) blijven in de lijst staan, maar tonen alleen achtergrond.
+- **Eigen namen = extra map elements:** ze krijgen automatisch de id's direct na de laatste
+  OSRS-id (nu 1268+), want de client laadt map elements zonder gaten.
 - **Cache-tool slikt fouten in:** een fout in een cache-taak geeft vaak toch `BUILD SUCCESSFUL`.
   Kijk bij twijfel in de uitvoer naar `Exception`. (Upstream-gedrag.)
 - **Areas:** in Dodian-modus bestaan alleen de areas uit `.data/dodian/map/area/`. Multi-combat,

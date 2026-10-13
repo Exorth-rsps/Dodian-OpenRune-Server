@@ -1,0 +1,26 @@
+# Names on the world map in dodian mode. Run `gradlew buildCache` after changing this file.
+#
+# osrs_labels = true  -> keep the OSRS names that lie on the Dodian maps (Yanille, Seers' Village, ...)
+# osrs_labels = false -> only the labels below
+osrs_labels = false
+
+# Every [[label]]:
+#   text  = the name; <br> starts a new line
+#   x, y  = tile coordinates (same as ::tele / the coordinates in the client)
+#   style = "region" (big orange, e.g. Kingdom of Kandarin)
+#           "town"   (medium white, e.g. Yanille)
+#           "place"  (small white, e.g. Fishing Guild) - default
+#   level = height level, default 0
+#   area  = world map area, default "main"
+
+[[label]]
+text = "Kingdom of<br>Kandarin"
+x = 2578
+y = 3370
+style = "region"
+
+[[label]]
+text = "Dodian<br>Home"
+x = 2670
+y = 3231
+style = "town"
