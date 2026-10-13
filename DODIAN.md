@@ -62,7 +62,7 @@ de wereld.
   de naam is het basis-regio-id (`mainlands_9520.pack`). In Dodian-modus verwijdert de build alle
   OSRS-kaartvakken die niet in deze bestanden zitten (`DodianMapClear`) en pakt daarna deze
   bestanden in (`PackMaps`). Nieuwe `.pack` erbij → `gradlew buildCache`.
-- **Startlocatie (tijdelijk):** `DodianHomeScript.kt`, `START = (2575, 3152, 0)`. Wie inlogt op een
+- **Startlocatie (tijdelijk):** `DodianHomeScript.kt`, `START = (2670, 3231, 0)`. Wie inlogt op een
   plek waar geen kaart is (bijv. de standaard-spawn in Lumbridge), wordt daarheen verplaatst.
 
 - **Spawns:** `.data/dodian/map/npcs/`, `objs/`, `area/` — elk `.toml`-bestand in die map wordt

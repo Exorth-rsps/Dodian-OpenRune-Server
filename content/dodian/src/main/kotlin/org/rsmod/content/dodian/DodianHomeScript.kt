@@ -44,6 +44,6 @@ constructor(
     }
 
     private companion object {
-        val START = CoordGrid(2575, 3152, 0)
+        val START = CoordGrid(2670, 3231, 0)
     }
 }
