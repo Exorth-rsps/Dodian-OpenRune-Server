@@ -76,6 +76,13 @@ de wereld.
   `[gamevals.area]` (vrije id's vanaf 30100). Voorbeeld: `area.dodian_home` rond de startplek.
   Daarna `gradlew buildCache`. Alleen de standaard ("modern") muziekmodus werkt; de "classic"-modus
   is upstream nog niet gebouwd.
+- **Muziekeditor:** `python tools/dodian-editor/server.py` opent in je browser een editor met je
+  Dodian-kaarten (mainland, dungeons, altaren elk apart). Teken regio's door te klikken, zoek
+  OSRS-nummers, beluister ze (opnames van de OSRS Wiki, internet nodig) en wijs ze toe. Opslaan
+  schrijft `.data/dodian/music.toml`, `.data/dodian/map/area/music_regions.toml` en nieuwe
+  area-namen in `content/dodian/.../gamevals.toml`. Daarna `gradlew buildCache` en server herstarten.
+  De kaartplaatjes en de nummerlijst maakt `buildCache` in Dodian-modus (`DodianEditorExport`) in
+  `.data/cache/dodian-editor/`.
 - **Startlocatie (tijdelijk):** `DodianHomeScript.kt`, `START = (2670, 3231, 0)`. Wie inlogt op een
   plek waar geen kaart is (bijv. de standaard-spawn in Lumbridge), wordt daarheen verplaatst.
 
@@ -144,7 +151,8 @@ Alle wijzigingen zijn gemarkeerd met `DODIAN:` (zoek daarop bij merge-conflicten
 
 Nieuwe (Dodian-eigen) bestanden — geen conflicten te verwachten:
 `api/server-config/.../GameMode.kt`, `or-cache/.../dodian/` (`DodianMapPaths`, `DodianMapClear`,
-`DodianMapGuard`, `DodianWorldMap`, `DodianLabels`, `DodianMusic`),
+`DodianMapGuard`, `DodianWorldMap`, `DodianLabels`, `DodianMusic`, `DodianEditorExport`),
+`tools/dodian-editor/`,
 `server/shared/.../loader/DodianScriptFilter.kt`, `content/dodian/`, `.data/dodian/`, `DODIAN.md`.
 
 ## Na een upstream-merge controleren

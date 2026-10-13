@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dodian Muziekeditor</title>
+<style>
+  :root {
+    --bg: #1b1712;
+    --panel: #26201a;
+    --panel-2: #2f281f;
+    --line: #463b2e;
+    --text: #e9e1d4;
+    --muted: #a39581;
+    --accent: #ff981f;
+    --accent-dim: #8a5414;
+    --danger: #e0533d;
+    --ok: #6cc46c;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 { font-size: 16px; margin: 0 8px 0 0; color: var(--accent); font-weight: 600; }
+  header .spacer { flex: 1; }
+  #status { color: var(--muted); font-size: 13px; }
+  #status.error { color: var(--danger); }
+  #status.ok { color: var(--ok); }
+  button, select, input[type=text] {
+    font: inherit;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 5px 10px;
+  }
+  button { cursor: pointer; }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: default; }
+  button.primary { background: var(--accent); color: #1b1712; border-color: var(--accent); font-weight: 600; }
+  button.primary:hover:not(:disabled) { background: #ffad4d; }
+  button.danger:hover:not(:disabled) { border-color: var(--danger); color: var(--danger); }
+  button.icon { padding: 3px 8px; min-width: 30px; }
+  button.active { border-color: var(--accent); color: var(--accent); }
+  main { flex: 1; display: flex; min-height: 0; }
+  #mapWrap { flex: 1; position: relative; min-width: 0; background: #0c0a08; }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  #coords {
+    position: absolute; left: 10px; bottom: 10px;
+    background: rgba(0,0,0,.7); padding: 3px 8px; border-radius: 4px;
+    font: 12px ui-monospace, Consolas, monospace; pointer-events: none;
+  }
+  #hint {
+    position: absolute; left: 50%; top: 10px; transform: translateX(-50%);
+    background: rgba(0,0,0,.78); border: 1px solid var(--accent-dim);
+    padding: 6px 12px; border-radius: 4px; font-size: 13px; pointer-events: none;
+  }
+  aside {
+    width: 380px; flex: none; display: flex; flex-direction: column;
+    background: var(--panel); border-left: 1px solid var(--line); min-height: 0;
+  }
+  aside section { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  aside h2 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--muted); margin: 0 0 8px; font-weight: 600;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .list { display: flex; flex-direction: column; gap: 4px; }
+  .region-item {
+    display: flex; align-items: center; gap: 8px; padding: 6px 8px;
+    border-radius: 4px; cursor: pointer; border: 1px solid transparent;
+  }
+  .region-item:hover { background: var(--panel-2); }
+  .region-item.selected { background: var(--panel-2); border-color: var(--accent-dim); }
+  .swatch { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+  .region-item .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .region-item .count { color: var(--muted); font-size: 12px; }
+  .field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+  .field label { font-size: 12px; color: var(--muted); }
+  .field input[type=text] { width: 100%; }
+  .row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .levels label { display: inline-flex; gap: 4px; align-items: center; margin-right: 10px; }
+  .note { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
+  #editor { overflow-y: auto; flex: 1; min-height: 0; }
+  .track {
+    display: flex; align-items: center; gap: 8px; padding: 4px 6px; border-radius: 4px;
+  }
+  .track:hover { background: var(--panel-2); }
+  .track .info { flex: 1; min-width: 0; }
+  .track .title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .track .sub { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .track.playing .title { color: var(--accent); }
+  #results { max-height: 300px; overflow-y: auto; margin-top: 6px; }
+  #player {
+    display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+    background: var(--panel-2); border-top: 1px solid var(--line); font-size: 13px;
+  }
+  #player .now { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #player .now b { color: var(--accent); font-weight: 600; }
+  .empty { color: var(--muted); font-size: 13px; padding: 4px 0; }
+  kbd {
+    font: 11px ui-monospace, Consolas, monospace; background: var(--panel-2);
+    border: 1px solid var(--line); border-radius: 3px; padding: 0 4px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Dodian Muziekeditor</h1>
+  <select id="mapSelect" title="Kaart"></select>
+  <label class="row" style="gap:4px;color:var(--muted);font-size:13px">
+    <input type="checkbox" id="showOthers" checked> andere areas tonen
+  </label>
+  <span class="spacer"></span>
+  <span id="status">Laden…</span>
+  <button id="saveBtn" class="primary" disabled>Opslaan</button>
+</header>
+<main>
+  <div id="mapWrap">
+    <canvas id="map"></canvas>
+    <div id="coords">–</div>
+    <div id="hint" hidden></div>
+  </div>
+  <aside>
+    <section>
+      <h2>Regio's <button id="newRegion" class="icon" title="Nieuwe regio">+ Nieuw</button></h2>
+      <div id="regionList" class="list"></div>
+    </section>
+    <div id="editor"></div>
+    <div id="player">
+      <button id="stopBtn" class="icon" title="Stop" disabled>■</button>
+      <span class="now" id="nowPlaying">Klik op ▶ om een nummer te beluisteren</span>
+      <audio id="audio" preload="none"></audio>
+    </div>
+  </aside>
+</main>
+<script>
+const COLORS = ["#ff981f", "#4fb3ff", "#7ee07e", "#f06fd0", "#ffd84a", "#b38bff", "#4fe0d0", "#ff6b6b"];
+const canvas = document.getElementById("map");
+const ctx = canvas.getContext("2d");
+const $ = (id) => document.getElementById(id);
+
+let maps = [], tracks = [], regions = [], otherAreas = [];
+let trackByGameval = new Map();
+let mapIndex = 0, mapImage = null;
+let view = { zoom: 0.5, panX: 0, panY: 0 };
+let selected = -1;
+let drawing = null;
+let dragVertex = null, panning = null;
+let dirty = false;
+let hoverTile = null;
+let playing = null;
+let search = "";
+
+function setStatus(text, kind = "") {
+  $("status").textContent = text;
+  $("status").className = kind;
+}
+
+function markDirty() {
+  dirty = true;
+  $("saveBtn").disabled = false;
+  setStatus("Niet opgeslagen wijzigingen");
+}
+
+async function load() {
+  const response = await fetch("/api/state");
+  const data = await response.json();
+  if (!response.ok) {
+    setStatus(data.error, "error");
+    return;
+  }
+  maps = data.maps;
+  tracks = data.tracks;
+  regions = data.regions;
+  otherAreas = data.otherAreas;
+  trackByGameval = new Map(tracks.map((t) => [t.gameval, t]));
+  $("mapSelect").innerHTML = maps
+    .map((m, i) => `<option value="${i}">Kaart ${i + 1} — ${m.squares} vak${m.squares === 1 ? "" : "ken"} (${m.minX}, ${m.minY})</option>`)
+    .join("");
+  selectMap(0);
+  if (regions.length) selectRegion(0);
+  renderSidebar();
+  setStatus(`${tracks.length} nummers beschikbaar`);
+}
+
+function selectMap(index) {
+  mapIndex = index;
+  $("mapSelect").value = index;
+  mapImage = new Image();
+  mapImage.onload = () => { fitMap(); draw(); };
+  mapImage.src = "/maps/" + maps[index].file;
+}
+
+function fitMap() {
+  const rect = canvas.getBoundingClientRect();
+  const zoom = Math.min(rect.width / mapImage.width, rect.height / mapImage.height) * 0.95;
+  view.zoom = zoom;
+  view.panX = (rect.width - mapImage.width * zoom) / 2;
+  view.panY = (rect.height - mapImage.height * zoom) / 2;
+}
+
+function currentMap() { return maps[mapIndex]; }
+
+function tileToScreen(x, y) {
+  const m = currentMap();
+  const px = (x - m.minX + 0.5) * m.ppt;
+  const py = (m.maxY - y + 0.5) * m.ppt;
+  return [px * view.zoom + view.panX, py * view.zoom + view.panY];
+}
+
+function screenToTile(sx, sy) {
+  const m = currentMap();
+  const px = (sx - view.panX) / view.zoom;
+  const py = (sy - view.panY) / view.zoom;
+  return [Math.floor(px / m.ppt) + m.minX, m.maxY - Math.floor(py / m.ppt)];
+}
+
+function regionOnMap(region) {
+  const m = currentMap();
+  return region.polygons.some((poly) => poly.some(([x, y]) => x >= m.minX && x <= m.maxX && y >= m.minY && y <= m.maxY));
+}
+
+function resize() {
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * devicePixelRatio;
+  canvas.height = rect.height * devicePixelRatio;
+  draw();
+}
+
+function tracePolygon(poly) {
+  ctx.beginPath();
+  poly.forEach(([x, y], i) => {
+    const [sx, sy] = tileToScreen(x, y);
+    i === 0 ? ctx.moveTo(sx, sy) : ctx.lineTo(sx, sy);
+  });
+  ctx.closePath();
+}
+
+function draw() {
+  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  const rect = canvas.getBoundingClientRect();
+  ctx.clearRect(0, 0, rect.width, rect.height);
+  if (!mapImage || !mapImage.complete) return;
+  ctx.imageSmoothingEnabled = view.zoom < 1;
+  ctx.drawImage(mapImage, view.panX, view.panY, mapImage.width * view.zoom, mapImage.height * view.zoom);
+
+  if ($("showOthers").checked) {
+    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 1;
+    for (const area of otherAreas) {
+      for (const poly of area.polygons) {
+        tracePolygon(poly);
+        ctx.strokeStyle = "rgba(255,255,255,.45)";
+        ctx.stroke();
+      }
+    }
+    ctx.setLineDash([]);
+  }
+
+  regions.forEach((region, index) => {
+    const color = COLORS[index % COLORS.length];
+    const isSelected = index === selected;
+    for (const poly of region.polygons) {
+      tracePolygon(poly);
+      ctx.fillStyle = color + (isSelected ? "55" : "30");
+      ctx.fill();
+      ctx.lineWidth = isSelected ? 2.5 : 1.5;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+      if (isSelected && region.editable) {
+        for (const [x, y] of poly) {
+          const [sx, sy] = tileToScreen(x, y);
+          ctx.fillStyle = "#fff";
+          ctx.strokeStyle = "#000";
+          ctx.lineWidth = 1.5;
+          ctx.fillRect(sx - 4, sy - 4, 8, 8);
+          ctx.strokeRect(sx - 4, sy - 4, 8, 8);
+        }
+      }
+    }
+    const label = labelPoint(region);
+    if (label) {
+      const [sx, sy] = tileToScreen(label[0], label[1]);
+      ctx.font = "600 13px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "rgba(0,0,0,.85)";
+      ctx.strokeText(region.name || "(naamloos)", sx, sy);
+      ctx.fillStyle = color;
+      ctx.fillText(region.name || "(naamloos)", sx, sy);
+    }
+  });
+
+  if (drawing) {
+    const color = COLORS[selected % COLORS.length];
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    drawing.forEach(([x, y], i) => {
+      const [sx, sy] = tileToScreen(x, y);
+      i === 0 ? ctx.moveTo(sx, sy) : ctx.lineTo(sx, sy);
+    });
+    if (hoverTile) {
+      const [sx, sy] = tileToScreen(hoverTile[0], hoverTile[1]);
+      ctx.lineTo(sx, sy);
+    }
+    ctx.stroke();
+    drawing.forEach(([x, y], i) => {
+      const [sx, sy] = tileToScreen(x, y);
+      ctx.fillStyle = i === 0 ? color : "#fff";
+      ctx.fillRect(sx - 4, sy - 4, 8, 8);
+    });
+  }
+
+  if (hoverTile && view.zoom * currentMap().ppt >= 6) {
+    const [sx, sy] = tileToScreen(hoverTile[0], hoverTile[1]);
+    const size = currentMap().ppt * view.zoom;
+    ctx.strokeStyle = "rgba(255,255,255,.8)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(sx - size / 2, sy - size / 2, size, size);
+  }
+}
+
+function labelPoint(region) {
+  const points = region.polygons.flat();
+  if (!points.length) return null;
+  const x = points.reduce((s, p) => s + p[0], 0) / points.length;
+  const y = Math.max(...points.map((p) => p[1]));
+  return [x, y + 2];
+}
+
+function pointInPolygon(x, y, poly) {
+  let inside = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i], [xj, yj] = poly[j];
+    if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+function vertexAt(sx, sy) {
+  if (selected < 0 || !regions[selected].editable) return null;
+  const polys = regions[selected].polygons;
+  for (let p = 0; p < polys.length; p++) {
+    for (let v = 0; v < polys[p].length; v++) {
+      const [vx, vy] = tileToScreen(...polys[p][v]);
+      if (Math.abs(vx - sx) <= 7 && Math.abs(vy - sy) <= 7) return { p, v };
+    }
+  }
+  return null;
+}
+
+function edgeAt(sx, sy) {
+  if (selected < 0 || !regions[selected].editable) return null;
+  const polys = regions[selected].polygons;
+  for (let p = 0; p < polys.length; p++) {
+    const poly = polys[p];
+    for (let v = 0; v < poly.length; v++) {
+      const [ax, ay] = tileToScreen(...poly[v]);
+      const [bx, by] = tileToScreen(...poly[(v + 1) % poly.length]);
+      const len = Math.hypot(bx - ax, by - ay) || 1;
+      const t = Math.max(0, Math.min(1, ((sx - ax) * (bx - ax) + (sy - ay) * (by - ay)) / (len * len)));
+      if (Math.hypot(ax + t * (bx - ax) - sx, ay + t * (by - ay) - sy) <= 6) return { p, v };
+    }
+  }
+  return null;
+}
+
+function mousePos(event) {
+  const rect = canvas.getBoundingClientRect();
+  return [event.clientX - rect.left, event.clientY - rect.top];
+}
+
+canvas.addEventListener("wheel", (event) => {
+  event.preventDefault();
+  const [sx, sy] = mousePos(event);
+  const factor = event.deltaY < 0 ? 1.2 : 1 / 1.2;
+  const zoom = Math.min(16, Math.max(0.05, view.zoom * factor));
+  view.panX = sx - ((sx - view.panX) * zoom) / view.zoom;
+  view.panY = sy - ((sy - view.panY) * zoom) / view.zoom;
+  view.zoom = zoom;
+  draw();
+}, { passive: false });
+
+canvas.addEventListener("mousedown", (event) => {
+  const [sx, sy] = mousePos(event);
+  if (event.button === 2) return;
+  if (drawing) {
+    const tile = screenToTile(sx, sy);
+    if (drawing.length >= 3) {
+      const [fx, fy] = tileToScreen(...drawing[0]);
+      if (Math.abs(fx - sx) <= 8 && Math.abs(fy - sy) <= 8) { finishDrawing(); return; }
+    }
+    drawing.push(tile);
+    draw();
+    return;
+  }
+  const vertex = vertexAt(sx, sy);
+  if (vertex) { dragVertex = vertex; return; }
+  const [tx, ty] = screenToTile(sx, sy);
+  const hit = regions.findIndex((r, i) => r.polygons.some((poly) => pointInPolygon(tx + 0.5, ty + 0.5, poly)));
+  if (hit >= 0 && hit !== selected) { selectRegion(hit); return; }
+  panning = { sx, sy, panX: view.panX, panY: view.panY, moved: false };
+});
+
+window.addEventListener("mousemove", (event) => {
+  const [sx, sy] = mousePos(event);
+  if (event.target === canvas) {
+    hoverTile = screenToTile(sx, sy);
+    $("coords").textContent = `x ${hoverTile[0]}, y ${hoverTile[1]}`;
+  }
+  if (dragVertex) {
+    const tile = screenToTile(sx, sy);
+    regions[selected].polygons[dragVertex.p][dragVertex.v] = tile;
+    markDirty();
+  } else if (panning) {
+    view.panX = panning.panX + sx - panning.sx;
+    view.panY = panning.panY + sy - panning.sy;
+    panning.moved = true;
+  }
+  draw();
+});
+
+window.addEventListener("mouseup", () => {
+  if (dragVertex) renderSidebar();
+  dragVertex = null;
+  panning = null;
+});
+
+canvas.addEventListener("dblclick", (event) => {
+  if (drawing) { if (drawing.length >= 3) finishDrawing(); return; }
+  const [sx, sy] = mousePos(event);
+  const edge = edgeAt(sx, sy);
+  if (!edge) return;
+  regions[selected].polygons[edge.p].splice(edge.v + 1, 0, screenToTile(sx, sy));
+  markDirty();
+  draw();
+});
+
+canvas.addEventListener("contextmenu", (event) => {
+  event.preventDefault();
+  if (drawing) { drawing.pop(); draw(); return; }
+  const vertex = vertexAt(...mousePos(event));
+  if (!vertex) return;
+  const poly = regions[selected].polygons[vertex.p];
+  if (poly.length <= 3) {
+    setStatus("Een vorm heeft minstens 3 punten nodig. Gebruik ‘Vorm wissen’ om hem te verwijderen.", "error");
+    return;
+  }
+  poly.splice(vertex.v, 1);
+  markDirty();
+  draw();
+});
+
+canvas.addEventListener("mouseleave", () => { hoverTile = null; $("coords").textContent = "–"; draw(); });
+
+window.addEventListener("keydown", (event) => {
+  if (event.target.tagName === "INPUT") return;
+  if (event.key === "Escape" && drawing) { stopDrawing(); }
+  if (event.key === "Enter" && drawing && drawing.length >= 3) finishDrawing();
+});
+
+function startDrawing() {
+  drawing = [];
+  $("hint").hidden = false;
+  $("hint").innerHTML = "Klik punten op de kaart · klik op het eerste punt, <kbd>Enter</kbd> of dubbelklik om te sluiten · rechtsklik haalt het laatste punt weg · <kbd>Esc</kbd> annuleert";
+  renderSidebar();
+  draw();
+}
+
+function stopDrawing() {
+  drawing = null;
+  $("hint").hidden = true;
+  renderSidebar();
+  draw();
+}
+
+function finishDrawing() {
+  const poly = drawing;
+  stopDrawing();
+  if (poly.length < 3) return;
+  regions[selected].polygons.push(poly);
+  markDirty();
+  renderSidebar();
+  draw();
+}
+
+function selectRegion(index) {
+  if (drawing) stopDrawing();
+  selected = index;
+  const region = regions[index];
+  if (region && region.polygons.length && !regionOnMap(region)) {
+    const [x, y] = region.polygons[0][0];
+    const target = maps.findIndex((m) => x >= m.minX && x <= m.maxX && y >= m.minY && y <= m.maxY);
+    if (target >= 0 && target !== mapIndex) selectMap(target);
+  }
+  renderSidebar();
+  draw();
+}
+
+function newRegion() {
+  let n = regions.length + 1, name = "";
+  do { name = `dodian_regio_${n++}`; } while (regions.some((r) => r.name === name));
+  regions.push({ name, tracks: [], levels: [0, 1, 2, 3], polygons: [], editable: true, file: null });
+  markDirty();
+  selectRegion(regions.length - 1);
+  startDrawing();
+}
+
+function deleteRegion() {
+  const region = regions[selected];
+  if (!confirm(`Regio “${region.name}” verwijderen?`)) return;
+  regions.splice(selected, 1);
+  selected = Math.min(selected, regions.length - 1);
+  markDirty();
+  renderSidebar();
+  draw();
+}
+
+function trackUrl(track) {
+  return "https://oldschool.runescape.wiki/images/" + encodeURIComponent(track.name.replace(/ /g, "_")) + ".ogg";
+}
+
+function play(gameval) {
+  const audio = $("audio");
+  if (playing === gameval) { stopAudio(); return; }
+  const track = trackByGameval.get(gameval);
+  playing = gameval;
+  audio.src = trackUrl(track);
+  audio.play().catch(() => {});
+  $("nowPlaying").innerHTML = `Speelt: <b>${escapeHtml(track.name)}</b>`;
+  $("stopBtn").disabled = false;
+  renderSidebar();
+}
+
+function stopAudio() {
+  const audio = $("audio");
+  audio.pause();
+  audio.removeAttribute("src");
+  playing = null;
+  $("nowPlaying").textContent = "Klik op ▶ om een nummer te beluisteren";
+  $("stopBtn").disabled = true;
+  renderSidebar();
+}
+
+$("audio").addEventListener("ended", stopAudio);
+$("audio").addEventListener("error", () => {
+  if (!playing) return;
+  const track = trackByGameval.get(playing);
+  const wiki = "https://oldschool.runescape.wiki/w/" + encodeURIComponent(track.name.replace(/ /g, "_"));
+  $("nowPlaying").innerHTML = `Geen opname gevonden voor <b>${escapeHtml(track.name)}</b> · <a href="${wiki}" target="_blank" style="color:var(--accent)">wiki</a>`;
+  playing = null;
+  renderSidebar();
+});
+$("stopBtn").addEventListener("click", stopAudio);
+
+function escapeHtml(text) {
+  return String(text).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
+function trackRow(gameval, action) {
+  const track = trackByGameval.get(gameval) || { name: gameval, hint: "onbekend nummer" };
+  const isPlaying = playing === gameval;
+  const button = action === "add"
+    ? `<button class="icon" data-add="${gameval}" title="Toevoegen">+</button>`
+    : `<button class="icon danger" data-remove="${gameval}" title="Weghalen">×</button>`;
+  return `<div class="track${isPlaying ? " playing" : ""}">
+    <button class="icon" data-play="${gameval}" title="${isPlaying ? "Stop" : "Beluister"}">${isPlaying ? "■" : "▶"}</button>
+    <div class="info"><div class="title">${escapeHtml(track.name)}</div><div class="sub">${escapeHtml(track.hint || gameval)}</div></div>
+    ${button}</div>`;
+}
+
+function renderSidebar() {
+  $("regionList").innerHTML = regions.length
+    ? regions.map((r, i) => `<div class="region-item${i === selected ? " selected" : ""}" data-region="${i}">
+        <span class="swatch" style="background:${COLORS[i % COLORS.length]}"></span>
+        <span class="name">${escapeHtml(r.name)}</span>
+        <span class="count">${r.tracks.length} nr${r.polygons.length ? "" : " · geen vorm"}</span></div>`).join("")
+    : `<div class="empty">Nog geen regio's. Klik op “+ Nieuw”.</div>`;
+
+  const region = regions[selected];
+  if (!region) {
+    $("editor").innerHTML = `<section><div class="empty">Kies een regio of maak een nieuwe.</div></section>`;
+    return;
+  }
+  const levels = [0, 1, 2, 3].map((l) => `<label><input type="checkbox" data-level="${l}" ${region.levels.includes(l) ? "checked" : ""} ${region.editable ? "" : "disabled"}> ${l}</label>`).join("");
+  const shapeTools = region.editable
+    ? `<div class="row">
+        <button id="drawBtn" class="${drawing ? "active" : ""}">${drawing ? "Tekenen… (Esc)" : region.polygons.length ? "+ Extra vorm" : "Vorm tekenen"}</button>
+        <button id="clearShape" class="danger" ${region.polygons.length ? "" : "disabled"}>Vorm wissen</button>
+        <button id="deleteRegion" class="danger">Regio verwijderen</button>
+      </div>
+      <p class="note">Sleep de witte punten om de vorm aan te passen · dubbelklik op een lijn voor een extra punt · rechtsklik op een punt om het weg te halen.</p>`
+    : `<p class="note">De vorm staat in <b>${escapeHtml(region.file)}</b> en is hier alleen te bekijken. Pas dat bestand met de hand aan, of verwijder hem daar en teken hem opnieuw.</p>
+       <div class="row"><button id="deleteRegion" class="danger">Regio verwijderen</button></div>`;
+
+  const query = search.trim().toLowerCase();
+  const results = query
+    ? tracks.filter((t) => !region.tracks.includes(t.gameval) && (t.name.toLowerCase().includes(query) || t.hint.toLowerCase().includes(query))).slice(0, 60)
+    : [];
+
+  $("editor").innerHTML = `
+    <section>
+      <h2>Regio</h2>
+      <div class="field">
+        <label for="regionName">Naam (wordt <code>area.${escapeHtml(region.name)}</code>)</label>
+        <input type="text" id="regionName" value="${escapeHtml(region.name)}" spellcheck="false">
+      </div>
+      <div class="field"><label>Verdiepingen</label><div class="levels">${levels}</div></div>
+      ${shapeTools}
+    </section>
+    <section>
+      <h2>Nummers (${region.tracks.length})</h2>
+      <div class="list">${region.tracks.length ? region.tracks.map((g) => trackRow(g, "remove")).join("") : `<div class="empty">Nog geen nummers. Zoek hieronder.</div>`}</div>
+      <p class="note">Meerdere nummers spelen in willekeurige volgorde.</p>
+    </section>
+    <section>
+      <h2>Nummer zoeken</h2>
+      <input type="text" id="search" placeholder="Naam of plaats, bv. ‘Ardougne’" value="${escapeHtml(search)}" style="width:100%" spellcheck="false">
+      <div id="results" class="list">${query ? (results.length ? results.map((t) => trackRow(t.gameval, "add")).join("") : `<div class="empty">Niets gevonden.</div>`) : ""}</div>
+    </section>`;
+
+  const nameInput = $("regionName");
+  nameInput.addEventListener("input", () => {
+    region.name = nameInput.value.trim().toLowerCase().replace(/[^a-z0-9_]/g, "_");
+    markDirty();
+    draw();
+    document.querySelectorAll(".region-item .name")[selected].textContent = region.name;
+  });
+  nameInput.addEventListener("change", renderSidebar);
+  const searchInput = $("search");
+  searchInput.addEventListener("input", () => {
+    search = searchInput.value;
+    const pos = searchInput.selectionStart;
+    renderSidebar();
+    $("search").focus();
+    $("search").setSelectionRange(pos, pos);
+  });
+  $("drawBtn")?.addEventListener("click", () => (drawing ? stopDrawing() : startDrawing()));
+  $("clearShape")?.addEventListener("click", () => { region.polygons = []; markDirty(); renderSidebar(); draw(); });
+  $("deleteRegion")?.addEventListener("click", deleteRegion);
+}
+
+document.addEventListener("click", (event) => {
+  const target = event.target.closest("[data-region],[data-play],[data-add],[data-remove],[data-level]");
+  if (!target) return;
+  const region = regions[selected];
+  if (target.dataset.region !== undefined) selectRegion(Number(target.dataset.region));
+  else if (target.dataset.play) play(target.dataset.play);
+  else if (target.dataset.add) { region.tracks.push(target.dataset.add); markDirty(); renderSidebar(); }
+  else if (target.dataset.remove) { region.tracks = region.tracks.filter((g) => g !== target.dataset.remove); markDirty(); renderSidebar(); }
+  else if (target.dataset.level !== undefined) {
+    const level = Number(target.dataset.level);
+    region.levels = target.checked ? [...new Set([...region.levels, level])].sort() : region.levels.filter((l) => l !== level);
+    markDirty();
+  }
+});
+
+$("newRegion").addEventListener("click", newRegion);
+$("mapSelect").addEventListener("change", (e) => selectMap(Number(e.target.value)));
+$("showOthers").addEventListener("change", draw);
+
+$("saveBtn").addEventListener("click", async () => {
+  if (drawing) finishDrawing();
+  setStatus("Opslaan…");
+  const response = await fetch("/api/save", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ regions }),
+  });
+  const result = await response.json();
+  if (!response.ok) { setStatus(result.error, "error"); return; }
+  dirty = false;
+  $("saveBtn").disabled = true;
+  regions.forEach((r) => { if (r.editable) r.file = "music_regions.toml"; });
+  const added = result.addedGamevals.length ? ` Nieuwe area-namen: ${result.addedGamevals.join(", ")}.` : "";
+  setStatus(`Opgeslagen.${added} Draai nu gradlew buildCache en herstart de server.`, "ok");
+});
+
+window.addEventListener("beforeunload", (event) => { if (dirty) event.preventDefault(); });
+window.addEventListener("resize", resize);
+resize();
+load();
+</script>
+</body>
+</html>

@@ -1,8 +1,9 @@
 # Music per region in dodian mode. Run `gradlew buildCache` after changing this file.
+# Edited by tools/dodian-editor (python tools/dodian-editor/server.py); hand edits are fine too.
 #
 # Every [[region]]:
-#   area   = an area gameval; draw its shape in .data/dodian/map/area/ and register a new name in
-#            content/dodian/src/main/resources/gamevals.toml under [gamevals.area]
+#   area   = an area gameval; its shape is an [[area]] in .data/dodian/map/area/ and new names are
+#            registered in content/dodian/src/main/resources/gamevals.toml under [gamevals.area]
 #   tracks = OSRS music tracks (dbrow.music_*); with more than one they play shuffled
 #
 # Entering the area unlocks and plays its tracks, leaving it stops the music.

@@ -33,7 +33,8 @@ public object DodianMapPaths {
             return listOf(DodianMapGuard())
         }
         val packDir = File("../.data/raw-cache/map/dodian")
-        return listOf(DodianMapClear(packDir), PackMaps(packDir), DodianWorldMap(packDir, File("../.data/dodian/worldmap/labels.toml")))
+        return listOf(DodianMapClear(packDir), PackMaps(packDir), DodianWorldMap(packDir, File("../.data/dodian/worldmap/labels.toml")),
+            DodianEditorExport(packDir))
     }
 
     private fun resolveGamemode(): String {
