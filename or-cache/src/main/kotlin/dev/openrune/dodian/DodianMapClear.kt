@@ -1,6 +1,7 @@
 package dev.openrune.dodian
 
 import dev.openrune.cache.MAPS
+import dev.openrune.cache.tools.incremental.PackedMapSquares
 import dev.openrune.cache.tools.tasks.CacheTask
 import dev.openrune.filesystem.Cache
 import java.io.File
@@ -15,7 +16,10 @@ public class DodianMapClear(private val packDir: File) : CacheTask() {
     override fun init(cache: Cache) {
         val keep = packedSquares(packDir)
         val removed = cache.archives(MAPS).filterNot { it in keep }
-        removed.forEach { cache.remove(MAPS, it) }
+        for (square in removed) {
+            cache.remove(MAPS, square)
+            PackedMapSquares.record(square shr 8, square and 0xFF)
+        }
         println("Dodian maps: kept ${keep.size} map squares, removed ${removed.size} original squares.")
     }
 
