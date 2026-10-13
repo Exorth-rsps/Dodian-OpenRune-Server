@@ -93,6 +93,9 @@ de wereld.
   ook in Dodian-modus. Dit bestand bevat de deuren van de Dodian-kaarten die daar nog misten en een
   open variant hebben; gilde-, quest- en slotdeuren hebben geen open variant en staan er niet in.
   Daarna `gradlew buildCache`.
+- **Doorloop-deuren:** deuren zonder open variant (bijv. de Magic Guild-deuren) staan in
+  `.data/dodian/walkthrough-doors.toml`. `DodianWalkThroughDoors` laat de deur even verdwijnen en
+  zet de speler aan de andere kant van de muur, zonder eisen. Alleen server herstarten nodig.
 - **NPC-configs (naam, combat, formaat, stats):** tabblad **NPC-config** in de editor, opgeslagen
   in `.data/dodian/configs/npcs.toml` (alleen ingepakt in Dodian-modus). *Aanpassen* wijzigt een
   bestaande NPC (`id` = `inherit`, geldt voor al zijn spawns); *Kopie* maakt een nieuwe NPC

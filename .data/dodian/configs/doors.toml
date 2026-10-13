@@ -211,3 +211,22 @@ contentGroup = "content.opened_right_door"
 [object.params]
 "param.next_loc_stage" = "loc.kr_courthouse_double_door_r"
 "param.closesound" = "synth.nicedoor_close"
+
+# Large door (5x on the Dodian maps)
+[[object]]
+id = "loc.xbows_castle_door"
+inherit = "loc.xbows_castle_door"
+contentGroup = "content.closed_single_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.xbowscastledoor_open"
+"param.opensound" = "synth.nicedoor_open"
+
+[[object]]
+id = "loc.xbowscastledoor_open"
+inherit = "loc.xbowscastledoor_open"
+contentGroup = "content.opened_single_door"
+
+[object.params]
+"param.next_loc_stage" = "loc.xbows_castle_door"
+"param.closesound" = "synth.nicedoor_close"
