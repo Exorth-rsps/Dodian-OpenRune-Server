@@ -14,3 +14,17 @@ vertices = [
     [2620, 3100],
     [2620, 3080],
 ]
+
+# Music region around the start location (2670, 3231); its tracks are set in .data/dodian/music.toml.
+[[area]]
+name = "Dodian home"
+area_id = "area.dodian_home"
+levels = [0]
+
+[[area.polygons]]
+vertices = [
+    [2645, 3205],
+    [2645, 3260],
+    [2700, 3260],
+    [2700, 3205],
+]

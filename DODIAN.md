@@ -69,6 +69,13 @@ de wereld.
   alle OSRS-namen weg te halen (of `true` om die binnen je kaarten te houden) en voeg per naam een
   `[[label]]` toe met `text`, `x`, `y` en `style` (`region` = groot oranje, `town` = middel wit,
   `place` = klein wit). `<br>` geeft een nieuwe regel. Daarna `gradlew buildCache`.
+- **Muziek per regio:** `.data/dodian/music.toml`. Per `[[region]]` een `area` en een lijst
+  `tracks` (OSRS-nummers, `dbrow.music_*`). Binnenlopen speelt de nummers af (en speelt ze vrij),
+  weglopen stopt de muziek. De vorm van de regio teken je als area in `.data/dodian/map/area/`;
+  een nieuwe area-naam registreer je in `content/dodian/src/main/resources/gamevals.toml` onder
+  `[gamevals.area]` (vrije id's vanaf 30100). Voorbeeld: `area.dodian_home` rond de startplek.
+  Daarna `gradlew buildCache`. Alleen de standaard ("modern") muziekmodus werkt; de "classic"-modus
+  is upstream nog niet gebouwd.
 - **Startlocatie (tijdelijk):** `DodianHomeScript.kt`, `START = (2670, 3231, 0)`. Wie inlogt op een
   plek waar geen kaart is (bijv. de standaard-spawn in Lumbridge), wordt daarheen verplaatst.
 
@@ -130,13 +137,14 @@ Alle wijzigingen zijn gemarkeerd met `DODIAN:` (zoek daarop bij merge-conflicten
 | `or-cache/.../map/packing/MapObjPacker.kt` | idem | idem |
 | `or-cache/.../map/packing/MapAreaPacker.kt` | 1 regel: `areaDir` via `DodianMapPaths` | idem |
 | `or-cache/.../pack/PluginPacks.kt` | 1 regel in `buildPackTasks`: `DodianMapPaths.mapTasks()` | kaarten per modus |
+| `or-cache/.../CacheTools.kt` | 1 regel in `tablesToPack`: `DodianMusic.modern(...)` | muziekregio's per modus |
 | `or-cache/build.gradle.kts` | 1 regel in `buildCache`: `-Pgamemode` doorgeven | modus eenmalig overschrijven |
 | `server/shared/.../loader/PluginScriptLoader.kt` | 2 regels: `DodianScriptFilter` | content aan/uit per modus |
 | `.data/.gitignore` | `!dodian/` | `.data/dodian/` in git houden |
 
 Nieuwe (Dodian-eigen) bestanden — geen conflicten te verwachten:
 `api/server-config/.../GameMode.kt`, `or-cache/.../dodian/` (`DodianMapPaths`, `DodianMapClear`,
-`DodianMapGuard`, `DodianWorldMap`, `DodianLabels`),
+`DodianMapGuard`, `DodianWorldMap`, `DodianLabels`, `DodianMusic`),
 `server/shared/.../loader/DodianScriptFilter.kt`, `content/dodian/`, `.data/dodian/`, `DODIAN.md`.
 
 ## Na een upstream-merge controleren

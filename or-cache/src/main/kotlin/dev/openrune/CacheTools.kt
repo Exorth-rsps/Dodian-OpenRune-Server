@@ -190,7 +190,7 @@ private fun finalizeServerCache(force: Boolean = false) {
 fun tablesToPack(): List<DBTable> = listOf(
     GameframeTable.gameframe(),
     Music.musicClassic(),
-    Music.musicModern(),
+    dev.openrune.dodian.DodianMusic.modern(Music.musicModern()), // DODIAN: music per gamemode
     Firemaking.logs(),
     Firemaking.firelighters(),
     Firemaking.sources(),
