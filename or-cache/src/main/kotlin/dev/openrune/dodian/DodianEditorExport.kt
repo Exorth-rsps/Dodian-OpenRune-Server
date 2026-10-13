@@ -2,6 +2,7 @@ package dev.openrune.dodian
 
 import dev.openrune.cache.CONFIGS
 import dev.openrune.cache.DBROW
+import dev.openrune.cache.NPC
 import dev.openrune.cache.WORLDMAPAREAS
 import dev.openrune.cache.tools.TaskPriority
 import dev.openrune.cache.tools.WorldMapPacker
@@ -13,6 +14,7 @@ import dev.openrune.cache.worldmap.worldmap.builder.test.WorldMap
 import dev.openrune.cache.worldmap.worldmap.config.WorldMapConfig
 import dev.openrune.cache.worldmap.worldmap.utils.Coordinate
 import dev.openrune.definition.codec.DBRowCodec
+import dev.openrune.definition.codec.NPCCodec
 import dev.openrune.definition.constants.ConstantProvider
 import dev.openrune.filesystem.Cache
 import java.io.File
@@ -22,8 +24,8 @@ import readCacheRevision
 /**
  * Writes the data the Dodian music editor (`tools/dodian-editor`) needs to
  * `.data/cache/dodian-editor/`: one PNG per group of touching Dodian map squares (so dungeons and
- * altars get their own image) plus `maps.json` with their tile bounds, and `tracks.json` with every
- * music track in the cache. Maps are only re-rendered when the Dodian map squares change.
+ * altars get their own image) plus `maps.json` with their tile bounds, `tracks.json` with every
+ * music track and `npcs.json` with every named npc in the cache. Maps are only re-rendered when the Dodian map squares change.
  */
 public class DodianEditorExport(private val packDir: File) : CacheTask() {
     override val priority: TaskPriority = TaskPriority.MAPS
@@ -34,6 +36,7 @@ public class DodianEditorExport(private val packDir: File) : CacheTask() {
         }
         outputDir.mkdirs()
         writeTracks(cache)
+        writeNpcs(cache)
 
         val keep = DodianMapClear.packedSquares(packDir)
         val stamp = keep.sorted().joinToString(",") + "|" + packStamp()
@@ -104,6 +107,22 @@ public class DodianEditorExport(private val packDir: File) : CacheTask() {
             tracks += """{"row":$id,"name":${json(name)},"hint":${json(hint)}}"""
         }
         File(outputDir, "tracks.json").writeText(tracks.joinToString(",\n", "[\n", "\n]\n"))
+    }
+
+    private fun writeNpcs(cache: Cache) {
+        val revision = runCatching { readCacheRevision(cache) }.getOrDefault(WorldMapFormat.REVISION)
+        val codec = NPCCodec(revision)
+        val npcs = mutableListOf<String>()
+        for (id in cache.files(CONFIGS, NPC)) {
+            val data = cache.data(CONFIGS, NPC, id) ?: continue
+            val npc = runCatching { codec.loadData(id, data) }.getOrNull() ?: continue
+            val name = npc.name
+            if (name.isBlank() || name == "null") {
+                continue
+            }
+            npcs += """{"id":$id,"name":${json(name)},"combat":${npc.combatLevel},"size":${npc.size}}"""
+        }
+        File(outputDir, "npcs.json").writeText(npcs.joinToString(",\n", "[\n", "\n]\n"))
     }
 
     /** Groups map squares that touch (including diagonally) so each group renders as one image. */

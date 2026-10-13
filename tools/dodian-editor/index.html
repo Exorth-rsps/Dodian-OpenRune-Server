@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dodian Muziekeditor</title>
+<title>Dodian Editor</title>
 <style>
   :root {
     --bg: #1b1712;
@@ -115,6 +115,22 @@
   #player .now { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   #player .now b { color: var(--accent); font-weight: 600; }
   .empty { color: var(--muted); font-size: 13px; padding: 4px 0; }
+  [hidden] { display: none !important; }
+  .tabs { display: flex; gap: 2px; background: var(--bg); padding: 2px; border-radius: 6px; }
+  .tab { border: none; background: transparent; padding: 4px 14px; }
+  .tab.active { background: var(--panel-2); color: var(--accent); }
+  .panel { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+  #npcResults { max-height: 210px; overflow-y: auto; margin-top: 6px; }
+  #spawnSection { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  #spawnList { overflow-y: auto; flex: 1; min-height: 0; }
+  .count-label { color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .pick { display: flex; align-items: center; gap: 8px; padding: 4px 6px; border-radius: 4px; cursor: pointer; }
+  .pick:hover { background: var(--panel-2); }
+  .pick.chosen { background: var(--panel-2); outline: 1px solid var(--accent-dim); }
+  .pick .info { flex: 1; min-width: 0; }
+  .pick .title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pick .sub { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .selected-box { background: var(--panel-2); border: 1px solid var(--accent-dim); border-radius: 4px; padding: 8px; margin-bottom: 8px; }
   kbd {
     font: 11px ui-monospace, Consolas, monospace; background: var(--panel-2);
     border: 1px solid var(--line); border-radius: 3px; padding: 0 4px;
@@ -123,9 +139,13 @@
 </head>
 <body>
 <header>
-  <h1>Dodian Muziekeditor</h1>
+  <h1>Dodian Editor</h1>
+  <div class="tabs">
+    <button id="tabMusic" class="tab active">Muziek</button>
+    <button id="tabNpc" class="tab">NPC's</button>
+  </div>
   <select id="mapSelect" title="Kaart"></select>
-  <label class="row" style="gap:4px;color:var(--muted);font-size:13px">
+  <label id="showOthersLabel" class="row" style="gap:4px;color:var(--muted);font-size:13px">
     <input type="checkbox" id="showOthers" checked> andere areas tonen
   </label>
   <span class="spacer"></span>
@@ -139,6 +159,7 @@
     <div id="hint" hidden></div>
   </div>
   <aside>
+   <div id="musicPanel" class="panel">
     <section id="regionSection">
       <h2><span>Regio's <span id="regionCount"></span></span> <button id="newRegion" class="icon" title="Nieuwe regio">+ Nieuw</button></h2>
       <input type="text" id="regionFilter" placeholder="Regio zoeken…" spellcheck="false">
@@ -150,6 +171,38 @@
       <span class="now" id="nowPlaying">Klik op ▶ om een nummer te beluisteren</span>
       <audio id="audio" preload="none"></audio>
     </div>
+   </div>
+   <div id="npcPanel" class="panel" hidden>
+    <section>
+      <h2>Bestand
+        <span class="row"><button id="npcNewFile" class="icon">+ Nieuw</button><button id="npcDeleteFile" class="icon danger">Verwijderen</button></span>
+      </h2>
+      <select id="npcFile" style="width:100%"></select>
+      <div id="npcNewFileRow" class="row" hidden style="margin-top:6px">
+        <input type="text" id="npcNewFileName" placeholder="bestandsnaam, bv. yanille" spellcheck="false" style="flex:1">
+        <button id="npcNewFileOk">Maken</button>
+      </div>
+    </section>
+    <section>
+      <h2>NPC kiezen</h2>
+      <input type="text" id="npcSearch" placeholder="Naam, bv. ‘goblin’ of ‘banker’" spellcheck="false" style="width:100%">
+      <div id="npcResults" class="list"></div>
+      <div id="npcBrush" class="note"></div>
+      <div class="row" style="margin-top:8px">
+        <label class="row" style="gap:4px">Verdieping
+          <select id="npcLevel"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+        </label>
+        <button id="placeBtn">Plaatsen</button>
+      </div>
+      <p class="note">Klik een spawn aan om hem te kiezen · sleep om te verplaatsen · rechtsklik of <kbd>Delete</kbd> verwijdert.</p>
+    </section>
+    <section id="spawnSection">
+      <h2>Spawns in bestand <span id="spawnCount" class="count-label"></span></h2>
+      <div id="spawnSelected"></div>
+      <input type="text" id="spawnFilter" placeholder="Filter op naam…" spellcheck="false" style="width:100%;margin-bottom:6px">
+      <div id="spawnList" class="list"></div>
+    </section>
+   </div>
   </aside>
 </main>
 <script>
@@ -169,6 +222,7 @@ let dirty = false;
 let hoverTile = null;
 let playing = null;
 let search = "";
+let mode = "music";
 
 function setStatus(text, kind = "") {
   $("status").textContent = text;
@@ -177,8 +231,12 @@ function setStatus(text, kind = "") {
 
 function markDirty() {
   dirty = true;
-  $("saveBtn").disabled = false;
+  updateSaveButton();
   setStatus("Niet opgeslagen wijzigingen");
+}
+
+function updateSaveButton() {
+  $("saveBtn").disabled = mode === "music" ? !dirty : !npcDirty;
 }
 
 async function load() {
@@ -202,11 +260,11 @@ async function load() {
   setStatus(`${tracks.length} nummers beschikbaar`);
 }
 
-function selectMap(index) {
+function selectMap(index, afterLoad) {
   mapIndex = index;
   $("mapSelect").value = index;
   mapImage = new Image();
-  mapImage.onload = () => { fitMap(); draw(); };
+  mapImage.onload = () => { fitMap(); if (afterLoad) afterLoad(); draw(); };
   mapImage.src = "/maps/" + maps[index].file;
 }
 
@@ -262,6 +320,11 @@ function draw() {
   if (!mapImage || !mapImage.complete) return;
   ctx.imageSmoothingEnabled = view.zoom < 1;
   ctx.drawImage(mapImage, view.panX, view.panY, mapImage.width * view.zoom, mapImage.height * view.zoom);
+  if (mode === "npc") {
+    drawNpcs();
+    drawHoverTile();
+    return;
+  }
 
   if ($("showOthers").checked) {
     ctx.setLineDash([4, 4]);
@@ -331,6 +394,10 @@ function draw() {
     });
   }
 
+  drawHoverTile();
+}
+
+function drawHoverTile() {
   if (hoverTile && view.zoom * currentMap().ppt >= 6) {
     const [sx, sy] = tileToScreen(hoverTile[0], hoverTile[1]);
     const size = currentMap().ppt * view.zoom;
@@ -404,6 +471,7 @@ canvas.addEventListener("wheel", (event) => {
 canvas.addEventListener("mousedown", (event) => {
   const [sx, sy] = mousePos(event);
   if (event.button === 2) return;
+  if (mode === "npc") { npcMouseDown(sx, sy); return; }
   if (drawing) {
     const tile = screenToTile(sx, sy);
     if (drawing.length >= 3) {
@@ -432,6 +500,8 @@ window.addEventListener("mousemove", (event) => {
     const tile = screenToTile(sx, sy);
     regions[selected].polygons[dragVertex.p][dragVertex.v] = tile;
     markDirty();
+  } else if (npcDrag) {
+    npcDragTo(screenToTile(sx, sy));
   } else if (panning) {
     view.panX = panning.panX + sx - panning.sx;
     view.panY = panning.panY + sy - panning.sy;
@@ -442,11 +512,14 @@ window.addEventListener("mousemove", (event) => {
 
 window.addEventListener("mouseup", () => {
   if (dragVertex) renderSidebar();
+  if (npcDrag) renderSpawnList();
+  npcDrag = null;
   dragVertex = null;
   panning = null;
 });
 
 canvas.addEventListener("dblclick", (event) => {
+  if (mode === "npc") return;
   if (drawing) { if (drawing.length >= 3) finishDrawing(); return; }
   const [sx, sy] = mousePos(event);
   const edge = edgeAt(sx, sy);
@@ -458,6 +531,7 @@ canvas.addEventListener("dblclick", (event) => {
 
 canvas.addEventListener("contextmenu", (event) => {
   event.preventDefault();
+  if (mode === "npc") { npcContextMenu(...mousePos(event)); return; }
   if (drawing) { drawing.pop(); draw(); return; }
   const vertex = vertexAt(...mousePos(event));
   if (!vertex) return;
@@ -475,6 +549,7 @@ canvas.addEventListener("mouseleave", () => { hoverTile = null; $("coords").text
 
 window.addEventListener("keydown", (event) => {
   if (event.target.tagName === "INPUT") return;
+  if (mode === "npc") { npcKey(event); return; }
   if (event.key === "Escape" && drawing) { stopDrawing(); }
   if (event.key === "Enter" && drawing && drawing.length >= 3) finishDrawing();
 });
@@ -695,6 +770,7 @@ $("mapSelect").addEventListener("change", (e) => selectMap(Number(e.target.value
 $("showOthers").addEventListener("change", draw);
 
 $("saveBtn").addEventListener("click", async () => {
+  if (mode === "npc") { saveNpcs(); return; }
   if (drawing) finishDrawing();
   setStatus("Opslaan…");
   const response = await fetch("/api/save", {
@@ -705,13 +781,365 @@ $("saveBtn").addEventListener("click", async () => {
   const result = await response.json();
   if (!response.ok) { setStatus(result.error, "error"); return; }
   dirty = false;
-  $("saveBtn").disabled = true;
+  updateSaveButton();
   regions.forEach((r) => { if (r.editable) r.file = "music_regions.toml"; });
   const added = result.addedGamevals.length ? ` Nieuwe area-namen: ${result.addedGamevals.join(", ")}.` : "";
   setStatus(`Opgeslagen.${added} Draai nu gradlew buildCache en herstart de server.`, "ok");
 });
 
-window.addEventListener("beforeunload", (event) => { if (dirty) event.preventDefault(); });
+// ---- NPC spawns ----
+let npcLoaded = false;
+let npcByGameval = new Map();
+let npcList = [];
+let npcFiles = {};
+let dirtyFiles = new Set();
+let deletedFiles = new Set();
+let npcDirty = false;
+let currentFile = null;
+let brush = null;
+let placing = false;
+let placeLevel = 0;
+let selectedSpawn = null;
+let npcDrag = null;
+
+function setMode(next) {
+  mode = next;
+  $("tabMusic").classList.toggle("active", mode === "music");
+  $("tabNpc").classList.toggle("active", mode === "npc");
+  $("musicPanel").hidden = mode !== "music";
+  $("npcPanel").hidden = mode !== "npc";
+  $("showOthersLabel").hidden = mode !== "music";
+  if (drawing) stopDrawing();
+  if (mode !== "npc") setPlacing(false);
+  updateSaveButton();
+  if (mode === "npc" && !npcLoaded) loadNpcs();
+  draw();
+}
+
+async function loadNpcs() {
+  setStatus("NPC's laden…");
+  const response = await fetch("/api/npc-state");
+  const data = await response.json();
+  if (!response.ok) { setStatus(data.error, "error"); return; }
+  npcLoaded = true;
+  npcList = data.npcs;
+  npcByGameval = new Map(npcList.map((n) => [n.gameval, n]));
+  npcFiles = data.files;
+  currentFile = Object.keys(npcFiles)[0] || null;
+  renderNpcResults();
+  renderSpawnList();
+  setStatus(`${npcList.length} NPC's beschikbaar`);
+  draw();
+}
+
+function npcInfo(gameval) {
+  return npcByGameval.get(gameval) || { name: gameval, combat: 0, size: 1 };
+}
+
+function npcTitle(gameval) {
+  const npc = npcInfo(gameval);
+  return npc.combat > 0 ? `${npc.name} (lvl ${npc.combat})` : npc.name;
+}
+
+function markNpcDirty(file) {
+  if (file) dirtyFiles.add(file);
+  npcDirty = true;
+  updateSaveButton();
+  setStatus("Niet opgeslagen wijzigingen");
+}
+
+function spawnOnMap(spawn) {
+  const m = currentMap();
+  return spawn.x >= m.minX && spawn.x <= m.maxX && spawn.y >= m.minY && spawn.y <= m.maxY;
+}
+
+function spawnCircle(spawn) {
+  const tile = currentMap().ppt * view.zoom;
+  const size = npcInfo(spawn.npc).size || 1;
+  const [sx, sy] = tileToScreen(spawn.x, spawn.y);
+  return {
+    x: sx + ((size - 1) / 2) * tile,
+    y: sy - ((size - 1) / 2) * tile,
+    r: Math.max(4, ((size * tile) / 2) * 0.8),
+  };
+}
+
+function drawNpcs() {
+  const tile = currentMap().ppt * view.zoom;
+  for (const [file, spawns] of Object.entries(npcFiles)) {
+    spawns.forEach((spawn, index) => {
+      if (!spawnOnMap(spawn)) return;
+      const isSelected = selectedSpawn && selectedSpawn.file === file && selectedSpawn.index === index;
+      const { x, y, r } = spawnCircle(spawn);
+      ctx.globalAlpha = spawn.level === placeLevel ? 1 : 0.3;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = file === currentFile ? "#ff981f" : "#4fb3ff";
+      ctx.fill();
+      ctx.lineWidth = isSelected ? 3 : 1.5;
+      ctx.strokeStyle = isSelected ? "#ffffff" : "#000000";
+      ctx.stroke();
+      if (tile >= 10 || isSelected) {
+        const name = npcInfo(spawn.npc).name;
+        ctx.font = "600 12px system-ui, sans-serif";
+        ctx.textAlign = "center";
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "rgba(0,0,0,.85)";
+        ctx.strokeText(name, x, y - r - 4);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText(name, x, y - r - 4);
+      }
+      ctx.globalAlpha = 1;
+    });
+  }
+  if (placing && brush && hoverTile) {
+    const { x, y, r } = spawnCircle({ npc: brush, x: hoverTile[0], y: hoverTile[1] });
+    ctx.globalAlpha = 0.6;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = "#ff981f";
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function spawnAt(sx, sy) {
+  let best = null;
+  for (const [file, spawns] of Object.entries(npcFiles)) {
+    spawns.forEach((spawn, index) => {
+      if (!spawnOnMap(spawn)) return;
+      const { x, y, r } = spawnCircle(spawn);
+      const distance = Math.hypot(x - sx, y - sy);
+      if (distance > r + 3) return;
+      const score = distance - (spawn.level === placeLevel ? 1000 : 0) - (file === currentFile ? 100 : 0);
+      if (!best || score < best.score) best = { file, index, score };
+    });
+  }
+  return best && { file: best.file, index: best.index };
+}
+
+function selectSpawn(hit) {
+  selectedSpawn = hit;
+  if (hit && hit.file !== currentFile) currentFile = hit.file;
+  renderSpawnList();
+  draw();
+}
+
+function npcMouseDown(sx, sy) {
+  const hit = spawnAt(sx, sy);
+  if (hit) {
+    selectSpawn(hit);
+    npcDrag = hit;
+    return;
+  }
+  if (placing && brush && currentFile) {
+    const [x, y] = screenToTile(sx, sy);
+    npcFiles[currentFile].push({ npc: brush, x, y, level: placeLevel });
+    selectedSpawn = { file: currentFile, index: npcFiles[currentFile].length - 1 };
+    markNpcDirty(currentFile);
+    renderSpawnList();
+    draw();
+    return;
+  }
+  panning = { sx, sy, panX: view.panX, panY: view.panY, moved: false };
+}
+
+function npcDragTo([x, y]) {
+  const spawn = npcFiles[npcDrag.file][npcDrag.index];
+  if (spawn.x === x && spawn.y === y) return;
+  spawn.x = x;
+  spawn.y = y;
+  markNpcDirty(npcDrag.file);
+}
+
+function removeSpawn(hit) {
+  npcFiles[hit.file].splice(hit.index, 1);
+  if (selectedSpawn && selectedSpawn.file === hit.file) selectedSpawn = null;
+  markNpcDirty(hit.file);
+  renderSpawnList();
+  draw();
+}
+
+function npcContextMenu(sx, sy) {
+  if (placing) { setPlacing(false); return; }
+  const hit = spawnAt(sx, sy);
+  if (hit) removeSpawn(hit);
+}
+
+function npcKey(event) {
+  if (event.key === "Escape") { setPlacing(false); selectSpawn(null); }
+  if ((event.key === "Delete" || event.key === "Backspace") && selectedSpawn) removeSpawn(selectedSpawn);
+}
+
+function setPlacing(on) {
+  placing = on && !!brush && !!currentFile;
+  $("placeBtn").classList.toggle("active", placing);
+  $("placeBtn").textContent = placing ? "Plaatsen… (Esc)" : "Plaatsen";
+  $("hint").hidden = !placing;
+  if (placing) {
+    $("hint").innerHTML = `Klik op de kaart om <b>${escapeHtml(npcTitle(brush))}</b> neer te zetten · rechtsklik of <kbd>Esc</kbd> stopt`;
+  }
+  draw();
+}
+
+function centerOn(x, y) {
+  const apply = () => {
+    const rect = canvas.getBoundingClientRect();
+    const m = currentMap();
+    view.zoom = Math.max(view.zoom, 16 / m.ppt);
+    view.panX = rect.width / 2 - (x - m.minX + 0.5) * m.ppt * view.zoom;
+    view.panY = rect.height / 2 - (m.maxY - y + 0.5) * m.ppt * view.zoom;
+    draw();
+  };
+  const target = maps.findIndex((m) => x >= m.minX && x <= m.maxX && y >= m.minY && y <= m.maxY);
+  if (target >= 0 && target !== mapIndex) selectMap(target, apply);
+  else apply();
+}
+
+function renderNpcFiles() {
+  const names = Object.keys(npcFiles).sort();
+  $("npcFile").innerHTML = names.length
+    ? names.map((n) => `<option value="${escapeHtml(n)}" ${n === currentFile ? "selected" : ""}>${escapeHtml(n)} (${npcFiles[n].length})${dirtyFiles.has(n) ? " •" : ""}</option>`).join("")
+    : `<option value="">Nog geen bestanden</option>`;
+  $("npcDeleteFile").disabled = !currentFile;
+  $("placeBtn").disabled = !brush || !currentFile;
+}
+
+function renderNpcResults() {
+  const query = $("npcSearch").value.trim().toLowerCase();
+  const results = query
+    ? npcList.filter((n) => n.name.toLowerCase().includes(query) || n.gameval.includes(query)).slice(0, 80)
+    : [];
+  $("npcResults").innerHTML = query
+    ? results.length
+      ? results.map((n) => `<div class="pick${n.gameval === brush ? " chosen" : ""}" data-npc-pick="${n.gameval}">
+          <div class="info"><div class="title">${escapeHtml(npcTitle(n.gameval))}</div><div class="sub">${n.gameval}${n.size > 1 ? ` · ${n.size}x${n.size}` : ""}</div></div></div>`).join("")
+      : `<div class="empty">Niets gevonden.</div>`
+    : "";
+  $("npcBrush").innerHTML = brush
+    ? `Gekozen: <b style="color:var(--accent)">${escapeHtml(npcTitle(brush))}</b> <span>${brush}</span>`
+    : "Zoek een NPC en klik hem aan om te plaatsen.";
+  $("placeBtn").disabled = !brush || !currentFile;
+}
+
+function renderSpawnList() {
+  renderNpcFiles();
+  const spawns = currentFile ? npcFiles[currentFile] : [];
+  const query = $("spawnFilter").value.trim().toLowerCase();
+  const visible = spawns.map((s, i) => [s, i]).filter(([s]) => !query || npcTitle(s.npc).toLowerCase().includes(query));
+  $("spawnCount").textContent = query ? `(${visible.length}/${spawns.length})` : `(${spawns.length})`;
+  $("spawnList").innerHTML = !currentFile
+    ? `<div class="empty">Maak eerst een bestand met “+ Nieuw”.</div>`
+    : visible.length
+      ? visible.map(([s, i]) => `<div class="pick${selectedSpawn && selectedSpawn.file === currentFile && selectedSpawn.index === i ? " chosen" : ""}" data-spawn="${i}">
+          <div class="info"><div class="title">${escapeHtml(npcTitle(s.npc))}</div><div class="sub">x ${s.x}, y ${s.y}, verdieping ${s.level}</div></div>
+          <button class="icon danger" data-spawn-del="${i}" title="Verwijderen">×</button></div>`).join("")
+      : `<div class="empty">${spawns.length ? "Niets gevonden." : "Nog geen spawns in dit bestand."}</div>`;
+  const sel = selectedSpawn && npcFiles[selectedSpawn.file] && npcFiles[selectedSpawn.file][selectedSpawn.index];
+  $("spawnSelected").innerHTML = sel
+    ? `<div class="selected-box"><div><b>${escapeHtml(npcTitle(sel.npc))}</b></div>
+        <div class="note" style="margin:2px 0 8px">x ${sel.x}, y ${sel.y}, verdieping ${sel.level} · ${escapeHtml(selectedSpawn.file)}</div>
+        <div class="row"><button id="spawnReplace" ${brush && brush !== sel.npc ? "" : "disabled"}>Vervang door gekozen NPC</button>
+        <button id="spawnDelete" class="danger">Verwijderen</button></div></div>`
+    : "";
+  document.querySelector("#spawnList .pick.chosen")?.scrollIntoView({ block: "nearest" });
+}
+
+$("npcPanel").addEventListener("click", (event) => {
+  const pick = event.target.closest("[data-npc-pick]");
+  if (pick) {
+    brush = pick.dataset.npcPick;
+    renderNpcResults();
+    setPlacing(true);
+    return;
+  }
+  const del = event.target.closest("[data-spawn-del]");
+  if (del) { removeSpawn({ file: currentFile, index: Number(del.dataset.spawnDel) }); return; }
+  const row = event.target.closest("[data-spawn]");
+  if (row) {
+    const hit = { file: currentFile, index: Number(row.dataset.spawn) };
+    const spawn = npcFiles[hit.file][hit.index];
+    placeLevel = spawn.level;
+    $("npcLevel").value = String(placeLevel);
+    selectSpawn(hit);
+    centerOn(spawn.x, spawn.y);
+    return;
+  }
+  if (event.target.id === "spawnDelete" && selectedSpawn) removeSpawn(selectedSpawn);
+  if (event.target.id === "spawnReplace" && selectedSpawn && brush) {
+    npcFiles[selectedSpawn.file][selectedSpawn.index].npc = brush;
+    markNpcDirty(selectedSpawn.file);
+    renderSpawnList();
+    draw();
+  }
+});
+
+$("npcSearch").addEventListener("input", renderNpcResults);
+$("spawnFilter").addEventListener("input", renderSpawnList);
+$("npcFile").addEventListener("change", (e) => {
+  currentFile = e.target.value || null;
+  selectedSpawn = null;
+  setPlacing(placing);
+  renderSpawnList();
+  draw();
+});
+$("npcLevel").addEventListener("change", (e) => { placeLevel = Number(e.target.value); draw(); });
+$("placeBtn").addEventListener("click", () => setPlacing(!placing));
+$("npcNewFile").addEventListener("click", () => { $("npcNewFileRow").hidden = false; $("npcNewFileName").focus(); });
+$("npcNewFileOk").addEventListener("click", createNpcFile);
+$("npcNewFileName").addEventListener("keydown", (e) => { if (e.key === "Enter") createNpcFile(); });
+$("npcDeleteFile").addEventListener("click", () => {
+  if (!currentFile || !confirm(`Bestand “${currentFile}” met ${npcFiles[currentFile].length} spawns verwijderen?`)) return;
+  delete npcFiles[currentFile];
+  dirtyFiles.delete(currentFile);
+  deletedFiles.add(currentFile);
+  currentFile = Object.keys(npcFiles)[0] || null;
+  selectedSpawn = null;
+  markNpcDirty(null);
+  setPlacing(false);
+  renderSpawnList();
+  draw();
+});
+
+function createNpcFile() {
+  const base = $("npcNewFileName").value.trim().toLowerCase().replace(/[.]toml$/, "").replace(/[^a-z0-9_-]/g, "_");
+  if (!base) return;
+  const name = `${base}.toml`;
+  if (npcFiles[name]) { setStatus(`Het bestand ${name} bestaat al.`, "error"); return; }
+  npcFiles[name] = [];
+  deletedFiles.delete(name);
+  currentFile = name;
+  selectedSpawn = null;
+  $("npcNewFileName").value = "";
+  $("npcNewFileRow").hidden = true;
+  markNpcDirty(name);
+  renderSpawnList();
+  renderNpcResults();
+}
+
+async function saveNpcs() {
+  setStatus("Opslaan…");
+  const files = {};
+  for (const name of dirtyFiles) if (npcFiles[name]) files[name] = npcFiles[name];
+  const response = await fetch("/api/npc-save", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ files, deleted: [...deletedFiles] }),
+  });
+  const result = await response.json();
+  if (!response.ok) { setStatus(result.error, "error"); return; }
+  dirtyFiles.clear();
+  deletedFiles.clear();
+  npcDirty = false;
+  updateSaveButton();
+  renderNpcFiles();
+  setStatus("Opgeslagen. Draai nu gradlew buildCache en herstart de server.", "ok");
+}
+
+$("tabMusic").addEventListener("click", () => setMode("music"));
+$("tabNpc").addEventListener("click", () => setMode("npc"));
+
+window.addEventListener("beforeunload", (event) => { if (dirty || npcDirty) event.preventDefault(); });
 window.addEventListener("resize", resize);
 resize();
 load();

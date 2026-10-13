@@ -1,4 +1,4 @@
-"""Dodian music editor: draw music regions on the Dodian maps and assign OSRS tracks.
+"""Dodian editor: draw music regions and place npc spawns on the Dodian maps.
 
 Run from anywhere:  python tools/dodian-editor/server.py
 Needs `gradlew buildCache` in dodian mode first (it exports the maps and track list).
@@ -20,6 +20,8 @@ EXPORT_DIR = ROOT / ".data/cache/dodian-editor"
 MUSIC_FILE = ROOT / ".data/dodian/music.toml"
 AREA_DIR = ROOT / ".data/dodian/map/area"
 EDITOR_AREA_FILE = AREA_DIR / "music_regions.toml"
+NPC_DIR = ROOT / ".data/dodian/map/npcs"
+NPC_FILE_PATTERN = re.compile(r"^[a-z0-9_-]+\.toml$")
 DODIAN_GAMEVALS = ROOT / "content/dodian/src/main/resources/gamevals.toml"
 AREA_RSCM = ROOT / ".data/gamevals/area.rscm"
 BINARY_GAMEVALS = ROOT / ".data/gamevals-binary/gamevals.dat"
@@ -35,6 +37,11 @@ MUSIC_HEADER = """# Music per region in dodian mode. Run `gradlew buildCache` af
 #   tracks = OSRS music tracks (dbrow.music_*); with more than one they play shuffled
 #
 # Entering the area unlocks and plays its tracks, leaving it stops the music.
+"""
+
+NPC_HEADER = """# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
 """
 
 AREA_HEADER = """# Music regions drawn with tools/dodian-editor. This file is rewritten on every save;
@@ -100,12 +107,68 @@ def read_area_files():
     return shapes
 
 
-def state():
+def load_maps():
     if not (EXPORT_DIR / "maps.json").exists():
         raise ValueError(
             "Geen kaartdata gevonden. Zet gamemode op \"dodian\" in game.yml en draai `gradlew buildCache`."
         )
-    maps = json.loads((EXPORT_DIR / "maps.json").read_text(encoding="utf-8"))
+    return json.loads((EXPORT_DIR / "maps.json").read_text(encoding="utf-8"))
+
+
+def npc_state():
+    maps = load_maps()
+    npcs_file = EXPORT_DIR / "npcs.json"
+    if not npcs_file.exists():
+        raise ValueError("Geen NPC-lijst gevonden. Draai `gradlew buildCache` in dodian-modus.")
+    names = {v: k for k, v in read_binary_gamevals("npc").items()}
+    npcs = []
+    for npc in json.loads(npcs_file.read_text(encoding="utf-8"), strict=False):
+        gameval = names.get(npc["id"])
+        if gameval:
+            npcs.append({
+                "gameval": f"npc.{gameval}",
+                "name": npc["name"],
+                "combat": npc["combat"],
+                "size": npc["size"],
+            })
+    npcs.sort(key=lambda n: (n["name"].lower(), n["combat"]))
+
+    files = {}
+    for path in sorted(NPC_DIR.glob("*.toml")):
+        spawns = []
+        for spawn in load_toml(path).get("spawn", []):
+            level, mx, mz, lx, lz = (int(v) for v in str(spawn["coords"]).split("_"))
+            spawns.append({"npc": spawn["npc"], "x": mx * 64 + lx, "y": mz * 64 + lz, "level": level})
+        files[path.name] = spawns
+    return {"maps": maps, "npcs": npcs, "files": files}
+
+
+def npc_save(payload):
+    known = {f"npc.{name}" for name in read_binary_gamevals("npc")}
+    files = payload.get("files", {})
+    for name, spawns in files.items():
+        if not NPC_FILE_PATTERN.match(name):
+            raise ValueError(f"Ongeldige bestandsnaam '{name}': alleen kleine letters, cijfers, - en _ (eindigt op .toml).")
+        for spawn in spawns:
+            if spawn.get("npc") not in known:
+                raise ValueError(f"Onbekende NPC '{spawn.get('npc')}' in {name}.")
+    for name in payload.get("deleted", []):
+        path = NPC_DIR / name
+        if NPC_FILE_PATTERN.match(name) and path.is_file():
+            path.unlink()
+    for name, spawns in files.items():
+        lines = [NPC_HEADER]
+        for spawn in spawns:
+            x, y, level = int(spawn["x"]), int(spawn["y"]), int(spawn.get("level", 0))
+            lines.append("[[spawn]]")
+            lines.append(f'npc = "{spawn["npc"]}"')
+            lines.append(f'coords = "{level}_{x >> 6}_{y >> 6}_{x & 63}_{y & 63}"\n')
+        (NPC_DIR / name).write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    return {"ok": True}
+
+
+def state():
+    maps = load_maps()
     names = {v: k for k, v in read_binary_gamevals("dbrow").items()}
     tracks = []
     for track in json.loads((EXPORT_DIR / "tracks.json").read_text(encoding="utf-8"), strict=False):
@@ -221,6 +284,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_file(HERE / "index.html", "text/html; charset=utf-8")
         elif self.path == "/api/state":
             self.send_json(state)
+        elif self.path == "/api/npc-state":
+            self.send_json(npc_state)
         elif self.path.startswith("/maps/"):
             file = EXPORT_DIR / Path(self.path.removeprefix("/maps/")).name
             self.send_file(file, "image/png")
@@ -228,12 +293,14 @@ class Handler(BaseHTTPRequestHandler):
             self.send_error(404)
 
     def do_POST(self):
-        if self.path != "/api/save":
+        handlers = {"/api/save": save, "/api/npc-save": npc_save}
+        handler = handlers.get(self.path)
+        if handler is None:
             self.send_error(404)
             return
         length = int(self.headers.get("Content-Length", 0))
         payload = json.loads(self.rfile.read(length) or b"{}")
-        self.send_json(lambda: save(payload))
+        self.send_json(lambda: handler(payload))
 
     def send_json(self, producer):
         try:
@@ -266,7 +333,7 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     url = f"http://127.0.0.1:{PORT}/"
-    print(f"Dodian music editor: {url}  (Ctrl+C to stop)")
+    print(f"Dodian editor: {url}  (Ctrl+C to stop)")
     if "--no-browser" not in sys.argv:
         webbrowser.open(url)
     try:
