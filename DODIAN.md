@@ -81,6 +81,12 @@ de wereld.
   om te verplaatsen, rechtsklik of `Delete` om te verwijderen. Opslaan schrijft alleen de
   gewijzigde bestanden (inclusief kopcommentaar, eigen opmerkingen in die bestanden gaan verloren).
   Daarna `gradlew buildCache` en server herstarten.
+- **Kijkrichting en wander per spawn:** in de editor (selecteer een spawn) of met de hand in een
+  `[[spawn]]`: `face = "west"` (north, northeast, east, southeast, south, southwest, west,
+  northwest) en `wander = 3` (aantal tegels, 0 = staat stil). Weglaten = standaard van het
+  NPC-type. `DodianSpawnSettings` leest deze velden bij het opstarten uit de spawnbestanden en past
+  ze toe als de NPC spawnt (gekoppeld op NPC + tegel), dus alleen een herstart is nodig. De
+  cache-build negeert de extra velden.
 - **Muziekeditor:** `python tools/dodian-editor/server.py` opent in je browser een editor met je
   Dodian-kaarten (mainland, dungeons, altaren elk apart). Teken regio's door te klikken, zoek
   OSRS-nummers, beluister ze (opnames van de OSRS Wiki, internet nodig) en wijs ze toe. Opslaan
@@ -151,6 +157,7 @@ Alle wijzigingen zijn gemarkeerd met `DODIAN:` (zoek daarop bij merge-conflicten
 | `or-cache/.../pack/PluginPacks.kt` | 1 regel in `buildPackTasks`: `DodianMapPaths.mapTasks()` | kaarten per modus |
 | `or-cache/.../CacheTools.kt` | 1 regel in `tablesToPack`: `DodianMusic.modern(...)` | muziekregio's per modus |
 | `or-cache/build.gradle.kts` | 1 regel in `buildCache`: `-Pgamemode` doorgeven | modus eenmalig overschrijven |
+| `engine/game/.../entity/Npc.kt` | 2 regels: `wanderRangeOverride` + `wanderRange` gebruikt die | wander per spawn |
 | `server/shared/.../loader/PluginScriptLoader.kt` | 2 regels: `DodianScriptFilter` | content aan/uit per modus |
 | `.data/.gitignore` | `!dodian/` | `.data/dodian/` in git houden |
 

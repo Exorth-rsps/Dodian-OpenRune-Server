@@ -207,8 +207,10 @@ public class Npc(
     public val blockWalk: BlockWalk
         get() = type.blockWalk
 
+    public var wanderRangeOverride: Int? = null // DODIAN: per-spawn wander range
+
     public val wanderRange: Int
-        get() = type.wanderRange
+        get() = wanderRangeOverride ?: type.wanderRange // DODIAN: per-spawn wander range
 
     public val defaultMode: NpcMode
         get() = type.defaultMode

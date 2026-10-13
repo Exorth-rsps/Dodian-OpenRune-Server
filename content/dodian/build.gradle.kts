@@ -3,5 +3,6 @@ plugins {
 }
 
 dependencies {
+    implementation(libs.jackson.dataformat.toml)
     implementation(projects.api.pluginCommons)
 }

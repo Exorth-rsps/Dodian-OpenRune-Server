@@ -22,6 +22,7 @@ AREA_DIR = ROOT / ".data/dodian/map/area"
 EDITOR_AREA_FILE = AREA_DIR / "music_regions.toml"
 NPC_DIR = ROOT / ".data/dodian/map/npcs"
 NPC_FILE_PATTERN = re.compile(r"^[a-z0-9_-]+\.toml$")
+DIRECTIONS = {"north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"}
 DODIAN_GAMEVALS = ROOT / "content/dodian/src/main/resources/gamevals.toml"
 AREA_RSCM = ROOT / ".data/gamevals/area.rscm"
 BINARY_GAMEVALS = ROOT / ".data/gamevals-binary/gamevals.dat"
@@ -42,6 +43,8 @@ MUSIC_HEADER = """# Music per region in dodian mode. Run `gradlew buildCache` af
 NPC_HEADER = """# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
 # editor rewrites the whole file (comments included) when you save it there.
 # coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
 """
 
 AREA_HEADER = """# Music regions drawn with tools/dodian-editor. This file is rewritten on every save;
@@ -138,7 +141,14 @@ def npc_state():
         spawns = []
         for spawn in load_toml(path).get("spawn", []):
             level, mx, mz, lx, lz = (int(v) for v in str(spawn["coords"]).split("_"))
-            spawns.append({"npc": spawn["npc"], "x": mx * 64 + lx, "y": mz * 64 + lz, "level": level})
+            spawns.append({
+                "npc": spawn["npc"],
+                "x": mx * 64 + lx,
+                "y": mz * 64 + lz,
+                "level": level,
+                "face": str(spawn["face"]).replace("_", "").lower() if "face" in spawn else None,
+                "wander": int(spawn["wander"]) if "wander" in spawn else None,
+            })
         files[path.name] = spawns
     return {"maps": maps, "npcs": npcs, "files": files}
 
@@ -152,6 +162,11 @@ def npc_save(payload):
         for spawn in spawns:
             if spawn.get("npc") not in known:
                 raise ValueError(f"Onbekende NPC '{spawn.get('npc')}' in {name}.")
+            if spawn.get("face") not in (None, "") and spawn["face"] not in DIRECTIONS:
+                raise ValueError(f"Onbekende richting '{spawn['face']}' in {name}.")
+            wander = spawn.get("wander")
+            if wander not in (None, "") and not (isinstance(wander, int) and 0 <= wander <= 64):
+                raise ValueError(f"Wander moet een getal van 0 t/m 64 zijn (in {name}).")
     for name in payload.get("deleted", []):
         path = NPC_DIR / name
         if NPC_FILE_PATTERN.match(name) and path.is_file():
@@ -162,7 +177,12 @@ def npc_save(payload):
             x, y, level = int(spawn["x"]), int(spawn["y"]), int(spawn.get("level", 0))
             lines.append("[[spawn]]")
             lines.append(f'npc = "{spawn["npc"]}"')
-            lines.append(f'coords = "{level}_{x >> 6}_{y >> 6}_{x & 63}_{y & 63}"\n')
+            lines.append(f'coords = "{level}_{x >> 6}_{y >> 6}_{x & 63}_{y & 63}"')
+            if spawn.get("face"):
+                lines.append(f'face = "{spawn["face"]}"')
+            if spawn.get("wander") not in (None, ""):
+                lines.append(f"wander = {int(spawn['wander'])}")
+            lines.append("")
         (NPC_DIR / name).write_text("\n".join(lines), encoding="utf-8", newline="\n")
     return {"ok": True}
 

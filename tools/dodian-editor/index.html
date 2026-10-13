@@ -130,6 +130,11 @@
   .pick .info { flex: 1; min-width: 0; }
   .pick .title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .pick .sub { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dir-grid { display: grid; grid-template-columns: repeat(3, 34px); gap: 3px; }
+  .dir-grid button { padding: 4px 0; font-size: 15px; line-height: 1; }
+  .dir-grid button.active { background: var(--accent); color: #1b1712; border-color: var(--accent); }
+  .spawn-settings { display: flex; gap: 16px; align-items: flex-start; margin: 4px 0 10px; }
+  .spawn-settings input[type=number] { width: 70px; font: inherit; color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 4px 6px; }
   .selected-box { background: var(--panel-2); border: 1px solid var(--accent-dim); border-radius: 4px; padding: 8px; margin-bottom: 8px; }
   kbd {
     font: 11px ui-monospace, Consolas, monospace; background: var(--panel-2);
@@ -801,6 +806,16 @@ let placing = false;
 let placeLevel = 0;
 let selectedSpawn = null;
 let npcDrag = null;
+let lastSettings = { face: null, wander: null };
+const DIRECTIONS = [
+  ["northwest", "↖", -1, 1], ["north", "↑", 0, 1], ["northeast", "↗", 1, 1],
+  ["west", "←", -1, 0], [null, "·", 0, 0], ["east", "→", 1, 0],
+  ["southwest", "↙", -1, -1], ["south", "↓", 0, -1], ["southeast", "↘", 1, -1],
+];
+const DIRECTION_NAMES = {
+  north: "noord", northeast: "noordoost", east: "oost", southeast: "zuidoost",
+  south: "zuid", southwest: "zuidwest", west: "west", northwest: "noordwest",
+};
 
 function setMode(next) {
   mode = next;
@@ -884,6 +899,8 @@ function drawNpcs() {
       ctx.lineWidth = isSelected ? 3 : 1.5;
       ctx.strokeStyle = isSelected ? "#ffffff" : "#000000";
       ctx.stroke();
+      if (spawn.face) drawFaceArrow(spawn.face, x, y, r);
+      if (isSelected && spawn.wander > 0) drawWander(spawn);
       if (tile >= 10 || isSelected) {
         const name = npcInfo(spawn.npc).name;
         ctx.font = "600 12px system-ui, sans-serif";
@@ -906,6 +923,44 @@ function drawNpcs() {
     ctx.fill();
     ctx.globalAlpha = 1;
   }
+}
+
+function drawFaceArrow(face, x, y, r) {
+  const dir = DIRECTIONS.find((d) => d[0] === face);
+  if (!dir) return;
+  const length = Math.hypot(dir[2], dir[3]);
+  const dx = dir[2] / length, dy = -dir[3] / length;
+  const tip = r + Math.max(6, r * 0.9);
+  ctx.beginPath();
+  ctx.moveTo(x + dx * tip, y + dy * tip);
+  ctx.lineTo(x + dx * r * 0.6 - dy * r * 0.55, y + dy * r * 0.6 + dx * r * 0.55);
+  ctx.lineTo(x + dx * r * 0.6 + dy * r * 0.55, y + dy * r * 0.6 - dx * r * 0.55);
+  ctx.closePath();
+  ctx.fillStyle = "#ffffff";
+  ctx.fill();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#000000";
+  ctx.stroke();
+}
+
+function drawWander(spawn) {
+  const tile = currentMap().ppt * view.zoom;
+  const [sx, sy] = tileToScreen(spawn.x - spawn.wander, spawn.y + spawn.wander);
+  const size = (spawn.wander * 2 + 1) * tile;
+  ctx.setLineDash([5, 4]);
+  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = "#ffffff";
+  ctx.strokeRect(sx - tile / 2, sy - tile / 2, size, size);
+  ctx.fillStyle = "rgba(255,255,255,.08)";
+  ctx.fillRect(sx - tile / 2, sy - tile / 2, size, size);
+  ctx.setLineDash([]);
+}
+
+function spawnSettingsText(spawn) {
+  const parts = [];
+  if (spawn.face) parts.push(`kijkt ${DIRECTION_NAMES[spawn.face]}`);
+  if (spawn.wander !== null && spawn.wander !== undefined) parts.push(spawn.wander === 0 ? "staat stil" : `wander ${spawn.wander}`);
+  return parts.length ? " · " + parts.join(" · ") : "";
 }
 
 function spawnAt(sx, sy) {
@@ -939,7 +994,7 @@ function npcMouseDown(sx, sy) {
   }
   if (placing && brush && currentFile) {
     const [x, y] = screenToTile(sx, sy);
-    npcFiles[currentFile].push({ npc: brush, x, y, level: placeLevel });
+    npcFiles[currentFile].push({ npc: brush, x, y, level: placeLevel, face: lastSettings.face, wander: lastSettings.wander });
     selectedSpawn = { file: currentFile, index: npcFiles[currentFile].length - 1 };
     markNpcDirty(currentFile);
     renderSpawnList();
@@ -1037,13 +1092,20 @@ function renderSpawnList() {
     ? `<div class="empty">Maak eerst een bestand met “+ Nieuw”.</div>`
     : visible.length
       ? visible.map(([s, i]) => `<div class="pick${selectedSpawn && selectedSpawn.file === currentFile && selectedSpawn.index === i ? " chosen" : ""}" data-spawn="${i}">
-          <div class="info"><div class="title">${escapeHtml(npcTitle(s.npc))}</div><div class="sub">x ${s.x}, y ${s.y}, verdieping ${s.level}</div></div>
+          <div class="info"><div class="title">${escapeHtml(npcTitle(s.npc))}</div><div class="sub">x ${s.x}, y ${s.y}, verdieping ${s.level}${spawnSettingsText(s)}</div></div>
           <button class="icon danger" data-spawn-del="${i}" title="Verwijderen">×</button></div>`).join("")
       : `<div class="empty">${spawns.length ? "Niets gevonden." : "Nog geen spawns in dit bestand."}</div>`;
   const sel = selectedSpawn && npcFiles[selectedSpawn.file] && npcFiles[selectedSpawn.file][selectedSpawn.index];
   $("spawnSelected").innerHTML = sel
     ? `<div class="selected-box"><div><b>${escapeHtml(npcTitle(sel.npc))}</b></div>
         <div class="note" style="margin:2px 0 8px">x ${sel.x}, y ${sel.y}, verdieping ${sel.level} · ${escapeHtml(selectedSpawn.file)}</div>
+        <div class="spawn-settings">
+          <div><div class="note" style="margin:0 0 4px">Kijkrichting</div>
+            <div class="dir-grid">${DIRECTIONS.map(([name, arrow]) => `<button data-face="${name ?? ""}" class="${(sel.face ?? null) === name ? "active" : ""}" title="${name ? DIRECTION_NAMES[name] : "standaard van het NPC-type"}">${arrow}</button>`).join("")}</div></div>
+          <div><div class="note" style="margin:0 0 4px">Wander (tegels)</div>
+            <input type="number" id="spawnWander" min="0" max="64" placeholder="standaard" value="${sel.wander ?? ""}">
+            <div class="note">0 = staat stil<br>leeg = standaard</div></div>
+        </div>
         <div class="row"><button id="spawnReplace" ${brush && brush !== sel.npc ? "" : "disabled"}>Vervang door gekozen NPC</button>
         <button id="spawnDelete" class="danger">Verwijderen</button></div></div>`
     : "";
@@ -1070,6 +1132,16 @@ $("npcPanel").addEventListener("click", (event) => {
     centerOn(spawn.x, spawn.y);
     return;
   }
+  const faceButton = event.target.closest("[data-face]");
+  if (faceButton && selectedSpawn) {
+    const spawn = npcFiles[selectedSpawn.file][selectedSpawn.index];
+    spawn.face = faceButton.dataset.face || null;
+    lastSettings = { face: spawn.face, wander: spawn.wander ?? null };
+    markNpcDirty(selectedSpawn.file);
+    renderSpawnList();
+    draw();
+    return;
+  }
   if (event.target.id === "spawnDelete" && selectedSpawn) removeSpawn(selectedSpawn);
   if (event.target.id === "spawnReplace" && selectedSpawn && brush) {
     npcFiles[selectedSpawn.file][selectedSpawn.index].npc = brush;
@@ -1080,6 +1152,16 @@ $("npcPanel").addEventListener("click", (event) => {
 });
 
 $("npcSearch").addEventListener("input", renderNpcResults);
+$("npcPanel").addEventListener("change", (event) => {
+  if (event.target.id !== "spawnWander" || !selectedSpawn) return;
+  const spawn = npcFiles[selectedSpawn.file][selectedSpawn.index];
+  const text = event.target.value.trim();
+  spawn.wander = text === "" ? null : Math.max(0, Math.min(64, Math.round(Number(text)) || 0));
+  lastSettings = { face: spawn.face ?? null, wander: spawn.wander };
+  markNpcDirty(selectedSpawn.file);
+  renderSpawnList();
+  draw();
+});
 $("spawnFilter").addEventListener("input", renderSpawnList);
 $("npcFile").addEventListener("change", (e) => {
   currentFile = e.target.value || null;
