@@ -130,9 +130,9 @@ public class DodianQuests : CacheTask() {
         writeIndex(cache, 0, master)
 
         val ownIds = rows.map { it.id }.toSet()
-        val columnCount = cache.files(DBTABLEINDEX, QUEST_TABLE).count() - 1
-        for (column in 0 until columnCount) {
-            val index = readIndex(cache, column + 1)
+        for (file in cache.files(DBTABLEINDEX, QUEST_TABLE).filter { it > 0 }) {
+            val column = file - 1
+            val index = readIndex(cache, file)
             if (index.columns.isEmpty()) {
                 continue
             }
@@ -157,7 +157,7 @@ public class DodianQuests : CacheTask() {
                         buckets[tuple].filterValues { it.isNotEmpty() }.mapValues { it.value.sorted() },
                     )
                 }
-            writeIndex(cache, column + 1, DBTableIndexType(columns = updated))
+            writeIndex(cache, file, DBTableIndexType(columns = updated))
         }
     }
 
