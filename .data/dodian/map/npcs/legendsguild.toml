@@ -1,0 +1,156 @@
+# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
+
+[[spawn]]
+npc = "npc.dwarf_normal"
+coords = "0_42_51_8_1"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_falador_dwarf_normal3"
+coords = "0_42_51_5_5"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_falador_dwarf_normal1"
+coords = "0_42_51_6_10"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_falador_dwarf_normal2"
+coords = "0_42_51_14_1"
+wander = 5
+
+[[spawn]]
+npc = "npc.dwarf_normal"
+coords = "0_42_51_18_4"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_falador_dwarf_normal3"
+coords = "0_42_50_21_61"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_falador_dwarf_normal1"
+coords = "0_42_50_28_63"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_falador_dwarf_normal2"
+coords = "0_42_50_24_57"
+wander = 5
+
+[[spawn]]
+npc = "npc.dwarf_rock_avatar_mage_green"
+coords = "0_42_52_56_3"
+wander = 10
+
+[[spawn]]
+npc = "npc.zamorak_mage"
+coords = "0_42_52_53_16"
+wander = 5
+
+[[spawn]]
+npc = "npc.zamorak_mage"
+coords = "0_42_52_44_9"
+wander = 5
+
+[[spawn]]
+npc = "npc.zamorak_mage"
+coords = "0_42_51_51_60"
+wander = 5
+
+[[spawn]]
+npc = "npc.saradomin_mage"
+coords = "0_42_52_50_11"
+wander = 5
+
+[[spawn]]
+npc = "npc.saradomin_mage"
+coords = "0_42_52_38_7"
+wander = 5
+
+[[spawn]]
+npc = "npc.saradomin_mage"
+coords = "0_42_51_58_60"
+wander = 5
+
+[[spawn]]
+npc = "npc.guthix_mage"
+coords = "0_42_52_57_11"
+wander = 5
+
+[[spawn]]
+npc = "npc.guthix_mage"
+coords = "0_42_52_45_4"
+wander = 5
+
+[[spawn]]
+npc = "npc.guthix_mage"
+coords = "0_42_52_42_0"
+wander = 5
+
+[[spawn]]
+npc = "npc.legends_guild_guard1"
+coords = "0_42_51_39_21"
+wander = 0
+
+[[spawn]]
+npc = "npc.legends_guild_guard2"
+coords = "0_42_51_42_21"
+face = "south"
+wander = 0
+
+[[spawn]]
+npc = "npc.unicorn"
+coords = "0_42_51_18_62"
+wander = 10
+
+[[spawn]]
+npc = "npc.unicorn"
+coords = "0_42_51_18_55"
+wander = 10
+
+[[spawn]]
+npc = "npc.unicorn"
+coords = "0_42_51_12_61"
+wander = 10
+
+[[spawn]]
+npc = "npc.unicorn"
+coords = "0_42_52_9_7"
+wander = 10
+
+[[spawn]]
+npc = "npc.unicorn"
+coords = "0_42_51_3_61"
+wander = 10
+
+[[spawn]]
+npc = "npc.darkbear"
+coords = "0_42_51_7_27"
+wander = 10
+
+[[spawn]]
+npc = "npc.darkbear"
+coords = "0_42_51_6_34"
+wander = 10
+
+[[spawn]]
+npc = "npc.darkbear"
+coords = "0_42_51_7_39"
+wander = 10
+
+[[spawn]]
+npc = "npc.darkbear"
+coords = "0_42_51_14_40"
+wander = 10
+
+[[spawn]]
+npc = "npc.darkbear"
+coords = "0_42_51_15_33"
+wander = 10

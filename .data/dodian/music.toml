@@ -153,3 +153,10 @@ area = "area.dodian_regio_22"
 tracks = [
     "dbrow.music_zaniks_theme",
 ]
+
+[[region]]
+area = "area.dodian_regio_23"
+tracks = [
+    "dbrow.music_attention",
+    "dbrow.music_emperor",
+]

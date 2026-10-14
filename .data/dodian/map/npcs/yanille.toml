@@ -1,0 +1,707 @@
+# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_41_50_55_22"
+face = "west"
+wander = 0
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_41_50_55_20"
+face = "west"
+wander = 0
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_41_50_55_19"
+wander = 0
+
+[[spawn]]
+npc = "npc.lumbridge_guide"
+coords = "0_41_50_48_29"
+wander = 3
+
+[[spawn]]
+npc = "npc.giantrat"
+coords = "0_41_50_47_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.giantrat"
+coords = "0_41_50_49_51"
+wander = 5
+
+[[spawn]]
+npc = "npc.giantrat2"
+coords = "0_41_50_42_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.giantrat2"
+coords = "0_41_50_48_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.giantrat3"
+coords = "0_41_50_42_54"
+wander = 5
+
+[[spawn]]
+npc = "npc.giantrat3"
+coords = "0_41_50_37_51"
+wander = 5
+
+[[spawn]]
+npc = "npc.giantrat"
+coords = "0_41_50_36_44"
+wander = 5
+
+[[spawn]]
+npc = "npc.giantrat2"
+coords = "0_41_50_33_50"
+wander = 5
+
+[[spawn]]
+npc = "npc.giantrat3"
+coords = "0_41_50_54_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.generalshopkeeper1"
+coords = "0_41_50_34_34"
+wander = 3
+
+[[spawn]]
+npc = "npc.bim_aubury"
+coords = "0_41_50_30_13"
+wander = 3
+
+[[spawn]]
+npc = "npc.horvik_the_armourer"
+coords = "0_41_50_54_8"
+wander = 3
+
+[[spawn]]
+npc = "npc.lowe"
+coords = "0_40_50_60_28"
+wander = 3
+
+[[spawn]]
+npc = "npc.swordshop1"
+coords = "0_40_50_47_7"
+wander = 3
+
+[[spawn]]
+npc = "npc.peksa"
+coords = "0_41_50_16_8"
+wander = 3
+
+[[spawn]]
+npc = "npc.hero"
+coords = "0_40_50_44_24"
+wander = 3
+
+[[spawn]]
+npc = "npc.hero"
+coords = "0_40_50_47_22"
+wander = 3
+
+[[spawn]]
+npc = "npc.hero"
+coords = "0_40_50_44_20"
+wander = 3
+
+[[spawn]]
+npc = "npc.hero"
+coords = "0_40_50_46_18"
+wander = 3
+
+[[spawn]]
+npc = "npc.hero"
+coords = "0_40_50_44_16"
+wander = 3
+
+[[spawn]]
+npc = "npc.hero"
+coords = "0_41_50_52_32"
+wander = 3
+
+[[spawn]]
+npc = "npc.hero"
+coords = "0_41_50_58_31"
+wander = 3
+
+[[spawn]]
+npc = "npc.hero_f"
+coords = "0_41_50_55_31"
+wander = 3
+
+[[spawn]]
+npc = "npc.hero_f"
+coords = "0_40_50_48_20"
+wander = 3
+
+[[spawn]]
+npc = "npc.woman"
+coords = "0_40_50_54_8"
+wander = 3
+
+[[spawn]]
+npc = "npc.woman2"
+coords = "0_40_50_59_20"
+wander = 3
+
+[[spawn]]
+npc = "npc.woman3"
+coords = "0_40_50_52_16"
+wander = 3
+
+[[spawn]]
+npc = "npc.man"
+coords = "0_40_50_56_6"
+wander = 3
+
+[[spawn]]
+npc = "npc.man2"
+coords = "0_40_50_57_9"
+wander = 3
+
+[[spawn]]
+npc = "npc.man3"
+coords = "0_40_50_60_15"
+wander = 3
+
+[[spawn]]
+npc = "npc.man4"
+coords = "0_40_50_54_20"
+wander = 3
+
+[[spawn]]
+npc = "npc.dragon_bartender"
+coords = "0_40_50_59_6"
+wander = 3
+
+[[spawn]]
+npc = "npc.frenita"
+coords = "0_41_50_6_25"
+wander = 3
+
+[[spawn]]
+npc = "npc.baker_merchant_ardougne"
+coords = "0_41_50_20_31"
+wander = 5
+
+[[spawn]]
+npc = "npc.baker_merchant_ardougne"
+coords = "0_41_50_21_31"
+wander = 5
+
+[[spawn]]
+npc = "npc.silk_merchant_ardougne"
+coords = "0_41_50_22_31"
+wander = 5
+
+[[spawn]]
+npc = "npc.silk_merchant_ardougne"
+coords = "0_41_50_20_30"
+wander = 5
+
+[[spawn]]
+npc = "npc.silk_merchant_ardougne"
+coords = "0_41_50_23_30"
+wander = 5
+
+[[spawn]]
+npc = "npc.silk_merchant_ardougne"
+coords = "0_41_50_22_29"
+wander = 5
+
+[[spawn]]
+npc = "npc.gem_merchant_ardougne"
+coords = "0_41_50_22_27"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_40_50_52_48"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_40_50_56_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_40_50_56_44"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_40_50_58_40"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_40_50_61_44"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_1_40"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_1_48"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_0_54"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_4_58"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_9_62"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_15_61"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_10_55"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_18_56"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_20_49"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_15_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_19_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_watchman"
+coords = "0_41_50_9_41"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_1"
+coords = "0_42_50_11_53"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_1"
+coords = "0_42_50_4_37"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_1"
+coords = "0_42_50_1_9"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_2"
+coords = "0_42_50_7_51"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_2"
+coords = "0_42_50_4_33"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_2"
+coords = "0_42_50_4_12"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_3"
+coords = "0_42_50_9_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_3"
+coords = "0_42_50_2_29"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_3"
+coords = "0_42_50_3_7"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_3"
+coords = "0_42_50_4_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_3"
+coords = "0_42_50_5_26"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_3"
+coords = "0_42_50_6_3"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_5"
+coords = "0_42_50_6_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_5"
+coords = "0_42_50_1_23"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_5"
+coords = "0_42_50_9_13"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_6"
+coords = "0_42_50_1_40"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_6"
+coords = "0_42_50_5_21"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_6"
+coords = "0_42_50_0_4"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_7"
+coords = "0_42_50_17_14"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_7"
+coords = "0_42_50_1_19"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_7"
+coords = "0_42_50_13_49"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_7"
+coords = "0_42_50_8_17"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_7"
+coords = "0_41_50_62_34"
+wander = 5
+
+[[spawn]]
+npc = "npc.goblin_unarmed_melee_7"
+coords = "0_42_50_14_55"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_41_50_3_4"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_40_50_62_4"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_40_49_61_63"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_41_49_3_62"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_41_49_12_62"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_41_49_15_55"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_40_49_60_59"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_40_49_55_55"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_41_49_3_57"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_41_49_4_50"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_41_49_6_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_40_49_62_52"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_40_49_62_43"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_41_49_7_39"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_41_49_14_43"
+wander = 5
+
+[[spawn]]
+npc = "npc.yanille_soldier"
+coords = "0_41_49_18_49"
+wander = 5
+
+[[spawn]]
+npc = "npc.monk"
+coords = "0_40_49_52_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.monk"
+coords = "0_40_49_55_41"
+wander = 5
+
+[[spawn]]
+npc = "npc.mossgiant"
+coords = "0_40_49_59_29"
+wander = 5
+
+[[spawn]]
+npc = "npc.mossgiant"
+coords = "0_41_49_9_24"
+wander = 5
+
+[[spawn]]
+npc = "npc.mossgiant2"
+coords = "0_41_49_5_32"
+wander = 5
+
+[[spawn]]
+npc = "npc.mossgiant2"
+coords = "0_40_49_62_23"
+wander = 5
+
+[[spawn]]
+npc = "npc.mossgiant3"
+coords = "0_41_49_3_17"
+wander = 5
+
+[[spawn]]
+npc = "npc.mossgiant3"
+coords = "0_41_49_4_28"
+wander = 5
+
+[[spawn]]
+npc = "npc.mossgiant4"
+coords = "0_40_49_61_35"
+wander = 5
+
+[[spawn]]
+npc = "npc.mossgiant4"
+coords = "0_40_49_62_12"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_49_31_40"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_49_39_49"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_49_46_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_49_55_48"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_49_58_39"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_49_61_44"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_49_45_51"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_41_49_33_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_41_49_40_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_41_49_48_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_41_49_52_41"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_41_49_60_49"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_ogre"
+coords = "0_40_50_6_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_ogre"
+coords = "0_40_50_5_37"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_ogre"
+coords = "0_40_50_16_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_ogre"
+coords = "0_40_50_11_34"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_ogre"
+coords = "0_40_50_11_44"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_ogre"
+coords = "0_40_50_9_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.water_wizard"
+coords = "0_40_50_7_23"
+wander = 5
+
+[[spawn]]
+npc = "npc.water_wizard"
+coords = "0_40_50_15_27"
+wander = 5
+
+[[spawn]]
+npc = "npc.air_wizard"
+coords = "0_40_50_26_22"
+wander = 5
+
+[[spawn]]
+npc = "npc.air_wizard"
+coords = "0_40_50_31_14"
+wander = 5
+
+[[spawn]]
+npc = "npc.earth_wizard"
+coords = "0_40_50_28_2"
+wander = 5
+
+[[spawn]]
+npc = "npc.earth_wizard"
+coords = "0_40_49_24_62"
+wander = 5
+
+[[spawn]]
+npc = "npc.fire_wizard"
+coords = "0_40_50_8_0"
+wander = 5
+
+[[spawn]]
+npc = "npc.fire_wizard"
+coords = "0_40_50_4_5"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_demon"
+coords = "0_40_50_16_13"
+wander = 10
+
+[[spawn]]
+npc = "npc.giantspider1"
+coords = "0_40_50_36_45"
+wander = 10
+
+[[spawn]]
+npc = "npc.giantspider1"
+coords = "0_40_49_41_61"
+wander = 10

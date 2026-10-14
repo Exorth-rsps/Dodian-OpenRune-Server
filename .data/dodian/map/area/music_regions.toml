@@ -507,3 +507,18 @@ vertices = [
     [2689, 3403],
     [2689, 3443],
 ]
+
+[[area]]
+name = "Music: dodian_regio_23"
+area_id = "area.dodian_regio_23"
+levels = [0, 1, 2, 3]
+
+[[area.polygons]]
+vertices = [
+    [2464, 3357],
+    [2495, 3357],
+    [2497, 3353],
+    [2496, 3336],
+    [2484, 3330],
+    [2475, 3331],
+]
