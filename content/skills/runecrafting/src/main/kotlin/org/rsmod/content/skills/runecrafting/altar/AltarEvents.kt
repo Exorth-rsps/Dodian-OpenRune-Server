@@ -14,6 +14,7 @@ import org.rsmod.api.script.onOpLocU
 import org.rsmod.api.script.onPlayerLogin
 import org.rsmod.api.stats.xpmod.XpModifiers
 import org.rsmod.api.table.runecrafting.RunecraftingAltarsRow
+import org.rsmod.content.skills.runecrafting.RunecraftingGates
 import org.rsmod.content.skills.runecrafting.action.RunecraftAction.craftOurania
 import org.rsmod.content.skills.runecrafting.action.RunecraftAction.craftRune
 import org.rsmod.map.CoordGrid
@@ -44,17 +45,11 @@ class AltarEvents @Inject constructor(
     }
 
     private fun ScriptContext.registerElementalCatalyticAccess(altars: List<RunecraftingAltarsRow>) {
-        val elementalEntrances =
-            altars
-                .filter { it.altarObject.internalName in elementalAltarLocs }
-                .mapNotNull { row -> row.entrance?.let { row.altarObject.internalName to it } }
-                .toMap()
+        val elementalAltars =
+            altars.filter { it.altarObject.internalName in elementalAltarLocs && it.entrance != null }
 
-        val catalyticEntrances =
-            altars
-                .filter { it.altarObject.internalName in catalyticAltarLocs }
-                .mapNotNull { row -> row.entrance?.let { row.altarObject.internalName to it } }
-                .toMap()
+        val catalyticAltars =
+            altars.filter { it.altarObject.internalName in catalyticAltarLocs && it.entrance != null }
 
         listOf(
             "loc.airtemple_ruined_old",
@@ -67,8 +62,11 @@ class AltarEvents @Inject constructor(
             "loc.firetemple_ruined_new"
         ).forEach { ruin ->
             onOpLocU(ruin, "obj.elemental_talisman") {
-                val entrance = nearestEntrance(elementalEntrances) ?: return@onOpLocU
-                telejump(entrance)
+                val altar = nearestAltar(elementalAltars) ?: return@onOpLocU
+                if (refusedByGate()) {
+                    return@onOpLocU
+                }
+                telejump(checkNotNull(altar.entrance))
             }
         }
 
@@ -91,19 +89,22 @@ class AltarEvents @Inject constructor(
             "loc.wrathtemple_ruined_1op"
         ).forEach { ruin ->
             onOpLocU(ruin, "obj.catalytic_talisman") {
-                val entrance = nearestEntrance(catalyticEntrances) ?: return@onOpLocU
-                telejump(entrance)
+                val altar = nearestAltar(catalyticAltars) ?: return@onOpLocU
+                if (refusedByGate()) {
+                    return@onOpLocU
+                }
+                telejump(checkNotNull(altar.entrance))
             }
         }
 
         onOpHeld4("obj.elemental_talisman") {
-            val entrance = nearestEntrance(elementalEntrances) ?: return@onOpHeld4
-            locateAltar(entrance)
+            val altar = nearestAltar(elementalAltars) ?: return@onOpHeld4
+            locateAltar(surface(altar) ?: return@onOpHeld4)
         }
 
         onOpHeld4("obj.catalytic_talisman") {
-            val entrance = nearestEntrance(catalyticEntrances) ?: return@onOpHeld4
-            locateAltar(entrance)
+            val altar = nearestAltar(catalyticAltars) ?: return@onOpHeld4
+            locateAltar(surface(altar) ?: return@onOpHeld4)
         }
     }
 
@@ -147,7 +148,7 @@ class AltarEvents @Inject constructor(
         val exit = altar.exit ?: return
         onOpLoc1(exitPortal.internalName) {
             mes("You step through the portal...", ChatType.Spam)
-            telejump(exit)
+            telejump(surface(altar) ?: exit)
             soundSynth("synth.teleport_all")
         }
     }
@@ -175,11 +176,20 @@ class AltarEvents @Inject constructor(
         val entrance = altar.exit ?: return
         val talisman = altar.talisman ?: return
         onOpHeld4(talisman.internalName) {
-            locateAltar(entrance)
+            locateAltar(surface(altar) ?: entrance)
         }
     }
 
+    private fun ProtectedAccess.refusedByGate(): Boolean {
+        val refusal = RunecraftingGates.refusal(player) ?: return false
+        mes(refusal)
+        return true
+    }
+
     private fun ProtectedAccess.enterRuins(entrance: CoordGrid) {
+        if (refusedByGate()) {
+            return
+        }
         mes("You feel a powerful force take hold of you...", ChatType.Spam)
         telejump(entrance)
         soundSynth("synth.teleport_all")
@@ -219,16 +229,17 @@ class AltarEvents @Inject constructor(
             "obj.skillcape_runecrafting_trimmed" in player.worn ||
             "obj.skillcape_max" in player.worn
 
-    private fun ProtectedAccess.nearestEntrance(entrances: Map<String, CoordGrid>): CoordGrid? {
-        if (entrances.isEmpty()) {
-            return null
-        }
-        return entrances.values.minByOrNull { entrance ->
-            val dx = entrance.x - player.coords.x
-            val dz = entrance.z - player.coords.z
+    /** Where an altar's ruins stand in the world: the Dodian override, else its exit portal tile. */
+    private fun surface(altar: RunecraftingAltarsRow): CoordGrid? =
+        RunecraftingGates.altarExit(altar.altarObject.internalName) ?: altar.exit
+
+    private fun ProtectedAccess.nearestAltar(altars: List<RunecraftingAltarsRow>): RunecraftingAltarsRow? =
+        altars.minByOrNull { altar ->
+            val ruins = surface(altar) ?: return@minByOrNull Long.MAX_VALUE
+            val dx = (ruins.x - player.coords.x).toLong()
+            val dz = (ruins.z - player.coords.z).toLong()
             dx * dx + dz * dz
         }
-    }
 
     private companion object {
         val elementalAltarLocs =

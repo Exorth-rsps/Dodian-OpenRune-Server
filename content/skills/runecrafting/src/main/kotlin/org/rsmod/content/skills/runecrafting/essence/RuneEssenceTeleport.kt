@@ -4,6 +4,7 @@ import org.rsmod.api.player.dialogue.Dialogue
 import org.rsmod.api.player.output.soundSynth
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.script.onOpLoc1
+import org.rsmod.content.skills.runecrafting.RunecraftingGates
 import org.rsmod.game.entity.Npc
 import org.rsmod.map.CoordGrid
 import org.rsmod.plugin.scripts.PluginScript
@@ -70,6 +71,11 @@ suspend fun Dialogue.teleportToMainLand() {
     access.spotanim("spotanim.curse_impact", delay = 15, height = 124)
     player.soundSynth("synth.teleport_all", delay = 15)
     delay(1)
+    val exit = RunecraftingGates.essenceMineExit(player)
+    if (exit != null) {
+        access.telejump(exit)
+        return
+    }
     when (player.vars["varbit.essencemine_portal"]) {
         0 -> access.telejump(EssencePortals.sedridorDest())
         1 -> access.telejump(EssencePortals.auburyDest())
