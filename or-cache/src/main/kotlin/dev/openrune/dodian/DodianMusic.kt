@@ -13,7 +13,7 @@ import java.io.File
  */
 public object DodianMusic {
     private val musicFile = File("../.data/dodian/music.toml")
-    private const val FIRST_ROW_ID = 63300
+    private const val FIRST_ROW_ID = 63000
 
     public fun modern(upstream: DBTable): DBTable {
         if (!DodianMapPaths.isDodian) {
