@@ -34,7 +34,7 @@ public object DodianMapPaths {
         }
         val packDir = File("../.data/raw-cache/map/dodian")
         return listOf(DodianMapClear(packDir), PackMaps(packDir), DodianWorldMap(packDir, File("../.data/dodian/worldmap/labels.toml")),
-            DodianEditorExport(packDir))
+            DodianEditorExport(packDir), DodianQuests())
     }
 
     public fun configDirectories(): List<File> {

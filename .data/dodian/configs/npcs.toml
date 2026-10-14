@@ -32,3 +32,8 @@ ranged = 0
 magic = 110
 respawnRate = 500
 wanderRange = 0
+
+[[npc]]
+id = "npc.gem_merchant_ardougne"
+inherit = "npc.gem_merchant_ardougne"
+name = "Gem trader"

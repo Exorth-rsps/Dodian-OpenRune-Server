@@ -1,8 +1,5 @@
 package org.rsmod.content.quest.manager
 
-import dev.openrune.rscm.RSCM.asRSCM
-import dev.openrune.rscm.RSCMType
-import org.rsmod.api.player.output.runClientScript
 import org.rsmod.api.player.vars.intVarBit
 import org.rsmod.api.script.onPlayerLogin
 import org.rsmod.api.table.QuestRow
@@ -12,23 +9,13 @@ import org.rsmod.plugin.scripts.ScriptContext
 
 private const val MINIQUEST_TYPE = 1
 
-/** An empty list means "no filter" to the client, so a lone separator hides every quest. */
-private const val NO_QUESTS = ","
-
 /**
- * Pushes the ids of every quest that has a server-side implementation to the client on login. The
- * overridden `[proc,questlist_hide_quest]` hides any quest journal row whose id is missing from that
- * list, and the quest point / completion totals are lowered to match, so the quest tab only counts
- * quests that can actually be played.
+ * Sends the quest tab filter ([QuestClientSync]) on login and lowers the quest point / completion
+ * totals to match, so the quest tab only counts quests that can actually be played.
  */
 class QuestVisibilityScript : PluginScript() {
     private var Player.questPointsMax by intVarBit("varbit.qp_max")
     private var Player.questsTotalCount by intVarBit("varbit.quests_total_count")
-
-    private val availableIds: String by lazy {
-        val quests = Quest.all()
-        if (quests.isEmpty()) NO_QUESTS else quests.joinToString(",", ",", ",") { it.id.toString() }
-    }
 
     private val totalQuestPoints: Int by lazy { Quest.all().sumOf { it.questPoints } }
 
@@ -38,8 +25,7 @@ class QuestVisibilityScript : PluginScript() {
 
     override fun ScriptContext.startup() {
         onPlayerLogin {
-            val script = "clientscript.quest_available_set".asRSCM(RSCMType.CLIENTSCRIPT)
-            player.runClientScript(script, availableIds)
+            QuestClientSync.sync(player)
             player.questPointsMax = totalQuestPoints
             player.questsTotalCount = totalQuests
         }

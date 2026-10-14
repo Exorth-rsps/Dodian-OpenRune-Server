@@ -10,6 +10,7 @@ import org.rsmod.api.script.onOpNpc3
 import org.rsmod.api.script.onOpNpc4
 import org.rsmod.api.script.onOpNpc5
 import org.rsmod.api.shops.Shops
+import org.rsmod.content.slayer.SlayerGates.beforeTalk
 import org.rsmod.content.slayer.core.SlayerTaskManager
 import org.rsmod.content.slayer.dialogue.SlayerMasters
 import org.rsmod.content.slayer.dialogue.SlayerMasters.spriaStart
@@ -35,7 +36,7 @@ class SlayerEvents @Inject constructor(private val shops: Shops) : PluginScript(
             val npcName = RSCM.getReverseMapping(RSCMType.NPC, npcId)
             onOpNpc1(npcName) { handleOp1(it.npc, npcName) }
             onOpNpc3(npcName) { handleOp3(it.npc, npcName) }
-            onOpNpc4(npcName) { openSlayerShop() }
+            onOpNpc4(npcName) { openSlayerShop(it.npc) }
             onOpNpc5(npcName) { handleOp5(npcName) }
         }
     }
@@ -43,6 +44,9 @@ class SlayerEvents @Inject constructor(private val shops: Shops) : PluginScript(
     private suspend fun ProtectedAccess.handleOp1(npc: Npc, internalName: String) {
         focusMaster(internalName)
         startDialogue(npc) {
+            if (beforeTalk(npc.id)) {
+                return@startDialogue
+            }
             when (npc.id) {
                 SlayerMasters.Npc.turael -> turaelStart()
                 SlayerMasters.Npc.krystilia -> krystiliaStart()
@@ -75,7 +79,12 @@ class SlayerEvents @Inject constructor(private val shops: Shops) : PluginScript(
         }
     }
 
-    private fun ProtectedAccess.openSlayerShop() {
+    private suspend fun ProtectedAccess.openSlayerShop(npc: Npc) {
+        val refusal = SlayerGates.refusal(player)
+        if (refusal != null) {
+            startDialogue(npc) { chatNpc(neutral, refusal) }
+            return
+        }
         shops.open(
             player = player,
             title = "Slayer Equipment",

@@ -4,6 +4,7 @@ import com.github.michaelbull.logging.InlineLogger
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.rscm.RSCMType
+import java.util.Locale
 import net.rsprot.protocol.game.outgoing.sound.MidiJingle
 import org.rsmod.api.attr.AttributeKey
 import org.rsmod.api.player.musicClocks
@@ -152,7 +153,8 @@ data class Quest(
 
     fun setQuestStage(access: ProtectedAccess, newStage: Int): Int {
         require(newStage in 0..maxSteps) { "Quest '$key' stage must be within 0..$maxSteps." }
-        val wasCompleted = getQuestStage(access.player) >= maxSteps
+        val previousState = questState(access.player)
+        val wasCompleted = previousState.isCompleted
         storeQuestStage(access, newStage)
 
         // Quest varps store the real stage (0..endstate). Multinpc / journal clients depend on
@@ -163,6 +165,9 @@ data class Quest(
 
         if (!wasCompleted && newStage >= maxSteps) {
             completedQuest(access)
+        }
+        if (questState(access.player) != previousState) {
+            QuestClientSync.sync(access.player)
         }
 
         return newStage
@@ -220,7 +225,7 @@ data class Quest(
                 ?: error("No stat found for $skill")
 
             access.statAdvance(skill, amount)
-            rewardLines.add("${amount.toInt()} ${stat.displayName} XP")
+            rewardLines.add("%,d ${stat.displayName} XP".format(Locale.US, amount.toInt()))
         }
 
         rewards.items.forEach { (item, amount) ->
@@ -229,9 +234,7 @@ data class Quest(
             rewardLines.add(rewards.itemLabels[item] ?: "$amount x ${type.name}")
         }
 
-        rewards.extraText?.let {
-            rewardLines.add(it)
-        }
+        rewardLines.addAll(rewards.extraLines)
 
         val linesToShow = rewardLines.take(6)
 

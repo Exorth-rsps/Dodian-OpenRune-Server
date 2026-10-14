@@ -2,6 +2,7 @@ package org.rsmod.content.slayer.dialogue
 
 import org.rsmod.api.player.dialogue.Dialogue
 import org.rsmod.api.player.protect.ProtectedAccess
+import org.rsmod.content.slayer.SlayerGates
 import org.rsmod.content.slayer.core.AssignmentRoll
 import org.rsmod.content.slayer.core.SlayerCapePerk
 import org.rsmod.content.slayer.core.SlayerTaskManager
@@ -26,6 +27,11 @@ object SlayerAssignmentDialogue {
         masterNpcId: String,
         onAssigned: suspend Dialogue.(taskName: String, count: Int) -> Unit,
     ) {
+        val refusal = SlayerGates.refusal(player)
+        if (refusal != null) {
+            chatNpc(neutral, refusal)
+            return
+        }
         val capeOffer = SlayerTaskManager.rollCapePerkOffer(access, masterNpcId)
         if (capeOffer != null) {
             offerCapePerk(masterNpcId, capeOffer.taskName, onAssigned)

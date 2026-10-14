@@ -1,0 +1,444 @@
+[proc,quest_progress_get](dbrow $dbrow)(int)
+switch_dbrow ($dbrow) {
+    case quest_blackknightsfortress :
+        return(%spy);
+    case quest_cooksassistant :
+        return(%cookquest);
+    case quest_demonslayer :
+        return(%demonslayer_main);
+    case quest_dorics :
+        return(%doricquest);
+    case quest_dragonslayer1 :
+        return(%dragonquest);
+    case quest_ernestthechicken :
+        return(%haunted);
+    case quest_goblindiplomacy :
+        return(%gobdip_main);
+    case quest_impcatcher :
+        return(%imp);
+    case quest_knightssword :
+        return(%squire);
+    case quest_piratestreasure :
+        return(%hunt);
+    case quest_princealirescue :
+        return(%princequest);
+    case quest_restlessghost :
+        return(%prieststart);
+    case quest_romeoandjuliet :
+        return(%rjquest);
+    case quest_runemysteries :
+        return(%runemysteries);
+    case quest_sheepshearer :
+        return(%sheep);
+    case quest_shieldofarrav :
+        return(%shieldofarrav);
+    case quest_vampyreslayer :
+        return(%vampire);
+    case quest_witchspotion :
+        return(%hetty);
+    case quest_misthalinmystery :
+        return(%mistmyst_progress);
+    case quest_corsaircurse :
+        return(%corscurs_progress);
+    case quest_animalmagnetism :
+        return(%anma_main);
+    case quest_betweenarock :
+        return(%dwarfrock_quest);
+    case quest_bigchompybirdhunting :
+        return(%chompybird);
+    case quest_biohazard :
+        return(%biohazard);
+    case quest_cabinfever :
+        return(%fever_quest);
+    case quest_clocktower :
+        return(%cogquest);
+    case quest_contact :
+        return(%contact);
+    case quest_zogreflesheaters :
+        return(%zogre);
+    case quest_creatureoffenkenstrain :
+        return(%creatureoffenkenstrain);
+    case quest_darknessofhallowvale :
+        return(%myq3_main_quest);
+    case quest_deathtothedorgeshuun :
+        return(%dttd_main);
+    case quest_deathplateau :
+        return(%death_equiproom);
+    case quest_deserttreasure :
+        return(%deserttreasure);
+    case quest_deviousminds :
+        return(%devious_main);
+    case quest_digsite :
+        return(%itexamlevel);
+    case quest_druidicritual :
+        return(%druidquest);
+    case quest_dwarfcannon :
+        return(%mcannon);
+    case quest_eadgarsruse :
+        return(%eadgar_quest);
+    case quest_eaglespeak :
+        return(%eaglepeak_quest);
+    case quest_elementalworkshop1 :
+        return(%elementalworkshop);
+    case quest_elementalworkshop2 :
+        return(%elemental_quest_2_main);
+    case quest_enakhraslament :
+        return(%enakh_quest);
+    case quest_enlightenedjourney :
+        return(%zep_quest);
+    case quest_eyesofglouphrie :
+        return(%eyeglo_quest);
+    case quest_fairytale1 :
+        return(%fairy_farmers_quest);
+    case quest_fairytale2 :
+        return(%fairy2_queencure_quest);
+    case quest_familycrest :
+        return(%crestquest);
+    case quest_feud :
+        return(%feud_var);
+    case quest_fightarena :
+        return(%arenaquest);
+    case quest_fishingcontest :
+        return(%fishingcompo);
+    case quest_forgettabletale :
+        return(%forget_quest);
+    case quest_fremenniktrials :
+        return(%viking);
+    case quest_waterfall :
+        return(%waterfall_quest);
+    case quest_gardenoftranquillity :
+        return(%garden_quest);
+    case quest_gertrudescat :
+        return(%fluffs);
+    case quest_ghostsahoy :
+        return(%ahoy_questvar);
+    case quest_giantdwarf :
+        return(%giantdwarf_quest);
+    case quest_golem :
+        return(%golem_a);
+    case quest_grandtree :
+        return(%grandtree);
+    case quest_handinthesand :
+        return(%handsand_quest);
+    case quest_hauntedmine :
+        return(%hauntedmine);
+    case quest_hazeelcult :
+        return(%hazeelcultquest);
+    case quest_heroes :
+        return(%heroquest);
+    case quest_holygrail :
+        return(%grail);
+    case quest_horrorfromthedeep :
+        return(%horrorquest);
+    case quest_icthlarinslittlehelper :
+        return(%ics_little_var);
+    case quest_inaidofthemyreque :
+        return(%myreque_2_quest);
+    case quest_insearchofthemyreque :
+        return(%routequest);
+    case quest_junglepotion :
+        return(%junglepotion);
+    case quest_legends :
+        return(%legendsquest);
+    case quest_lostcity :
+        return(%zanaris);
+    case quest_losttribe :
+        return(%lost_tribe_quest);
+    case quest_lunardiplomacy :
+        return(%lunar_quest_main);
+    case quest_makinghistory :
+        return(%makinghistory_prog);
+    case quest_merlinscrystal :
+        return(%arthur);
+    case quest_monkeymadness1 :
+        return(%mm_main);
+    case quest_monksfriend :
+        return(%drunkmonkquest);
+    case quest_mountaindaughter :
+        return(%mdaughter_quest_var);
+    case quest_mourningsendpart1 :
+        return(%mourning_quest);
+    case quest_mourningsendpart2 :
+        return(%mourning_quest_main);
+    case quest_murdermystery :
+        return(%murderquest);
+    case quest_myarmsbigadventure :
+        return(%myarm);
+    case quest_naturespirit :
+        return(%druidspirit);
+    case quest_observatory :
+        return(%itgronigen);
+    case quest_onesmallfavour :
+        return(%onesmallfavour);
+    case quest_plaguecity :
+        return(%elenaquest);
+    case quest_priestinperil :
+        return(%priestperil);
+    case quest_ragandboneman1 :
+        return(%rag_quest);
+    case quest_ratcatchers :
+        return(%ratcatch_var);
+    case quest_recipefordisaster :
+        return(%hundred_main_quest_var);
+    case subquest_rfd_intro :
+        return(%hundred_main_quest_var);
+    case subquest_rfd_finale :
+        return(%hundred_main_quest_var);
+    case subquest_rfd_dwarf :
+        return(%hundred_dwarf_quest);
+    case subquest_rfd_goblins :
+        return(%100goblin);
+    case subquest_rfd_pirate :
+        return(%100_pirate_quest_var);
+    case subquest_rfd_lumbridgeguide :
+        return(%100guide_prog);
+    case subquest_rfd_evildave :
+        return(%hundred_dave_main);
+    case subquest_rfd_ogre :
+        return(%100_ogre_prog);
+    case subquest_rfd_amikvarze :
+        return(%chickenquest);
+    case subquest_rfd_monkey :
+        return(%hundred_ilm_quest);
+    case quest_recruitmentdrive :
+        return(%rd_main);
+    case quest_regicide :
+        return(%regicide_quest);
+    case quest_rovingelves :
+        return(%roving_elves_quest);
+    case quest_royaltrouble :
+        return(%royal_quest);
+    case quest_rumdeal :
+        return(%deal_quest);
+    case quest_scorpioncatcher :
+        return(%scorpcatcher);
+    case quest_seaslug :
+        return(%seaslugquest);
+    case quest_slugmenace :
+        return(%slug2_main);
+    case quest_shadesofmortton :
+        return(%morttonquest);
+    case quest_shadowofthestorm :
+        return(%agrith_quest);
+    case quest_sheepherder :
+        return(%sheepherderquest);
+    case quest_shilovillage :
+        return(%zombiequeen);
+    case quest_soulsbane :
+        return(%soulbane_prog);
+    case quest_spiritsoftheelid :
+        return(%elidquest);
+    case quest_swansong :
+        return(%swansong);
+    case quest_taibwowannaitrio :
+        return(%tbwt_main);
+    case quest_tailoftwocats :
+        return(%twocats_quest);
+    case quest_tearsofguthix :
+        return(%tog_juna_bowl);
+    case quest_templeofikov :
+        return(%ikov);
+    case quest_throneofmiscellania :
+        return(%misc_quest);
+    case quest_touristtrap :
+        return(%desertrescue);
+    case quest_witchshouse :
+        return(%ballquest);
+    case quest_treegnomevillage :
+        return(%treequest);
+    case quest_tribaltotem :
+        return(%totemquest);
+    case quest_trollromance :
+        return(%troll_love);
+    case quest_trollstronghold :
+        return(%troll_quest);
+    case quest_undergroundpass :
+        return(%upass);
+    case quest_wanted :
+        return(%wanted_main);
+    case quest_watchtower :
+        return(%itwatchtower);
+    case quest_coldwar :
+        return(%peng_quest);
+    case quest_fremennikisles :
+        return(%fris_quest);
+    case quest_toweroflife :
+        return(%tol_prog);
+    case quest_greatbrainrobbery :
+        return(%brain_quest_var);
+    case quest_whatliesbelow :
+        return(%surok_quest);
+    case quest_olafs :
+        return(%olaf_quest_var);
+    case quest_anothersliceofham :
+        return(%slice_quest);
+    case quest_dreammentor :
+        return(%dream_prog);
+    case quest_grimtales :
+        return(%grim_quest);
+    case quest_kingsransom :
+        return(%kr_quest);
+    case quest_monkeymadness2 :
+        return(%mm2_progress);
+    case quest_clientofkourend :
+        return(%veos_progress);
+    case quest_ragandboneman2 :
+        return(%rag_quest);
+    case quest_bonevoyage :
+        return(%fossilquest_progress);
+    case quest_queenofthieves :
+        return(%piscquest);
+    case quest_depthsofdespair :
+        return(%hosidiusquest);
+    case quest_dragonslayer2 :
+        return(%ds2);
+    case quest_taleoftherighteous :
+        return(%shayzienquest);
+    case quest_tasteofhope :
+        return(%myq4);
+    case quest_makingfriendswithmyarm :
+        return(%my2arm_status);
+    case quest_forsakentower :
+        return(%lovaquest);
+    case quest_ascentofarceuus :
+        return(%arcquest);
+    case miniquest_curseoftheemptylord :
+        return(%curseofzaros);
+    case miniquest_enchantedkey :
+        return(%enchantedkey);
+    case miniquest_entertheabyss :
+        return(%abyssal_miniquest);
+    case miniquest_bearyoursoul :
+        return(%arceuus_soulbearer_story);
+    case miniquest_barcrawl :
+        return(%barcrawl_progress);
+    case miniquest_generalsshadow :
+        return(%shadow_maj_main);
+    case miniquest_insearchofknowledge :
+        return(%hosdun_knowledge_search);
+    case miniquest_skippyandthemogres :
+        return(%skippy_state);
+    case miniquest_magearena1 :
+        return(%magearena);
+    case miniquest_lairoftarnrazorlor :
+        return(%lotr_instance_entered);
+    case miniquest_familypest :
+        return(%family_quest_progress);
+    case miniquest_magearena2 :
+        return(%ma2_progress);
+    case miniquest_daddyshome :
+        return(%daddyshome_status);
+    case quest_xmarksthespot :
+        return(%cluequest);
+    case quest_songoftheelves :
+        return(%sote);
+    case quest_fremennikexiles :
+        return(%vikingexile);
+    case quest_sinsofthefather :
+        return(%myq5);
+    case quest_porcineofinterest :
+        return(%porcine);
+    case quest_gettingahead :
+        return(%ga);
+    case quest_belowicemountain :
+        return(%bim);
+    case quest_nightatthetheatre :
+        return(%tobquest);
+    case quest_kingdomdivided :
+        return(%akd);
+    case miniquest_frozendoor :
+        return(%frozen_door);
+    case quest_landofthegoblins :
+        return(%lotg);
+    case miniquest_hopespearswill :
+        return(%hopespear);
+    case quest_templeoftheeye :
+        return(%tote);
+    case quest_beneathcursedsands :
+        return(%bcs);
+    case quest_sleepinggiants :
+        return(%sleeping_giants);
+    case miniquest_intothetombs :
+        return(%itt);
+    case quest_gardenofdeath :
+        return(%tgod);
+    case quest_secretsofthenorth :
+        return(%sotn);
+    case miniquest_hisfaithfulservants :
+        return(%hfs);
+    case quest_deserttreasure2 :
+        return(%dt2);
+    case quest_pathofglouphrie :
+        return(%pog);
+    case quest_childrenofthesun :
+        return(%vmq1);
+    case miniquest_barbariantraining :
+        return(%brut_miniquest);
+    case quest_defenderofvarrock :
+        return(%dov);
+    case quest_whileguthixsleeps :
+        return(%wgs);
+    case quest_twilightspromise :
+        return(%vmq2);
+    case quest_atfirstlight :
+        return(%afl);
+    case quest_perilousmoons :
+        return(%pmoon_quest);
+    case quest_ribbitingtale :
+        return(%frog_quest);
+    case quest_heartofdarkness :
+        return(%vmq3);
+    case quest_deathontheisle :
+        return(%doti);
+    case quest_meatandgreet :
+        return(%mag);
+    case quest_ethicallyacquiredantiquities :
+        return(%eaa);
+    case quest_curseofarrav :
+        return(%coa);
+    case quest_finaldawn :
+        return(%vmq4);
+    case quest_shadowsofcustodia :
+        return(%soc);
+    case miniquest_valetotems :
+        return(%ent_totems_intro);
+    case quest_existentialcrisis :
+        return(%aec);
+    case quest_scrambled :
+        return(%scrambled);
+    case quest_impendingchaos :
+        return(%ic);
+    case quest_learningtheropes :
+        return(%tutorial);
+    case quest_troubledtortugans :
+        return(%tt);
+    case quest_currentaffairs :
+        return(%current_affairs);
+    case quest_pryingtimes :
+        return(%quest_pry);
+    case quest_pandemonium :
+        return(%sailing_intro);
+    case quest_redreef :
+        return(%trr);
+    case quest_burialatsea :
+        return(%bas);
+    case quest_idesofmilk :
+        return(%cowquest);
+    case quest_bloodmoonrises :
+        return(%myq6);
+    case quest_fallenfromgrace :
+        return(%ffg);
+    case quest_ruffsituation :
+        return(%dogquest);
+    case quest_crabquest :
+        return(%crab_main);
+}
+// Quests without a client-side varp: the server marks them in %quest_available_ids.
+if (string_indexof_string(%quest_available_ids, ",c<tostring(db_getfield($dbrow, quest:id, 0))>,", 0) ! -1) {
+    return(db_getfield($dbrow, quest:endstate, 0));
+}
+if (string_indexof_string(%quest_available_ids, ",s<tostring(db_getfield($dbrow, quest:id, 0))>,", 0) ! -1) {
+    def_int $unstarted = db_getfield($dbrow, quest:unstartedstate, 0);
+    return(calc($unstarted + 1));
+}
+return(-1);

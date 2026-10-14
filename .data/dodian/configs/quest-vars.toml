@@ -1,0 +1,14 @@
+# Quest progress vars for the Dodian quests (gamevals in content/dodian).
+
+[[varp]]
+isServerOnly = true
+id = "varp.dodian_slayers_eye"
+scope = "Perm"
+transmit = "Never"
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_slayers_eye_progress"
+varp = "varp.dodian_slayers_eye"
+startBit = 0
+endBit = 7

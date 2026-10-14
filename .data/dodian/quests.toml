@@ -1,0 +1,16 @@
+# Quests in the quest tab in dodian mode. Run `gradlew buildCache` after changes.
+# Each [[quest]] adds a row to the cache's quest table (see or-cache DodianQuests). `row` needs a
+# dbrow gameval in content/dodian/src/main/resources/gamevals.toml; `template` is an OSRS quest whose
+# list columns (release type, type, location, release date, members, difficulty, length) are copied
+# unless set here. startcoord uses the spawn file format: level_mapsquareX_mapsquareZ_localX_localZ.
+
+[[quest]]
+row = "dbrow.quest_slayers_eye"
+template = "dbrow.quest_impcatcher"
+name = "The Slayer's Eye"
+sortname = "Slayer's Eye"
+questpoints = 1
+endstate = 6
+members = false
+startnpc = "npc.slayer_master_1_aya"
+startcoord = "0_40_52_17_54"

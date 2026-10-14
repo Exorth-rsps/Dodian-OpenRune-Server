@@ -22,3 +22,12 @@ dodian_regio_20 = 30119
 dodian_regio_21 = 30120
 dodian_regio_22 = 30121
 dodian_regio_23 = 30122
+
+[gamevals.dbrow]
+quest_slayers_eye = 63450
+
+[gamevals.varp]
+dodian_slayers_eye = 63800
+
+[gamevals.varbit]
+dodian_slayers_eye_progress = 63800
