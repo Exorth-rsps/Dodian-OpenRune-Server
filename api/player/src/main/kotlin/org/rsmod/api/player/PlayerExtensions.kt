@@ -27,7 +27,7 @@ public fun Player.clearInteractionRoute() {
 }
 
 public fun Player.queueDeath() {
-    queue("queue.death", 1)
+    strongQueue("queue.death", 1)
 }
 
 public fun Player.combatClearQueue() {
@@ -126,6 +126,20 @@ public fun Player.isInPvpCombat(): Boolean {
 public fun Player.isInPvnCombat(): Boolean {
     return vars["varp.lastcombat"] + constants.combat_activecombat_delay >= currentMapClock
 }
+
+/**
+ * `true` while something stops this player leaving the world as they are - combat, most commonly.
+ * Shared with the world-type switch, which discards the same state a logout would.
+ *
+ * [Player.preventLogoutUntil] alone is not enough: it is only set when the player takes a hit or
+ * retaliates, so an aggressor who is never hit back would slip through.
+ */
+public fun Player.isLogoutBlocked(): Boolean =
+    currentMapClock <= preventLogoutUntil || isInCombat()
+
+/** Why [isLogoutBlocked] is `true`, phrased for the player. */
+public fun Player.logoutBlockedMessage(): String =
+    preventLogoutMessage ?: "You can't log out until 10 seconds after the end of combat."
 
 public fun Player.subjectPronoun(): String {
     appearance.pronoun = vars["varbit.settings_transmit_pronouns"]

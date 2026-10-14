@@ -855,7 +855,7 @@
       "image": "https://oldschool.runescape.wiki/images/thumb/Corporeal_Beast.png/48px-Corporeal_Beast.png?52ebb"
     },
     "Black golem": {
-      "image": "https://oldschool.runescape.wiki/images/thumb/Black_golem.png/48px-Black_golem.png?c78b3"
+      "image": "https://oldschool.runescape.wiki/images/thumb/Black_golem.png/48px-Black_golem.png?18834"
     },
     "Cerberus": {
       "image": "https://oldschool.runescape.wiki/images/thumb/Cerberus.png/48px-Cerberus.png?47f4c"
@@ -1011,7 +1011,7 @@
       "image": "https://oldschool.runescape.wiki/images/thumb/Evil_spirit.png/48px-Evil_spirit.png?40157"
     },
     "Grey golem": {
-      "image": "https://oldschool.runescape.wiki/images/thumb/Grey_golem.png/48px-Grey_golem.png?bf998"
+      "image": "https://oldschool.runescape.wiki/images/thumb/Grey_golem.png/48px-Grey_golem.png?857cb"
     },
     "Great Olm": {
       "image": "https://oldschool.runescape.wiki/images/thumb/Great_Olm.png/48px-Great_Olm.png?f1081"
@@ -1450,6 +1450,9 @@
     },
     "Vale Totems": {
       "image": "https://oldschool.runescape.wiki/images/thumb/Vale_Totems_%28minigame%29.png/48px-Vale_Totems_%28minigame%29.png?91627"
+    },
+    "Pete Kayer's Challenges": {
+      "image": "https://oldschool.runescape.wiki/images/thumb/Pete_Kayer%27s_Challenges.png/48px-Pete_Kayer%27s_Challenges.png?6949d"
     }
   },
   "categories": {
@@ -1663,6 +1666,7 @@
       "Mess",
       "Nightmare Zone",
       "Pest Control",
+      "Pete Kayer's Challenges",
       "Pyramid Plunder",
       "Rat Pits",
       "Rogues' Den",
@@ -1684,5 +1688,5 @@
       "Volcanic Mine"
     ]
   },
-  "fetched": "2026-10-05"
+  "fetched": "2026-10-13"
 }
