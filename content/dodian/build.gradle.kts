@@ -8,5 +8,6 @@ dependencies {
     implementation(projects.api.death)
     implementation(projects.content.generic.genericLocs)
     implementation(projects.content.quest)
+    implementation(projects.content.skills.runecrafting)
     implementation(projects.content.skills.slayer)
 }

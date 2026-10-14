@@ -299,3 +299,8 @@ npc = "npc.banker1"
 coords = "0_39_53_41_39"
 face = "south"
 wander = 0
+
+[[spawn]]
+npc = "npc.tote_persten_alkharid_child"
+coords = "3_39_52_14_14"
+wander = 5

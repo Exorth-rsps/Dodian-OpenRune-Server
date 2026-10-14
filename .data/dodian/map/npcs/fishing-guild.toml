@@ -37,3 +37,33 @@ wander = 3
 npc = "npc.master_fisher"
 coords = "0_42_53_53_4"
 wander = 2
+
+[[spawn]]
+npc = "npc.skeleton_unagressive"
+coords = "0_42_52_55_43"
+wander = 5
+
+[[spawn]]
+npc = "npc.skeleton_unagressive2"
+coords = "0_42_52_46_49"
+wander = 5
+
+[[spawn]]
+npc = "npc.skeleton_unagressive3"
+coords = "0_42_52_43_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.skeleton_unagressive"
+coords = "0_42_52_49_37"
+wander = 5
+
+[[spawn]]
+npc = "npc.skeleton_unagressive2"
+coords = "0_42_52_48_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.skeleton_unagressive3"
+coords = "0_42_52_54_47"
+wander = 5

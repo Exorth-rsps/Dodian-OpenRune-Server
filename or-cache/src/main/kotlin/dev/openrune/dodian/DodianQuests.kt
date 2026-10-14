@@ -91,6 +91,9 @@ public class DodianQuests : CacheTask() {
         values[COL_QUESTPOINTS] = arrayOf(quest.int("questpoints"))
         values[COL_UNSTARTEDSTATE] = arrayOf(0)
         values[COL_ENDSTATE] = arrayOf(quest.int("endstate"))
+        if (quest.has("releasedate")) {
+            values[COL_RELEASEDATE] = releaseDate(quest.text("releasedate"))
+        }
         quest.optionalInt("difficulty")?.let { values[COL_DIFFICULTY] = arrayOf(it) }
         quest.optionalInt("length")?.let { values[COL_LENGTH] = arrayOf(it) }
         if (quest.has("members")) {
@@ -183,6 +186,13 @@ public class DodianQuests : CacheTask() {
             BaseVarType.ARRAY -> null
         }
 
+    /** `day-month-year`, stored as the quest table's (day, month, year) tuple. */
+    private fun releaseDate(text: String): Array<Any> {
+        val parts = text.split('-').map(String::toInt)
+        require(parts.size == 3) { "$questFile: releasedate must be day-month-year, got '$text'" }
+        return arrayOf(parts[0], parts[1], parts[2])
+    }
+
     /** Same `level_mapsquareX_mapsquareZ_localX_localZ` format as the spawn files. */
     private fun packedCoord(text: String): Int {
         val (level, squareX, squareZ, localX, localZ) = text.split('_').map(String::toInt)
@@ -215,6 +225,7 @@ public class DodianQuests : CacheTask() {
         const val COL_MEMBERS = 5
         const val COL_DIFFICULTY = 6
         const val COL_LENGTH = 7
+        const val COL_RELEASEDATE = 9
         const val COL_STARTCOORD = 13
         const val COL_STARTNPC = 14
         const val COL_QUESTPOINTS = 17

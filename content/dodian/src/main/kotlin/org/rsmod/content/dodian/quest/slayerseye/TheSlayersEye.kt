@@ -9,6 +9,7 @@ import org.rsmod.api.player.dialogue.Dialogue
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.repo.obj.ObjRepository
 import org.rsmod.api.script.onOpNpc1
+import org.rsmod.content.dodian.npcs.AuburyTalks
 import org.rsmod.content.quest.manager.ItemRewardDisplay
 import org.rsmod.content.quest.manager.QuestScript
 import org.rsmod.content.quest.manager.rewards
@@ -38,9 +39,7 @@ class TheSlayersEye @Inject constructor(private val objRepo: ObjRepository) :
         }
         SlayerGates.register(MasterGate())
         onOpNpc1(GEM_TRADER) { startDialogue(it.npc) { gemTrader() } }
-        for (aubury in AUBURY) {
-            onOpNpc1(aubury) { startDialogue(it.npc) { aubury() } }
-        }
+        AuburyTalks.register { aubury() }
     }
 
     override fun subTitle(): String =
@@ -318,7 +317,7 @@ class TheSlayersEye @Inject constructor(private val objRepo: ObjRepository) :
         }
     }
 
-    private suspend fun Dialogue.aubury() {
+    private suspend fun Dialogue.aubury(): Boolean {
         when (stage(player)) {
             STAGE_GEM_TRADER_SPOKEN -> auburyExplains()
             STAGE_COLLECTING -> auburyCheckItems(advance = true)
@@ -333,8 +332,9 @@ class TheSlayersEye @Inject constructor(private val objRepo: ObjRepository) :
                     )
                     auburyCheckItems(advance = false)
                 }
-            else -> chatNpc(neutral, "Hello there. I'm rather busy with my studies at the moment.")
+            else -> return false
         }
+        return true
     }
 
     private suspend fun Dialogue.auburyExplains() {
@@ -441,7 +441,6 @@ class TheSlayersEye @Inject constructor(private val objRepo: ObjRepository) :
         const val EYE_OF_NEWT = "obj.eye_of_newt"
 
         private const val GEM_TRADER = "npc.gem_merchant_ardougne"
-        private val AUBURY = listOf("npc.aubury", "npc.aubury_2op", "npc.aubury_3op")
 
         private const val UNCUT_SAPPHIRE = "obj.uncut_sapphire"
         private const val SAPPHIRE = "obj.sapphire"

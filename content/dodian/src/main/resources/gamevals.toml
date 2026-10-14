@@ -25,6 +25,10 @@ dodian_regio_23 = 30122
 
 [gamevals.dbrow]
 quest_slayers_eye = 63450
+quest_forgotten_altar = 63451
+
+[gamevals.inv]
+dodian_aubury_runeshop = 1102
 
 [gamevals.varp]
 dodian_slayers_eye = 63800

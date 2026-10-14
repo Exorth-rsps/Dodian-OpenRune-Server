@@ -37,3 +37,13 @@ wanderRange = 0
 id = "npc.gem_merchant_ardougne"
 inherit = "npc.gem_merchant_ardougne"
 name = "Gem trader"
+
+[[npc]]
+id = "npc.magic_store_owner2"
+inherit = "npc.magic_store_owner2"
+name = "Wizard Sinina"
+
+[[npc]]
+id = "npc.traiborn"
+inherit = "npc.traiborn"
+name = "Wizard Traiborn"

@@ -1,0 +1,45 @@
+# Aubury's rune shop in the Yanille Wizards' Guild (dodian mode).
+
+[[inventory]]
+id = "inv.dodian_aubury_runeshop"
+name = "Aubury's Rune Shop."
+
+scope = "Shared"
+stack = "Always"
+
+sellMultiplier = 1000
+buyMultiplier = 600
+delta = 1
+
+size = 5
+
+protect = false
+runWeight = false
+restock = true
+allStock = false
+placeholders = false
+
+[[inventory.stock]]
+obj = "obj.airrune"
+count = 5000
+restockCycles = 10
+
+[[inventory.stock]]
+obj = "obj.mindrune"
+count = 5000
+restockCycles = 10
+
+[[inventory.stock]]
+obj = "obj.waterrune"
+count = 5000
+restockCycles = 10
+
+[[inventory.stock]]
+obj = "obj.earthrune"
+count = 5000
+restockCycles = 10
+
+[[inventory.stock]]
+obj = "obj.firerune"
+count = 5000
+restockCycles = 10

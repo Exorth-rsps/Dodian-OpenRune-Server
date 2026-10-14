@@ -3,14 +3,28 @@
 # dbrow gameval in content/dodian/src/main/resources/gamevals.toml; `template` is an OSRS quest whose
 # list columns (release type, type, location, release date, members, difficulty, length) are copied
 # unless set here. startcoord uses the spawn file format: level_mapsquareX_mapsquareZ_localX_localZ.
+# releasedate is day-month-year and sets the release year in the quest journal.
 
 [[quest]]
 row = "dbrow.quest_slayers_eye"
 template = "dbrow.quest_impcatcher"
 name = "The Slayer's Eye"
 sortname = "Slayer's Eye"
+releasedate = "14-10-2026"
 questpoints = 1
 endstate = 6
 members = false
 startnpc = "npc.slayer_master_1_aya"
 startcoord = "0_40_52_17_54"
+
+[[quest]]
+row = "dbrow.quest_forgotten_altar"
+template = "dbrow.quest_runemysteries"
+name = "The Forgotten Altar"
+sortname = "Forgotten Altar"
+releasedate = "14-10-2026"
+questpoints = 1
+endstate = 6
+members = false
+startnpc = "npc.magic_store_owner2"
+startcoord = "2_41_50_31_17"

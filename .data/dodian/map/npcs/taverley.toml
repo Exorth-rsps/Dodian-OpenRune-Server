@@ -181,3 +181,8 @@ npc = "npc.ungadulu_good"
 coords = "0_41_52_9_31"
 face = "north"
 wander = 3
+
+[[spawn]]
+npc = "npc.traiborn"
+coords = "0_40_52_23_15"
+wander = 2

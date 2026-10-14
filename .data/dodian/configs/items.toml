@@ -1,0 +1,13 @@
+# Item configs in dodian mode. Run `gradlew buildCache` after changes.
+
+[[item]]
+id = "obj.research_package"
+inherit = "obj.research_package"
+[item.params]
+"param.destroy_note_desc"="You can get another copy from Wizard Persten."
+
+[[item]]
+id = "obj.research_notes"
+inherit = "obj.research_notes"
+[item.params]
+"param.destroy_note_desc"="You can get another copy from Wizard Traiborn."
