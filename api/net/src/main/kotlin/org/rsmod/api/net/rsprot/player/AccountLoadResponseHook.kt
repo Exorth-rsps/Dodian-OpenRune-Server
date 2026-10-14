@@ -126,6 +126,7 @@ class AccountLoadResponseHook(
                 writeErrorResponse(LoginResponse.UpdateInProgress)
             }
             is AccountLoadResponse.Err.Exception -> {
+                logger.error(response.reason) { "Account load failed for login: ${loginBlock.username}" }
                 writeErrorResponse(LoginResponse.UnknownReplyFromLoginServer)
             }
         }
