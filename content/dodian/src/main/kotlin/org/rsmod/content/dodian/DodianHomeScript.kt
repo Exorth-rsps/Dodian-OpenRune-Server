@@ -11,10 +11,11 @@ import org.rsmod.api.player.protect.ProtectedAccessLauncher
 import org.rsmod.api.player.vars.intVarBit
 import org.rsmod.api.player.vars.intVarp
 import org.rsmod.api.script.onCommand
+import org.rsmod.api.script.onEvent
 import org.rsmod.api.script.onOpLoc1
-import org.rsmod.api.script.onPlayerInit
 import org.rsmod.api.server.config.ServerConfig
 import org.rsmod.game.entity.Player
+import org.rsmod.game.entity.player.SessionStateEvent
 import org.rsmod.map.CoordGrid
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
@@ -37,7 +38,8 @@ constructor(
     private val collision: CollisionFlagMap,
 ) : PluginScript() {
     override fun ScriptContext.startup() {
-        onPlayerInit {
+        // Before the login rebuild is queued, or the client builds the scene at the old coords.
+        onEvent<SessionStateEvent.PrepareLogin> {
             if (!collision.isZoneAllocated(player.coords.x, player.coords.z, 0)) {
                 player.coords = START
             }
