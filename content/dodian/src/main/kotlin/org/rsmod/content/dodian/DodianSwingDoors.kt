@@ -31,7 +31,8 @@ class DodianSwingDoors @Inject constructor(private val locRepo: LocRepository) :
             onOpLoc1(door) {
                 val door = it.vis
                 val otherSide = DoorTranslations.translateOpen(door.coords, door.shape, door.angle)
-                swingThrough(locRepo, door, if (coords == door.coords) otherSide else door.coords)
+                val dest = if (door.isOnDoorTileSide(coords)) otherSide else door.coords
+                swingThrough(locRepo, door, dest)
             }
         }
         logger.info { "Dodian: ${doors.size} swing doors." }
@@ -60,6 +61,14 @@ internal suspend fun ProtectedAccess.swingThrough(
     locRepo.del(door, SWING_CYCLES)
     locRepo.add(openCoords, internal, SWING_CYCLES, door.turnAngle(rotations = 1), door.shape)
     forcedWalk(dest, crossTiles = 1)
+}
+
+/** True when [coords] is on the same side of the wall as the door's own tile. */
+internal fun BoundLocInfo.isOnDoorTileSide(coords: CoordGrid): Boolean {
+    val across = DoorTranslations.translateOpen(this.coords, shape, angle)
+    val dx = across.x - this.coords.x
+    val dz = across.z - this.coords.z
+    return (coords.x - this.coords.x) * dx + (coords.z - this.coords.z) * dz <= 0
 }
 
 private const val SWING_CYCLES = 3

@@ -24,7 +24,7 @@ class DodianGuildDoors @Inject constructor(private val locRepo: LocRepository) :
         val otherSide = DoorTranslations.translateOpen(door.coords, door.shape, door.angle)
         val inside = if (guild.insideOnDoorTile) door.coords else otherSide
         val outside = if (guild.insideOnDoorTile) otherSide else door.coords
-        val entering = coords != inside
+        val entering = door.isOnDoorTileSide(coords) != guild.insideOnDoorTile
         if (entering && guild.level(player) < guild.required) {
             startDialogue {
                 chatNpcSpecific(guild.masterTitle, guild.master, neutral, guild.refusal)
