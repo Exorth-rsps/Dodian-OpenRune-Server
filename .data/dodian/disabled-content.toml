@@ -4,7 +4,8 @@
 packages = [
     "org.rsmod.content.areas",
     "org.rsmod.content.bosses",
-    "org.rsmod.content.quest",
+    # Only the OSRS quests; the quest manager stays on so the quest tab lists Dodian quests only.
+    "org.rsmod.content.quest.area",
     # content/events/shooting-stars lives in a skills package
     "org.rsmod.content.skills.shootingstars",
 ]

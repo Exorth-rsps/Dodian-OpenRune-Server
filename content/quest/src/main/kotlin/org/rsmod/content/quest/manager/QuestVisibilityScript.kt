@@ -12,6 +12,9 @@ import org.rsmod.plugin.scripts.ScriptContext
 
 private const val MINIQUEST_TYPE = 1
 
+/** An empty list means "no filter" to the client, so a lone separator hides every quest. */
+private const val NO_QUESTS = ","
+
 /**
  * Pushes the ids of every quest that has a server-side implementation to the client on login. The
  * overridden `[proc,questlist_hide_quest]` hides any quest journal row whose id is missing from that
@@ -24,7 +27,7 @@ class QuestVisibilityScript : PluginScript() {
 
     private val availableIds: String by lazy {
         val quests = Quest.all()
-        if (quests.isEmpty()) "" else quests.joinToString(",", ",", ",") { it.id.toString() }
+        if (quests.isEmpty()) NO_QUESTS else quests.joinToString(",", ",", ",") { it.id.toString() }
     }
 
     private val totalQuestPoints: Int by lazy { Quest.all().sumOf { it.questPoints } }
