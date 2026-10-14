@@ -10,6 +10,13 @@ interface SlayerGate {
     fun refusal(player: Player): String?
 
     /** Runs before a master's own talk-to dialogue; returns true when it handled the conversation. */
+    /** Says the refusal line and returns true when a gate blocks [Dialogue.player] from Slayer. */
+    suspend fun Dialogue.refuseSlayer(): Boolean {
+        val refusal = refusal(player) ?: return false
+        chatNpc(neutral, refusal)
+        return true
+    }
+
     suspend fun Dialogue.beforeTalk(npcId: Int): Boolean = false
 }
 
@@ -21,6 +28,13 @@ object SlayerGates {
     }
 
     fun refusal(player: Player): String? = gates.firstNotNullOfOrNull { it.refusal(player) }
+
+    /** Says the refusal line and returns true when a gate blocks [Dialogue.player] from Slayer. */
+    suspend fun Dialogue.refuseSlayer(): Boolean {
+        val refusal = refusal(player) ?: return false
+        chatNpc(neutral, refusal)
+        return true
+    }
 
     suspend fun Dialogue.beforeTalk(npcId: Int): Boolean =
         gates.any { gate -> with(gate) { beforeTalk(npcId) } }

@@ -1,6 +1,7 @@
 package org.rsmod.content.slayer.dialogue.masters
 
 import org.rsmod.api.player.dialogue.Dialogue
+import org.rsmod.content.slayer.SlayerGates.refuseSlayer
 import org.rsmod.content.slayer.SlayerTaskChoiceInterface
 import org.rsmod.content.slayer.core.MortimerAssignment
 import org.rsmod.content.slayer.core.MortimerModifiers
@@ -40,6 +41,9 @@ object MortimerDialogue {
 
     suspend fun Dialogue.needAnotherAssignment() {
         chatPlayer(neutral, "I need another assignment.")
+        if (refuseSlayer()) {
+            return
+        }
         handleAssignment()
     }
 

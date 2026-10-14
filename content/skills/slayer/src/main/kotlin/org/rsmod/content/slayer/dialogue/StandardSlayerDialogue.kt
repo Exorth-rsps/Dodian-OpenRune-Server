@@ -2,6 +2,7 @@ package org.rsmod.content.slayer.dialogue
 
 import org.rsmod.api.player.dialogue.Dialogue
 import org.rsmod.api.player.stat.baseSlayerLvl
+import org.rsmod.content.slayer.SlayerGates.refuseSlayer
 import org.rsmod.content.slayer.core.SlayerTaskManager
 import org.rsmod.content.slayer.dialogue.GenericDialogue.capeDialogue
 import org.rsmod.content.slayer.dialogue.GenericDialogue.ineligibleForTask
@@ -26,6 +27,9 @@ object StandardSlayerDialogue {
 
     suspend fun Dialogue.requestAssignment(npcId: Int) {
         chatPlayer(neutral, "I need another assignment.")
+        if (refuseSlayer()) {
+            return
+        }
         val profile = SlayerMasterProfiles.forNpcOrDefault(npcId)
         if (maybeHighCombatRedirect(profile)) {
             return
@@ -44,6 +48,9 @@ object StandardSlayerDialogue {
 
     suspend fun Dialogue.contactRequestAssignment(npcId: Int) {
         chatPlayer(neutral, "I need another assignment.")
+        if (refuseSlayer()) {
+            return
+        }
         val profile = SlayerMasterProfiles.forNpcOrDefault(npcId)
         if (maybeHighCombatRedirect(profile)) {
             return

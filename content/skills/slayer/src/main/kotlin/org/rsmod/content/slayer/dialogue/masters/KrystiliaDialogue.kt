@@ -1,6 +1,7 @@
 package org.rsmod.content.slayer.dialogue.masters
 
 import org.rsmod.api.player.dialogue.Dialogue
+import org.rsmod.content.slayer.SlayerGates.refuseSlayer
 import org.rsmod.content.slayer.slayerKrystiliaEdgevilleSpawnActive
 import org.rsmod.content.slayer.slayerKrystiliaEdgevilleSpawnUnlocked
 import org.rsmod.content.slayer.slayerWildernessAssignmentBriefed
@@ -65,6 +66,9 @@ object KrystiliaDialogue {
 
     suspend fun Dialogue.needAnotherAssignment() {
         chatPlayer(neutral, "I need another assignment.")
+        if (refuseSlayer()) {
+            return
+        }
         if (SlayerTaskManager.hasPendingMortimerChoice(access)) {
             chatNpc(
                 neutral,

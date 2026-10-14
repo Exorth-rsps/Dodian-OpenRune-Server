@@ -1,6 +1,7 @@
 package org.rsmod.content.slayer.dialogue.masters
 
 import org.rsmod.api.player.dialogue.Dialogue
+import org.rsmod.content.slayer.SlayerGates.refuseSlayer
 import org.rsmod.content.slayer.slayerKonarIntroComplete
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.table.slayer.SlayerAreaRow
@@ -49,6 +50,9 @@ object KonarDialogue {
 
     suspend fun Dialogue.needAnotherAssignment() {
         chatPlayer(neutral, "I need another assignment.")
+        if (refuseSlayer()) {
+            return
+        }
         if (SlayerTaskManager.hasPendingMortimerChoice(access)) {
             chatNpc(
                 neutral,
