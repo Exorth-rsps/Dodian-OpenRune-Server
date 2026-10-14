@@ -93,9 +93,13 @@ de wereld.
   ook in Dodian-modus. Dit bestand bevat de deuren van de Dodian-kaarten die daar nog misten en een
   open variant hebben; gilde-, quest- en slotdeuren hebben geen open variant en staan er niet in.
   Daarna `gradlew buildCache`.
-- **Doorloop-deuren:** deuren zonder open variant (bijv. gilde-deuren) kun je zetten in
-  `.data/dodian/walkthrough-doors.toml`. `DodianWalkThroughDoors` laat de deur even verdwijnen en
-  zet de speler aan de andere kant van de muur, zonder eisen. Alleen server herstarten nodig.
+- **Zwaaideuren:** deuren zonder open variant (quest-, slot- en gilde-deuren) die gewoon open
+  mogen, staan in `.data/dodian/swing-doors.toml`. `DodianSwingDoors` laat de deur even openzwaaien
+  en zet de speler aan de andere kant, zonder eisen. Alleen server herstarten nodig. De Crafting
+  Guild (40 Crafting) en Fishing Guild (68 Fishing) staan in `DodianGuildDoors`.
+- **Ladders en trappen:** `.data/dodian/configs/ladders.toml` geeft ladders en wenteltrappen zonder
+  `contentGroup` de standaard ladder-/trap-groep. Ladders naar ondergrondse gebieden staan er niet in.
+  Daarna `gradlew buildCache`.
 - **NPC-configs (naam, combat, formaat, stats):** tabblad **NPC-config** in de editor, opgeslagen
   in `.data/dodian/configs/npcs.toml` (alleen ingepakt in Dodian-modus). *Aanpassen* wijzigt een
   bestaande NPC (`id` = `inherit`, geldt voor al zijn spawns); *Kopie* maakt een nieuwe NPC

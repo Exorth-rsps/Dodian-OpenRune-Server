@@ -1,6 +1,0 @@
-# Doors without an open variant that players walk through in dodian mode (no requirements).
-# Clicking Open hides the door for a moment and moves the player to the other side of the wall.
-# Add a door by its loc name (Examine shows the id; look the name up in the editor or the cache).
-# Restart the server after changes; no buildCache needed.
-doors = [
-]

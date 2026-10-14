@@ -35,7 +35,7 @@ wander = 3
 
 [[spawn]]
 npc = "npc.master_fisher"
-coords = "0_42_53_53_4"
+coords = "0_42_53_53_3"
 wander = 2
 
 [[spawn]]
@@ -66,4 +66,9 @@ wander = 5
 [[spawn]]
 npc = "npc.skeleton_unagressive3"
 coords = "0_42_52_54_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.viyeldi"
+coords = "0_42_53_15_20"
 wander = 5

@@ -155,3 +155,8 @@ npc = "npc.legends_guild_guard2"
 coords = "0_42_51_42_21"
 face = "south"
 wander = 0
+
+[[spawn]]
+npc = "npc.radimus_erkle"
+coords = "0_42_51_41_17"
+wander = 5

@@ -17,6 +17,11 @@ private enum class StraightStairs(val loc: String, val dx: Int, val dz: Int, val
     PoorDown("loc.poor_stairstop", 1, -2, -1),
     Up("loc.stairs", 1, 3, 1),
     Down("loc.stairstop", 1, -2, -1),
+    YanilleUp("loc.stairs_yanille_fix", 1, 3, 1),
+    WoodenUp("loc.woodenstairs", 1, 3, 1),
+    WoodenDown("loc.woodenstairstop", 1, -2, -1),
+    SpookyUp("loc.grim_witch_house_spookystairs", 1, 3, 1),
+    SpookyDown("loc.grim_witch_house_spookystairstop", 1, -2, -1),
     NarrowWoodenUp("loc.narrowstairs_wooden_bottom", 0, -1, 1),
     NarrowWoodenDown("loc.narrowstairs_wooden_top", 0, 3, -1),
 }

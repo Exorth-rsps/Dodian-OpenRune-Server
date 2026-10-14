@@ -710,3 +710,8 @@ wander = 5
 npc = "npc.magic_store_owner2"
 coords = "2_41_50_31_17"
 wander = 5
+
+[[spawn]]
+npc = "npc.watchtower_wizard"
+coords = "2_40_50_53_42"
+wander = 5

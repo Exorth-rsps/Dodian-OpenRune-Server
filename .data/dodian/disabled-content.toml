@@ -8,4 +8,6 @@ packages = [
     "org.rsmod.content.quest.area",
     # content/events/shooting-stars lives in a skills package
     "org.rsmod.content.skills.shootingstars",
+    # Dodian's own guild door (content/dodian DodianGuildDoors) asks for the level only.
+    "org.rsmod.content.skills.crafting.CraftingGuildDoor",
 ]
