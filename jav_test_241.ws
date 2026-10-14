@@ -1,6 +1,6 @@
 title=Blurite Alpha
 adverturl=http://www.runescape.com/g=oldscape/bare_advert.ws
-codebase=http://play.exorth.net/
+codebase=http://89.35.91.151/
 cachedir=blurite
 storebase=0
 initial_jar=gamepack_2506588.jar
