@@ -38,7 +38,9 @@ class TheSlayersEye @Inject constructor(private val objRepo: ObjRepository) :
         }
         SlayerGates.register(MasterGate())
         onOpNpc1(GEM_TRADER) { startDialogue(it.npc) { gemTrader() } }
-        onOpNpc1(AUBURY) { startDialogue(it.npc) { aubury() } }
+        for (aubury in AUBURY) {
+            onOpNpc1(aubury) { startDialogue(it.npc) { aubury() } }
+        }
     }
 
     override fun subTitle(): String =
@@ -439,7 +441,7 @@ class TheSlayersEye @Inject constructor(private val objRepo: ObjRepository) :
         const val EYE_OF_NEWT = "obj.eye_of_newt"
 
         private const val GEM_TRADER = "npc.gem_merchant_ardougne"
-        private const val AUBURY = "npc.aubury"
+        private val AUBURY = listOf("npc.aubury", "npc.aubury_2op", "npc.aubury_3op")
 
         private const val UNCUT_SAPPHIRE = "obj.uncut_sapphire"
         private const val SAPPHIRE = "obj.sapphire"
