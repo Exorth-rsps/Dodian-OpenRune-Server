@@ -439,7 +439,7 @@ class TheSlayersEye @Inject constructor(private val objRepo: ObjRepository) :
         const val EYE_OF_NEWT = "obj.eye_of_newt"
 
         private const val GEM_TRADER = "npc.gem_merchant_ardougne"
-        private const val AUBURY = "npc.bim_aubury"
+        private const val AUBURY = "npc.aubury"
 
         private const val UNCUT_SAPPHIRE = "obj.uncut_sapphire"
         private const val SAPPHIRE = "obj.sapphire"
