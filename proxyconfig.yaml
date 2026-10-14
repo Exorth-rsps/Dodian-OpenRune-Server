@@ -1,6 +1,6 @@
 config:
   - name: Ub3r-OS Server
-    jav_config_url: https://raw.githubusercontent.com/Exorth-rsps/Dodian-OpenRune-Server/refs/heads/dodian/jav_test_241.ws
+    jav_config_url: http://89.35.91.151:8060/jav_config.ws
     varp_count: 15000
     revision: 241
     modulus: a6171a3c1a7d37f77a4ca2a5228b8c51be6fc3ed13d9efc2271dbef75b931b0b1cae077d60cb41b92058a8447417c3d1db6403c9f4f7946744c28a3aedb67be83435f688ca4169af8bb7a746165eac6773b500bc73cbabc62bcf9602271a8f44c50a2fa785f2c8d3b4355222568438f7cf094666f246235d043740a431e4dc21
