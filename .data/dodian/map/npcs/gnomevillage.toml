@@ -8,3 +8,102 @@
 npc = "npc.gnometrainer"
 coords = "0_41_51_50_35"
 wander = 13
+
+[[spawn]]
+npc = "npc.gnomebanker"
+coords = "1_41_51_16_35"
+face = "west"
+wander = 0
+
+[[spawn]]
+npc = "npc.gnomebanker"
+coords = "1_41_51_11_33"
+face = "east"
+wander = 0
+
+[[spawn]]
+npc = "npc.gnomebanker"
+coords = "1_41_51_11_32"
+face = "east"
+wander = 0
+
+[[spawn]]
+npc = "npc.gnomebanker"
+coords = "1_41_51_16_32"
+face = "west"
+wander = 0
+
+[[spawn]]
+npc = "npc.terrorbird_mountedspear"
+coords = "0_41_51_8_44"
+wander = 10
+
+[[spawn]]
+npc = "npc.battlefield_terrorbird_mountedspear"
+coords = "0_41_51_28_44"
+wander = 10
+
+[[spawn]]
+npc = "npc.battlefield_terrorbird_mountedspear2"
+coords = "0_41_51_27_27"
+wander = 10
+
+[[spawn]]
+npc = "npc.battlefield_terrorbird_mountedspear3"
+coords = "0_41_51_7_27"
+wander = 10
+
+[[spawn]]
+npc = "npc.terrorbird_mountedspear"
+coords = "0_41_51_28_13"
+wander = 10
+
+[[spawn]]
+npc = "npc.battlefield_terrorbird_mountedspear"
+coords = "0_41_51_30_57"
+wander = 10
+
+[[spawn]]
+npc = "npc.battlefield_terrorbird_mountedspear2"
+coords = "0_41_51_43_56"
+wander = 10
+
+[[spawn]]
+npc = "npc.battlefield_terrorbird_mountedspear3"
+coords = "0_41_51_16_49"
+wander = 10
+
+[[spawn]]
+npc = "npc.terrorbird"
+coords = "0_41_51_42_13"
+wander = 5
+
+[[spawn]]
+npc = "npc.terrorbird2"
+coords = "0_41_51_49_16"
+wander = 5
+
+[[spawn]]
+npc = "npc.terrorbird3"
+coords = "0_41_51_46_9"
+wander = 5
+
+[[spawn]]
+npc = "npc.terrorbird"
+coords = "0_41_51_54_11"
+wander = 5
+
+[[spawn]]
+npc = "npc.terrorbird2"
+coords = "0_41_51_54_4"
+wander = 5
+
+[[spawn]]
+npc = "npc.terrorbird3"
+coords = "0_41_51_60_4"
+wander = 5
+
+[[spawn]]
+npc = "npc.terrorbird3"
+coords = "0_41_51_41_5"
+wander = 5

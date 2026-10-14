@@ -1,0 +1,183 @@
+# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
+
+[[spawn]]
+npc = "npc.slayer_master_1_aya"
+coords = "0_40_52_17_54"
+wander = 2
+
+[[spawn]]
+npc = "npc.chaos_druid"
+coords = "0_40_52_52_58"
+wander = 2
+
+[[spawn]]
+npc = "npc.chaos_druid"
+coords = "0_40_52_55_60"
+wander = 2
+
+[[spawn]]
+npc = "npc.chaos_druid"
+coords = "0_40_52_53_61"
+wander = 2
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_41_52_32_51"
+face = "south"
+wander = 0
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_41_52_33_46"
+face = "north"
+wander = 0
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_19_57"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_24_58"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_29_58"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_34_58"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_3_58"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_6_56"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_4_50"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_4_43"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_4_40"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_1_31"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_6_25"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_12_26"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_10_54"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_16_48"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_8_46"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_11_40"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_19_44"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_26_44"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_26_37"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_32_39"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_29_32"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_19_27"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_19_21"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_12_19"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_4_21"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_7_36"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_12_30"
+wander = 3
+
+[[spawn]]
+npc = "npc.druid"
+coords = "0_41_52_6_30"
+wander = 3
+
+[[spawn]]
+npc = "npc.ungadulu_good"
+coords = "0_41_52_9_31"
+face = "north"
+wander = 3

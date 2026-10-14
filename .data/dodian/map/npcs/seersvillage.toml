@@ -1,0 +1,301 @@
+# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
+
+[[spawn]]
+npc = "npc.poh_troll"
+coords = "0_39_51_50_56"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_troll"
+coords = "0_39_51_48_52"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_troll"
+coords = "0_39_51_41_49"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_troll"
+coords = "0_39_51_35_53"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_troll"
+coords = "0_39_51_40_59"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_troll"
+coords = "0_39_51_47_60"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_troll"
+coords = "0_39_51_56_56"
+wander = 5
+
+[[spawn]]
+npc = "npc.poh_troll"
+coords = "0_39_51_54_50"
+wander = 5
+
+[[spawn]]
+npc = "npc.master_crafter"
+coords = "0_38_52_53_21"
+wander = 5
+
+[[spawn]]
+npc = "npc.makeover_mage_female"
+coords = "0_38_52_37_59"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant"
+coords = "0_39_52_2_53"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant"
+coords = "0_39_52_24_57"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant"
+coords = "0_39_52_21_38"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant"
+coords = "0_39_52_44_20"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant2"
+coords = "0_39_52_15_54"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant2"
+coords = "0_39_52_42_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant2"
+coords = "0_39_52_33_26"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant3"
+coords = "0_39_52_17_30"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant3"
+coords = "0_38_52_61_45"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant4"
+coords = "0_38_52_46_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant4"
+coords = "0_39_52_0_30"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant5"
+coords = "0_39_52_48_13"
+wander = 5
+
+[[spawn]]
+npc = "npc.giant6"
+coords = "0_39_52_34_14"
+wander = 5
+
+[[spawn]]
+npc = "npc.akd_barbarian_warlord"
+coords = "0_38_53_10_17"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_female_1"
+coords = "0_38_53_17_18"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_8"
+coords = "0_38_53_11_10"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_4"
+coords = "0_38_53_7_24"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_3"
+coords = "0_38_53_6_14"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_1"
+coords = "0_38_53_15_23"
+wander = 5
+
+[[spawn]]
+npc = "npc.akd_barbarian_3"
+coords = "0_38_53_20_13"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_14"
+coords = "0_38_53_21_19"
+wander = 5
+
+[[spawn]]
+npc = "npc.akd_barbarian_4"
+coords = "0_38_53_23_25"
+wander = 5
+
+[[spawn]]
+npc = "npc.akd_barbarian_2"
+coords = "0_38_53_18_32"
+wander = 5
+
+[[spawn]]
+npc = "npc.akd_barbarian_1"
+coords = "0_38_53_26_14"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_female_3"
+coords = "0_38_53_30_21"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_female_2"
+coords = "0_38_53_27_30"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_13"
+coords = "0_38_53_23_37"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_12"
+coords = "0_38_53_23_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_11"
+coords = "0_38_53_30_37"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_10"
+coords = "0_38_53_32_14"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_7"
+coords = "0_38_53_39_19"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_6"
+coords = "0_38_53_46_16"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_5"
+coords = "0_38_53_54_19"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_2"
+coords = "0_38_53_57_10"
+wander = 5
+
+[[spawn]]
+npc = "npc.akd_barbarian_5"
+coords = "0_38_53_51_2"
+wander = 5
+
+[[spawn]]
+npc = "npc.fai_barbarian_female_4"
+coords = "0_38_53_41_9"
+wander = 5
+
+[[spawn]]
+npc = "npc.foresters_bartender"
+coords = "0_39_53_6_39"
+wander = 5
+
+[[spawn]]
+npc = "npc.man"
+coords = "0_39_53_3_38"
+wander = 5
+
+[[spawn]]
+npc = "npc.man2"
+coords = "0_39_53_6_37"
+wander = 5
+
+[[spawn]]
+npc = "npc.man3"
+coords = "0_39_53_4_41"
+wander = 5
+
+[[spawn]]
+npc = "npc.monk"
+coords = "0_39_53_8_7"
+wander = 5
+
+[[spawn]]
+npc = "npc.monk"
+coords = "0_39_53_12_6"
+wander = 5
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_39_53_33_39"
+face = "south"
+wander = 0
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_39_53_34_39"
+face = "south"
+wander = 0
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_39_53_36_39"
+face = "south"
+wander = 0
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_39_53_39_39"
+face = "south"
+wander = 0
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_39_53_40_39"
+face = "south"
+wander = 0
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_39_53_41_39"
+face = "south"
+wander = 0

@@ -1,0 +1,39 @@
+# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
+
+[[spawn]]
+npc = "npc.fishguildshop"
+coords = "0_42_53_35_10"
+wander = 3
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_42_53_24_26"
+face = "east"
+wander = 3
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_42_53_24_27"
+face = "east"
+wander = 0
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_42_53_24_29"
+face = "east"
+wander = 0
+
+[[spawn]]
+npc = "npc.banker1"
+coords = "0_42_53_24_30"
+face = "east"
+wander = 3
+
+[[spawn]]
+npc = "npc.master_fisher"
+coords = "0_42_53_53_4"
+wander = 2

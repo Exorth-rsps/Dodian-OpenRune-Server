@@ -1,0 +1,190 @@
+# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
+
+[[spawn]]
+npc = "npc.farm_chicken_brown"
+coords = "0_40_51_6_29"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_brown"
+coords = "0_40_51_10_24"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_brown"
+coords = "0_40_51_6_18"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_dark_brown"
+coords = "0_40_51_11_30"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_dark_brown"
+coords = "0_40_51_7_25"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_dark_brown"
+coords = "0_40_51_11_18"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_tan"
+coords = "0_40_51_8_28"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_tan"
+coords = "0_40_51_9_24"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_tan"
+coords = "0_40_51_11_21"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_brown"
+coords = "0_40_51_20_21"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_dark_brown"
+coords = "0_40_51_24_24"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_tan"
+coords = "0_40_51_27_21"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_tan"
+coords = "0_40_51_21_19"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_dark_brown"
+coords = "0_40_51_22_21"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_chicken_brown"
+coords = "0_40_51_26_22"
+wander = 5
+
+[[spawn]]
+npc = "npc.cow3_calf"
+coords = "0_40_51_16_36"
+wander = 5
+
+[[spawn]]
+npc = "npc.calf"
+coords = "0_40_51_28_45"
+wander = 5
+
+[[spawn]]
+npc = "npc.cow"
+coords = "0_40_51_16_43"
+wander = 5
+
+[[spawn]]
+npc = "npc.cow2"
+coords = "0_40_51_24_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.cow3"
+coords = "0_40_51_22_40"
+wander = 5
+
+[[spawn]]
+npc = "npc.cow"
+coords = "0_40_51_24_37"
+wander = 5
+
+[[spawn]]
+npc = "npc.cow2"
+coords = "0_40_51_30_39"
+wander = 5
+
+[[spawn]]
+npc = "npc.cow3"
+coords = "0_40_51_33_45"
+wander = 5
+
+[[spawn]]
+npc = "npc.cow"
+coords = "0_40_51_30_35"
+wander = 5
+
+[[spawn]]
+npc = "npc.cow2"
+coords = "0_40_51_20_35"
+wander = 5
+
+[[spawn]]
+npc = "npc.cow3"
+coords = "0_40_51_20_43"
+wander = 5
+
+[[spawn]]
+npc = "npc.cowboss"
+coords = "0_40_51_37_45"
+wander = 5
+
+[[spawn]]
+npc = "npc.farm_pig_1"
+coords = "0_40_51_8_36"
+wander = 3
+
+[[spawn]]
+npc = "npc.farm_pig_2"
+coords = "0_40_51_9_36"
+wander = 3
+
+[[spawn]]
+npc = "npc.farm_pig_1"
+coords = "0_40_51_7_37"
+wander = 3
+
+[[spawn]]
+npc = "npc.farm_pig_1"
+coords = "0_40_51_7_35"
+wander = 3
+
+[[spawn]]
+npc = "npc.sheepunsheeredshaggy"
+coords = "0_40_51_8_45"
+wander = 3
+
+[[spawn]]
+npc = "npc.sheepunsheeredshaggy"
+coords = "0_40_51_11_45"
+wander = 3
+
+[[spawn]]
+npc = "npc.sheepunsheeredshaggy"
+coords = "0_40_51_8_42"
+wander = 3
+
+[[spawn]]
+npc = "npc.sheepunsheeredshaggy"
+coords = "0_40_51_10_42"
+wander = 3
+
+[[spawn]]
+npc = "npc.sheepunsheeredshaggy"
+coords = "0_40_51_8_40"
+wander = 3
+
+[[spawn]]
+npc = "npc.sheepunsheeredshaggy"
+coords = "0_40_51_11_40"
+wander = 3

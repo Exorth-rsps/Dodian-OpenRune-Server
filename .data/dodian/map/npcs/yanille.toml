@@ -197,31 +197,6 @@ coords = "0_41_50_20_31"
 wander = 5
 
 [[spawn]]
-npc = "npc.baker_merchant_ardougne"
-coords = "0_41_50_21_31"
-wander = 5
-
-[[spawn]]
-npc = "npc.silk_merchant_ardougne"
-coords = "0_41_50_22_31"
-wander = 5
-
-[[spawn]]
-npc = "npc.silk_merchant_ardougne"
-coords = "0_41_50_20_30"
-wander = 5
-
-[[spawn]]
-npc = "npc.silk_merchant_ardougne"
-coords = "0_41_50_23_30"
-wander = 5
-
-[[spawn]]
-npc = "npc.silk_merchant_ardougne"
-coords = "0_41_50_22_29"
-wander = 5
-
-[[spawn]]
 npc = "npc.gem_merchant_ardougne"
 coords = "0_41_50_22_27"
 wander = 5
@@ -705,3 +680,28 @@ wander = 10
 npc = "npc.giantspider1"
 coords = "0_40_49_41_61"
 wander = 10
+
+[[spawn]]
+npc = "npc.silk_merchant_ardougne"
+coords = "0_41_50_23_31"
+wander = 5
+
+[[spawn]]
+npc = "npc.spice_merchant_ardougne"
+coords = "0_41_50_21_29"
+wander = 5
+
+[[spawn]]
+npc = "npc.silver_merchant_ardougne"
+coords = "0_41_50_24_30"
+wander = 5
+
+[[spawn]]
+npc = "npc.fur_merchant_ardougne"
+coords = "0_41_50_23_29"
+wander = 5
+
+[[spawn]]
+npc = "npc.slayer_master_1_tureal"
+coords = "0_41_49_7_49"
+wander = 2

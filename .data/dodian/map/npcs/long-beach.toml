@@ -1,0 +1,165 @@
+# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_2_54"
+wander = 3
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_9_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_19_53"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_28_41"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_37_53"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_46_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_53_54"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_61_41"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_53_14_44"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_53_23_55"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_53_33_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_53_46_56"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_41_53_43_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_41_53_37_56"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_41_53_24_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_41_53_5_43"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_40_53_53_41"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_40_53_46_52"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_40_53_61_53"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_40_53_36_43"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_40_53_29_53"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_40_53_19_43"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_40_53_10_53"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab_small"
+coords = "0_40_53_1_44"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_7_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_22_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_34_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_43_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_40_53_53_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_53_26_51"
+wander = 5
+
+[[spawn]]
+npc = "npc.zeah_sandcrab"
+coords = "0_41_53_37_51"
+wander = 5
+
+[[spawn]]
+npc = "npc.kourend_rockcrab"
+coords = "0_41_53_10_55"
+wander = 5

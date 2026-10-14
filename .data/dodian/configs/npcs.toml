@@ -16,3 +16,19 @@ name = "Avatar of Magic"
 combatLevel = 125
 heightScale = 256
 respawnRate = 500
+
+[[npc]]
+id = "npc.dwarf_rock_avatar_mage_yellow"
+inherit = "npc.dwarf_rock_avatar_mage_yellow"
+name = "Avatar of Magic"
+combatLevel = 125
+widthScale = 192
+heightScale = 192
+hitpoints = 250
+attack = 10
+strength = 75
+defence = 75
+ranged = 0
+magic = 110
+respawnRate = 500
+wanderRange = 0

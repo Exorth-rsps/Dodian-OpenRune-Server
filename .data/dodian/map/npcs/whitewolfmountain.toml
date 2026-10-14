@@ -1,0 +1,165 @@
+# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_49_46_55"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_45_6"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_38_4"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_45_22"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_50_40"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_50_54"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_38_50_50_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_38_50_59_49"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_0_58"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_30_16"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_31_26"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf"
+coords = "0_39_50_23_34"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf"
+coords = "0_39_50_34_39"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf"
+coords = "0_39_50_37_46"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf"
+coords = "0_39_50_22_47"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf"
+coords = "0_39_50_13_59"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf"
+coords = "0_39_50_37_52"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_51_3_3"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_51_8_12"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_51_22_8"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_51_40_4"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_51_51_4"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_38_50_49_63"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_38_50_46_55"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_38_50_44_42"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_38_50_58_40"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_4_45"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_12_37"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_18_25"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_22_12"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_50_31_3"
+wander = 5
+
+[[spawn]]
+npc = "npc.whitewolf_sentry"
+coords = "0_39_49_32_57"
+wander = 5

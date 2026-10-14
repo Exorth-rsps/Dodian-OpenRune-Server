@@ -167,6 +167,7 @@
     <button id="tabConfig" class="tab">NPC-config</button>
   </div>
   <select id="mapSelect" title="Kaart"></select>
+  <select id="levelSelect" title="Verdieping (PageUp / PageDown)"></select>
   <label id="showOthersLabel" class="row" style="gap:4px;color:var(--muted);font-size:13px">
     <input type="checkbox" id="showOthers" checked> andere areas tonen
   </label>
@@ -225,12 +226,9 @@
       <div id="npcResults" class="list"></div>
       <div id="npcBrush" class="note"></div>
       <div class="row" style="margin-top:8px">
-        <label class="row" style="gap:4px">Verdieping
-          <select id="npcLevel"><option>0</option><option>1</option><option>2</option><option>3</option></select>
-        </label>
         <button id="placeBtn">Plaatsen</button>
       </div>
-      <p class="note">Klik een spawn aan om hem te kiezen · sleep om te verplaatsen · rechtsklik of <kbd>Delete</kbd> verwijdert.</p>
+      <p class="note">Plaatst op de verdieping die bovenaan gekozen is (<kbd>PageUp</kbd>/<kbd>PageDown</kbd>). Klik een spawn aan om hem te kiezen · sleep om te verplaatsen · rechtsklik of <kbd>Delete</kbd> verwijdert.</p>
     </section>
     <section id="spawnSection">
       <h2>Spawns in bestand <span id="spawnCount" class="count-label"></span></h2>
@@ -249,7 +247,7 @@ const $ = (id) => document.getElementById(id);
 
 let maps = [], tracks = [], regions = [], otherAreas = [];
 let trackByGameval = new Map();
-let mapIndex = 0, mapImage = null;
+let mapIndex = 0, mapImage = null, levelImage = null;
 let view = { zoom: 0.5, panX: 0, panY: 0 };
 let selected = -1;
 let drawing = null;
@@ -303,6 +301,35 @@ function selectMap(index, afterLoad) {
   mapImage = new Image();
   mapImage.onload = () => { fitMap(); if (afterLoad) afterLoad(); draw(); };
   mapImage.src = "/maps/" + maps[index].file;
+  renderLevelSelect();
+  loadLevelImage();
+}
+
+function mapLevels(m) { return m.levels || [m.file, null, null, null]; }
+
+function renderLevelSelect() {
+  const files = mapLevels(currentMap());
+  $("levelSelect").innerHTML = [0, 1, 2, 3]
+    .map((l) => `<option value="${l}">Verdieping ${l}${l > 0 && !files[l] ? " (leeg)" : ""}</option>`)
+    .join("");
+  $("levelSelect").value = String(placeLevel);
+}
+
+function loadLevelImage() {
+  const file = placeLevel > 0 ? mapLevels(currentMap())[placeLevel] : null;
+  levelImage = null;
+  if (!file) return;
+  const image = new Image();
+  image.onload = () => { if (levelImage === image) draw(); };
+  image.src = "/maps/" + file;
+  levelImage = image;
+}
+
+function setLevel(level) {
+  placeLevel = Math.max(0, Math.min(3, level));
+  $("levelSelect").value = String(placeLevel);
+  loadLevelImage();
+  draw();
 }
 
 function fitMap() {
@@ -356,7 +383,12 @@ function draw() {
   ctx.clearRect(0, 0, rect.width, rect.height);
   if (!mapImage || !mapImage.complete) return;
   ctx.imageSmoothingEnabled = view.zoom < 1;
+  if (placeLevel > 0) ctx.globalAlpha = 0.3;
   ctx.drawImage(mapImage, view.panX, view.panY, mapImage.width * view.zoom, mapImage.height * view.zoom);
+  ctx.globalAlpha = 1;
+  if (levelImage && levelImage.complete) {
+    ctx.drawImage(levelImage, view.panX, view.panY, levelImage.width * view.zoom, levelImage.height * view.zoom);
+  }
   if (mode === "npc") {
     drawNpcs();
     drawHoverTile();
@@ -586,6 +618,11 @@ canvas.addEventListener("mouseleave", () => { hoverTile = null; $("coords").text
 
 window.addEventListener("keydown", (event) => {
   if (event.target.tagName === "INPUT") return;
+  if (event.key === "PageUp" || event.key === "PageDown") {
+    event.preventDefault();
+    setLevel(placeLevel + (event.key === "PageUp" ? 1 : -1));
+    return;
+  }
   if (mode === "npc") { npcKey(event); return; }
   if (event.key === "Escape" && drawing) { stopDrawing(); }
   if (event.key === "Enter" && drawing && drawing.length >= 3) finishDrawing();
@@ -804,6 +841,7 @@ document.addEventListener("click", (event) => {
 $("newRegion").addEventListener("click", newRegion);
 $("regionFilter").addEventListener("input", renderRegionList);
 $("mapSelect").addEventListener("change", (e) => selectMap(Number(e.target.value)));
+$("levelSelect").addEventListener("change", (e) => { setLevel(Number(e.target.value)); e.target.blur(); });
 $("showOthers").addEventListener("change", draw);
 
 $("saveBtn").addEventListener("click", async () => {
@@ -861,6 +899,7 @@ function setMode(next) {
   $("mapWrap").hidden = mode === "config";
   $("configWrap").hidden = mode !== "config";
   $("mapSelect").hidden = mode === "config";
+  $("levelSelect").hidden = mode === "config";
   $("showOthersLabel").hidden = mode !== "music";
   if (drawing) stopDrawing();
   if (mode !== "npc") setPlacing(false);
@@ -1165,8 +1204,7 @@ $("npcPanel").addEventListener("click", (event) => {
   if (row) {
     const hit = { file: currentFile, index: Number(row.dataset.spawn) };
     const spawn = npcFiles[hit.file][hit.index];
-    placeLevel = spawn.level;
-    $("npcLevel").value = String(placeLevel);
+    setLevel(spawn.level);
     selectSpawn(hit);
     centerOn(spawn.x, spawn.y);
     return;
@@ -1209,7 +1247,6 @@ $("npcFile").addEventListener("change", (e) => {
   renderSpawnList();
   draw();
 });
-$("npcLevel").addEventListener("change", (e) => { placeLevel = Number(e.target.value); draw(); });
 $("placeBtn").addEventListener("click", () => setPlacing(!placing));
 $("npcNewFile").addEventListener("click", () => { $("npcNewFileRow").hidden = false; $("npcNewFileName").focus(); });
 $("npcNewFileOk").addEventListener("click", createNpcFile);

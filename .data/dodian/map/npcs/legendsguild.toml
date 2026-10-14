@@ -45,11 +45,6 @@ coords = "0_42_50_24_57"
 wander = 5
 
 [[spawn]]
-npc = "npc.dwarf_rock_avatar_mage_green"
-coords = "0_42_52_56_3"
-wander = 10
-
-[[spawn]]
 npc = "npc.zamorak_mage"
 coords = "0_42_52_53_16"
 wander = 5
@@ -97,11 +92,6 @@ wander = 5
 [[spawn]]
 npc = "npc.legends_guild_guard1"
 coords = "0_42_51_39_21"
-wander = 0
-
-[[spawn]]
-npc = "npc.legends_guild_guard2"
-coords = "0_42_51_42_21"
 face = "south"
 wander = 0
 
@@ -154,3 +144,14 @@ wander = 10
 npc = "npc.darkbear"
 coords = "0_42_51_15_33"
 wander = 10
+
+[[spawn]]
+npc = "npc.dwarf_rock_avatar_mage_yellow"
+coords = "0_42_52_56_4"
+wander = 2
+
+[[spawn]]
+npc = "npc.legends_guild_guard2"
+coords = "0_42_51_42_21"
+face = "south"
+wander = 0
