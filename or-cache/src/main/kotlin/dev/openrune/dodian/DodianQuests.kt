@@ -107,7 +107,7 @@ public class DodianQuests : CacheTask() {
 
         val row = DBRowType(rowId)
         row.tableId = QUEST_TABLE
-        row.ensureColumnStorage(values.keys.max() + 1)
+        row.ensureColumnStorage(columns.keys.max() + 1)
         for ((column, cells) in values) {
             val types = checkNotNull(columns[column]) { "quest table has no column $column" }.types
             row.field5306!![column] = IntArray(types.size) { types[it].id }
