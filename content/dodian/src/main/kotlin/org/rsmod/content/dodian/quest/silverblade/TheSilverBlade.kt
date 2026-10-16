@@ -7,6 +7,7 @@ import org.rsmod.api.player.dialogue.Dialogue
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.protect.ProtectedAccessLauncher
+import org.rsmod.api.player.righthand
 import org.rsmod.api.player.vars.boolVarBit
 import org.rsmod.api.player.vars.intVarBit
 import org.rsmod.api.player.worn.EquipGates
@@ -90,12 +91,15 @@ constructor(
         onAiTimer(DELRITH_WEAKENED) { weakenedTick(npc) }
         val delrithType = checkNotNull(ServerCacheManager.getNpc(DELRITH.asRSCM()))
         onModifyNpcHit(delrithType) {
-            val silverlight = hit.type == HitType.Melee && hit.righthandType()?.id == SILVERLIGHT.asRSCM()
-            if (!silverlight && hit.isFromPlayer) {
+            if (!hit.isFromPlayer) {
+                return@onModifyNpcHit
+            }
+            val attacker = hit.sourceSlot?.let { playerList[it] } ?: return@onModifyNpcHit
+            val silverlight =
+                hit.type == HitType.Melee && attacker.righthand?.id == SILVERLIGHT.asRSCM()
+            if (!silverlight) {
                 hit.damage = 0
-                hit.sourceSlot?.let { slot ->
-                    playerList[slot]?.mes("Your attack doesn't seem to hurt Delrith at all.")
-                }
+                attacker.mes("Your attack doesn't seem to hurt Delrith at all.")
             }
         }
         foes.onKill { npc, killer -> if (npc.isType(DELRITH)) delrithWeakened(npc, killer) }

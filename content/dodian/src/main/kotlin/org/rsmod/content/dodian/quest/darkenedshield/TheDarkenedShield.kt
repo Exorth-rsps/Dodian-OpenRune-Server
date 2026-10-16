@@ -467,8 +467,8 @@ constructor(
         const val VIYELDI = "npc.viyeldi"
         private const val NEZIKCHENED = "npc.nezikchened"
 
-        private const val GREY_CRYSTAL = "obj.powering_crystal2"
-        private const val CYAN_CRYSTAL = "obj.powering_crystal1"
+        private const val GREY_CRYSTAL = "obj.powering_crystal4"
+        private const val CYAN_CRYSTAL = "obj.powering_crystal3"
         private const val LAMP = "obj.legends_lamp"
 
         private val HIGHLIGHT_TAGS = Regex("</?red>")
