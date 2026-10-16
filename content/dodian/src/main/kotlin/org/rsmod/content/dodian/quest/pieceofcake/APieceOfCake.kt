@@ -211,7 +211,7 @@ class APieceOfCake @Inject constructor(private val objRepo: ObjRepository) :
         const val COOKING_XP = 300.0
         const val CAKE_REWARD = 2
 
-        private const val BAKER = "npc.baker_merchant"
+        private const val BAKER = "npc.baker_merchant_ardougne"
 
         private const val EGG = "obj.egg"
         private const val MILK = "obj.bucket_milk"

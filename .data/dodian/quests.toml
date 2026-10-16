@@ -38,7 +38,7 @@ releasedate = "16-10-2026"
 questpoints = 1
 endstate = 2
 members = false
-startnpc = "npc.baker_merchant"
+startnpc = "npc.baker_merchant_ardougne"
 
 [[quest]]
 row = "dbrow.quest_order_in_the_court"
