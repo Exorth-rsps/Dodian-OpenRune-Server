@@ -63,6 +63,8 @@ wanderRange = 0
 
 [npc.params]
 "param.npc_attack_type"="category.attacktype_magic"
+"param.attack_anim"="seq.demon_casting"
+"param.proj_travel"="spotanim.ibanblast_travel"
 
 [[npc]]
 id = "npc.delrith"

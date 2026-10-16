@@ -43,6 +43,9 @@ class TheFrozenPassage @Inject constructor(private val locRepo: LocRepository) :
                 "the quest completes at stage $STAGE_COMPLETE."
         }
         onOpNpc1(DORIC) { startDialogue(it.npc) { doric() } }
+        for (dwarf in TUNNEL_DWARVES) {
+            onOpNpc1(dwarf) { startDialogue(it.npc) { tunnelDwarf() } }
+        }
         for (entrance in DodianQuestLocs.locs("frozen_passage_tunnel_entrance")) {
             onOpLoc1(entrance) { enterTunnel(it.vis) }
         }
@@ -118,6 +121,36 @@ class TheFrozenPassage @Inject constructor(private val locRepo: LocRepository) :
         )
         mesbox("It's holding. You should tell Doric.")
         quest.setQuestStage(this, STAGE_INSPECTED)
+    }
+
+    private suspend fun Dialogue.tunnelDwarf() {
+        when (quest.getQuestStage(player)) {
+            STAGE_NOT_STARTED ->
+                chatNpc(
+                    angry,
+                    "Tunnel's closed. The frost cracked the supports, and Doric won't let anyone " +
+                        "through until they're fixed. Go and talk to him if you want to help.",
+                )
+            STAGE_STARTED ->
+                chatNpc(
+                    neutral,
+                    "Still waiting on those materials for Doric? Clay, bronze bars and nails. The " +
+                        "sooner he gets them, the sooner we can all go home.",
+                )
+            STAGE_FIXED,
+            STAGE_INSPECTED ->
+                chatNpc(
+                    neutral,
+                    "Doric says you're checking the deepest support. Mind your head in there, the " +
+                        "ceiling's lower than it looks.",
+                )
+            else ->
+                chatNpc(
+                    happy,
+                    "Welcome, friend! Thanks to you the tunnel's safe again. Even Doric goes in " +
+                        "now. Ten steps at a time.",
+                )
+        }
     }
 
     private suspend fun Dialogue.doric() {
@@ -312,6 +345,7 @@ class TheFrozenPassage @Inject constructor(private val locRepo: LocRepository) :
         private const val NAILS_NEEDED = 15
 
         private const val DORIC = "npc.doric"
+        private val TUNNEL_DWARVES = listOf("npc.mguild_guard1", "npc.mguild_guard2")
 
         private const val CLAY = "obj.clay"
         private const val BRONZE_BAR = "obj.bronze_bar"

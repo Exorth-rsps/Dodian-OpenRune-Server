@@ -75,7 +75,7 @@ constructor(
         mes("Track id=$currMusicId clocks=$musicClocks/$musicDuration area=$area")
     }
 
-    private companion object {
+    internal companion object {
         val START = CoordGrid(2670, 3231, 0)
     }
 }

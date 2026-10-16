@@ -60,6 +60,9 @@ constructor(
         }
         onOpNpc1(RADIMUS) { startDialogue(it.npc) { radimus() } }
         onOpNpc1(WATCHTOWER_WIZARD) { startDialogue(it.npc) { wizard() } }
+        for (guard in LEGENDS_GUARDS) {
+            onOpNpc1(guard) { startDialogue(it.npc) { legendsGuard() } }
+        }
         onSharedTalk(VIYELDI, priority = 0) {
             viyeldi(npc)
             true
@@ -118,8 +121,8 @@ constructor(
             STAGE_RESTORED -> {
                 chatNpc(
                     happy,
-                    "Word travels fast. A demon slain, a dark wizard driven off, and the shield " +
-                        "above Yanille shines as bright as ever.",
+                    "Word travels fast. A demon slain, a dark wizard caught in his own circle, and " +
+                        "the shield above Yanille shines as bright as ever.",
                 )
                 chatNpc(
                     neutral,
@@ -344,11 +347,17 @@ constructor(
                     chatNpc(angry, "NEZIKCHENED! Finish what you started!")
                     summon(viyeldi)
                 }
-            else ->
+            else -> {
+                chatNpc(
+                    angry,
+                    "Don't look so pleased. My own circle holds me on this hill now, but circles " +
+                        "fade.",
+                )
                 chatNpc(
                     angry,
                     "Enjoy your little victory. There will be other crystals... and other doors.",
                 )
+            }
         }
     }
 
@@ -366,8 +375,11 @@ constructor(
             return
         }
         launcher.launch(killer) {
-            mes("Viyeldi: No! Impossible! This isn't over, adventurer!")
-            mes("Viyeldi vanishes in a cloud of black smoke. He leaves the crystal behind.")
+            mes("Viyeldi: No! Impossible! You broke the link... this isn't over, adventurer!")
+            mes(
+                "Viyeldi tries to flee, but the summoning circle he drew flares up and holds him " +
+                    "in place. The drained crystal rolls from his hands and stops at your feet."
+            )
             invAddOrDrop(objRepo, GREY_CRYSTAL)
             quest.setQuestStage(this, STAGE_CURSED_CRYSTAL)
         }
@@ -408,18 +420,43 @@ constructor(
         }
     }
 
+    private suspend fun Dialogue.legendsGuard() {
+        when (stage(player)) {
+            STAGE_NOT_STARTED -> {
+                chatNpc(neutral, "Only legends may pass through this gate.")
+                chatNpc(
+                    neutral,
+                    "If you think you're one of them, speak to Radimus Erkle. He decides who " +
+                        "becomes a legend, not me.",
+                )
+            }
+            in STAGE_STARTED until STAGE_COMPLETE ->
+                chatNpc(
+                    neutral,
+                    "Radimus tells me you're helping Yanille. Come back when the job is done, and " +
+                        "this gate will open for you.",
+                )
+            else ->
+                chatNpc(
+                    happy,
+                    "Welcome, Legend. The guild is yours. Mind the totem pole, it bites.",
+                )
+        }
+    }
+
     private suspend fun ProtectedAccess.legendsGate(gate: BoundLocInfo) {
         if (!quest.isQuestCompleted(player)) {
             startDialogue {
                 chatNpcSpecific(
-                    "Radimus Erkle",
-                    RADIMUS,
+                    "Legends' Guard",
+                    LEGENDS_GUARDS.first(),
                     neutral,
                     "Only legends may pass through this gate.",
                 )
             }
             return
         }
+        mes("The guard nods as you pass. \"Welcome back, Legend.\"")
         val otherSide = DoorTranslations.translateOpen(gate.coords, gate.shape, gate.angle)
         swingThrough(locRepo, gate, if (gate.isOnDoorTileSide(coords)) otherSide else gate.coords)
     }
@@ -464,6 +501,7 @@ constructor(
 
         private const val RADIMUS = "npc.radimus_erkle"
         private const val WATCHTOWER_WIZARD = "npc.watchtower_wizard"
+        private val LEGENDS_GUARDS = listOf("npc.legends_guild_guard1", "npc.legends_guild_guard2")
         const val VIYELDI = "npc.viyeldi"
         private const val NEZIKCHENED = "npc.nezikchened"
 
@@ -485,8 +523,9 @@ constructor(
                     "glow on the <red>hills east of the Fishing Guild</red>.",
                 "The dark wizard <red>Viyeldi</red> stole the crystal and summoned the demon " +
                     "<red>Nezikchened</red>. I must defeat it.",
-                "I defeated Nezikchened and Viyeldi fled. The crystal has turned grey and " +
-                    "lifeless. I must <red>pray over it at an altar</red>.",
+                "I defeated Nezikchened. Viyeldi is trapped in his own summoning circle, and the " +
+                    "crystal has turned grey and lifeless. I must <red>pray over it at an " +
+                    "altar</red>.",
                 "The crystal is cleansed. I should bring it back to the <red>Watchtower " +
                     "Wizard</red>.",
                 "The shield above Yanille is restored. I should return to <red>Radimus " +

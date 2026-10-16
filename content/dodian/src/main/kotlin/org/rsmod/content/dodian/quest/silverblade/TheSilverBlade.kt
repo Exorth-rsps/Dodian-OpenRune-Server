@@ -208,13 +208,14 @@ constructor(
         )
         chatNpc(
             neutral,
-            "Still... there is something you could do. That dark wizard you chased off, Viyeldi. " +
-                "He's back. Same hills, east of the Fishing Guild.",
+            "Still... there is something you could do. That dark wizard you beat, Viyeldi. His " +
+                "circle still holds him on those hills east of the Fishing Guild.",
         )
         chatNpc(
             worried,
-            "And this time he hasn't summoned some lesser demon. He's brought back Delrith. An " +
-                "ancient thing. It took a legendary sword to banish it the last time.",
+            "If he can't leave, he'll bring something to him. He's using that circle to call " +
+                "back Delrith. An ancient thing. It took a legendary sword to banish it the last " +
+                "time.",
         )
         chatNpc(
             neutral,
@@ -251,7 +252,7 @@ constructor(
     }
 
     private suspend fun Dialogue.oziachComplete() {
-        chatPlayer(neutral, "Delrith is banished. Viyeldi ran off again.")
+        chatPlayer(neutral, "Delrith is banished. Viyeldi is still stuck in his circle.")
         chatNpc(
             shocked,
             "...You're not lying, are you? I can see it in your face. You've looked into the eyes " +
@@ -268,7 +269,7 @@ constructor(
         )
         chatNpc(
             neutral,
-            "Keep that sword close. Wizards like Viyeldi never stay gone for long.",
+            "Keep that sword close. That circle won't hold him forever.",
         )
         quest.completeQuest(access)
     }
@@ -549,7 +550,10 @@ constructor(
                                 "save you.",
                         )
                         chatNpc(madlaugh, "DELRITH! Rise from the dark and tear this fool apart!")
-                        mesbox("Viyeldi vanishes in a cloud of black smoke, laughing.")
+                        mesbox(
+                            "Viyeldi steps back into the centre of his circle, laughing, as the " +
+                                "ground splits open beside him."
+                        )
                         summonDelrith(viyeldi)
                     }
                 }
@@ -558,6 +562,18 @@ constructor(
                     angry,
                     "You've won again... but every door you close, I'll open two more.",
                 )
+            STAGE_COMPLETE -> {
+                chatNpc(
+                    sad,
+                    "Two demons sent back through my own circle. Do you know how embarrassing that " +
+                        "is for a dark wizard?",
+                )
+                chatNpc(
+                    angry,
+                    "Laugh while you can. The circle is cracking, and when it breaks, you won't see " +
+                        "me coming.",
+                )
+            }
             else -> return false
         }
         return true
