@@ -234,7 +234,7 @@ constructor(
         const val CRAFTING_XP = 150.0
         const val COIN_REWARD = 500
 
-        private const val SILK_MERCHANT = "npc.silk_merchant"
+        private const val SILK_MERCHANT = "npc.silk_merchant_ardougne"
         private const val SHOP_TITLE = "Silk Merchant"
         private const val SILK_SHOP = "inv.dodian_silk_shop"
         private const val WOOL_SHOP = "inv.dodian_silk_shop_wool"

@@ -60,7 +60,7 @@ releasedate = "16-10-2026"
 questpoints = 1
 endstate = 2
 members = false
-startnpc = "npc.silk_merchant"
+startnpc = "npc.silk_merchant_ardougne"
 
 [[quest]]
 row = "dbrow.quest_darkened_shield"
