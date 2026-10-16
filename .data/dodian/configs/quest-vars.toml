@@ -12,3 +12,206 @@ id = "varbit.dodian_slayers_eye_progress"
 varp = "varp.dodian_slayers_eye"
 startBit = 0
 endBit = 7
+
+[[varp]]
+isServerOnly = true
+id = "varp.dodian_piece_of_cake"
+scope = "Perm"
+transmit = "Never"
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_piece_of_cake_progress"
+varp = "varp.dodian_piece_of_cake"
+startBit = 0
+endBit = 7
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_piece_of_cake_egg_given"
+varp = "varp.dodian_piece_of_cake"
+startBit = 8
+endBit = 8
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_piece_of_cake_milk_given"
+varp = "varp.dodian_piece_of_cake"
+startBit = 9
+endBit = 9
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_piece_of_cake_flour_given"
+varp = "varp.dodian_piece_of_cake"
+startBit = 10
+endBit = 10
+
+[[varp]]
+isServerOnly = true
+id = "varp.dodian_order_in_the_court"
+scope = "Perm"
+transmit = "Never"
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_order_in_the_court_progress"
+varp = "varp.dodian_order_in_the_court"
+startBit = 0
+endBit = 7
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_order_in_the_court_talked_bartender"
+varp = "varp.dodian_order_in_the_court"
+startBit = 8
+endBit = 8
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_order_in_the_court_found_flax"
+varp = "varp.dodian_order_in_the_court"
+startBit = 9
+endBit = 9
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_order_in_the_court_talked_salesman"
+varp = "varp.dodian_order_in_the_court"
+startBit = 10
+endBit = 10
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_order_in_the_court_talked_flaxkeeper"
+varp = "varp.dodian_order_in_the_court"
+startBit = 11
+endBit = 11
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_order_in_the_court_talked_seer"
+varp = "varp.dodian_order_in_the_court"
+startBit = 12
+endBit = 12
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_order_in_the_court_found_poison"
+varp = "varp.dodian_order_in_the_court"
+startBit = 13
+endBit = 13
+
+[[varp]]
+isServerOnly = true
+id = "varp.dodian_spinning_a_yarn"
+scope = "Perm"
+transmit = "Never"
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_spinning_a_yarn_progress"
+varp = "varp.dodian_spinning_a_yarn"
+startBit = 0
+endBit = 7
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_spinning_a_yarn_wool_given"
+varp = "varp.dodian_spinning_a_yarn"
+startBit = 8
+endBit = 15
+
+[[varp]]
+isServerOnly = true
+id = "varp.dodian_darkened_shield"
+scope = "Perm"
+transmit = "Never"
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_darkened_shield_progress"
+varp = "varp.dodian_darkened_shield"
+startBit = 0
+endBit = 7
+
+[[varp]]
+isServerOnly = true
+id = "varp.dodian_frozen_passage"
+scope = "Perm"
+transmit = "Never"
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_frozen_passage_progress"
+varp = "varp.dodian_frozen_passage"
+startBit = 0
+endBit = 7
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_frozen_passage_clay_given"
+varp = "varp.dodian_frozen_passage"
+startBit = 8
+endBit = 8
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_frozen_passage_bars_given"
+varp = "varp.dodian_frozen_passage"
+startBit = 9
+endBit = 9
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_frozen_passage_nails_given"
+varp = "varp.dodian_frozen_passage"
+startBit = 10
+endBit = 10
+
+[[varp]]
+isServerOnly = true
+id = "varp.dodian_lost_circle"
+scope = "Perm"
+transmit = "Never"
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_lost_circle_progress"
+varp = "varp.dodian_lost_circle"
+startBit = 0
+endBit = 7
+
+[[varp]]
+isServerOnly = true
+id = "varp.dodian_silver_blade"
+scope = "Perm"
+transmit = "Never"
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_silver_blade_progress"
+varp = "varp.dodian_silver_blade"
+startBit = 0
+endBit = 7
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_silver_blade_traiborn_bones"
+varp = "varp.dodian_silver_blade"
+startBit = 8
+endBit = 15
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_silver_blade_traiborn_key"
+varp = "varp.dodian_silver_blade"
+startBit = 16
+endBit = 16
+
+[[varbit]]
+isServerOnly = true
+id = "varbit.dodian_silver_blade_rovin_key"
+varp = "varp.dodian_silver_blade"
+startBit = 17
+endBit = 17

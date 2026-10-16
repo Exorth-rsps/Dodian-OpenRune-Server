@@ -28,3 +28,81 @@ endstate = 6
 members = false
 startnpc = "npc.magic_store_owner2"
 startcoord = "2_41_50_31_17"
+
+[[quest]]
+row = "dbrow.quest_piece_of_cake"
+template = "dbrow.quest_cooksassistant"
+name = "A Piece of Cake"
+sortname = "Piece of Cake"
+releasedate = "16-10-2026"
+questpoints = 1
+endstate = 2
+members = false
+startnpc = "npc.baker_merchant"
+
+[[quest]]
+row = "dbrow.quest_order_in_the_court"
+template = "dbrow.quest_murdermystery"
+name = "Order in the Court"
+sortname = "Order in the Court"
+releasedate = "16-10-2026"
+questpoints = 2
+endstate = 2
+members = false
+startnpc = "npc.king_arthur"
+
+[[quest]]
+row = "dbrow.quest_spinning_a_yarn"
+template = "dbrow.quest_sheepshearer"
+name = "Spinning a Yarn"
+sortname = "Spinning a Yarn"
+releasedate = "16-10-2026"
+questpoints = 1
+endstate = 2
+members = false
+startnpc = "npc.silk_merchant"
+
+[[quest]]
+row = "dbrow.quest_darkened_shield"
+template = "dbrow.quest_legends"
+name = "The Darkened Shield"
+sortname = "Darkened Shield"
+releasedate = "16-10-2026"
+questpoints = 4
+endstate = 7
+members = false
+startnpc = "npc.radimus_erkle"
+startcoord = "0_42_51_41_17"
+
+[[quest]]
+row = "dbrow.quest_frozen_passage"
+template = "dbrow.quest_dorics"
+name = "The Frozen Passage"
+sortname = "Frozen Passage"
+releasedate = "16-10-2026"
+questpoints = 1
+endstate = 4
+members = false
+startnpc = "npc.doric"
+
+[[quest]]
+row = "dbrow.quest_lost_circle"
+template = "dbrow.quest_druidicritual"
+name = "The Lost Circle"
+sortname = "Lost Circle"
+releasedate = "16-10-2026"
+questpoints = 4
+endstate = 4
+members = false
+startnpc = "npc.kaqemeex"
+
+[[quest]]
+row = "dbrow.quest_silver_blade"
+template = "dbrow.quest_demonslayer"
+name = "The Silver Blade"
+sortname = "Silver Blade"
+releasedate = "16-10-2026"
+questpoints = 2
+endstate = 5
+members = false
+startnpc = "npc.oziach"

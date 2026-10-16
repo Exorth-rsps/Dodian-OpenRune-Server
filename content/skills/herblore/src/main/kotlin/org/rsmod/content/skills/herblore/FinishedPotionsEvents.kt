@@ -38,6 +38,9 @@ class FinishedPotionsEvents @Inject constructor(private val random: GameRandom) 
         if (candidates.isEmpty()) {
             return
         }
+        if (!herbloreAllowed()) {
+            return
+        }
 
         val validCandidates = candidates.filter { potion ->
             potion.statReq.all { statBase(it.t0.internalName) >= it.t1 } && potion.hasRequiredMaterials(inv)

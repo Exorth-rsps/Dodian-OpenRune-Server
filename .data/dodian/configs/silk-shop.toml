@@ -1,0 +1,55 @@
+# The Silk merchant's shop (dodian mode). Players who have not finished Spinning a Yarn get the shop
+# without balls of wool; content/dodian SpinningAYarn picks the inventory.
+
+[[inventory]]
+id = "inv.dodian_silk_shop"
+name = "Silk Merchant"
+
+scope = "Shared"
+stack = "Always"
+
+sellMultiplier = 1000
+buyMultiplier = 600
+delta = 1
+
+size = 1
+
+protect = false
+runWeight = false
+restock = true
+allStock = false
+placeholders = false
+
+[[inventory.stock]]
+obj = "obj.silk"
+count = 20
+restockCycles = 50
+
+[[inventory]]
+id = "inv.dodian_silk_shop_wool"
+name = "Silk Merchant"
+
+scope = "Shared"
+stack = "Always"
+
+sellMultiplier = 1000
+buyMultiplier = 600
+delta = 1
+
+size = 2
+
+protect = false
+runWeight = false
+restock = true
+allStock = false
+placeholders = false
+
+[[inventory.stock]]
+obj = "obj.silk"
+count = 20
+restockCycles = 50
+
+[[inventory.stock]]
+obj = "obj.ball_of_wool"
+count = 50
+restockCycles = 20

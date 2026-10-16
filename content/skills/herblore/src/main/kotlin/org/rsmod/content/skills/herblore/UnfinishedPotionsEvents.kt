@@ -30,6 +30,9 @@ class UnfinishedPotionsEvents : PluginScript() {
         ) {
             return
         }
+        if (!herbloreAllowed()) {
+            return
+        }
 
         val herbName = ev.second.internalName
         val potionForHerb = HerbloreDefinitions.unfinishedPotions.firstOrNull {

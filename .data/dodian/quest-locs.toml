@@ -1,0 +1,19 @@
+# Objects used by the Dodian quests, by loc name (Examine shows the id; look the name up in the editor).
+# Restart the server after changes; no buildCache needed. An empty list disables that interaction.
+
+# The Frozen Passage: the entrance of the tunnel under the Ice Mountain (closed until Doric's supports
+# are fixed) and the deepest support at the far end of the tunnel ("Inspect").
+frozen_passage_tunnel_entrance = []
+frozen_passage_deepest_support = []
+# Where the tunnel entrance takes the player once it is open: level_mapsquareX_mapsquareZ_localX_localZ.
+frozen_passage_tunnel_destination = ""
+
+# Order in the Court: the bales of flax beside the Flax keeper's house, where the poison is hidden.
+order_in_the_court_flax_bales = []
+
+# The Lost Circle: the cauldron raw meat is dipped in.
+lost_circle_cauldron = ["loc.cauldron_of_thunder"]
+
+# The Darkened Shield: altars that cleanse the powering crystal, and the Legends' Guild gate.
+darkened_shield_altars = ["loc.altar"]
+darkened_shield_legends_gate = ["loc.legendsguildgatel", "loc.legendsguildgater"]

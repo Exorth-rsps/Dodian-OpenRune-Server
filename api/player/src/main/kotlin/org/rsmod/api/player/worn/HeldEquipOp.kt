@@ -114,11 +114,13 @@ public class HeldEquipOp @Inject constructor(private val eventBus: EventBus) {
 
     private fun equip(player: Player, type: ItemServerType): HeldEquipResult {
         val statRequirements =
-            type.statRequirements().filter { player.statBase(RSCM.getReverseMapping(RSCMType.STAT,it.stat.id)) < it.level }
+            type.statRequirements().filter { player.statBase(RSCM.getReverseMapping(RSCMType.STAT, it.stat.id)) < it.level }
         if (statRequirements.isNotEmpty()) {
             val messages = type.toMessages(statRequirements)
             return HeldEquipResult.Fail.StatRequirements(messages)
         }
+
+        EquipGates.refusal(player, type)?.let { return HeldEquipResult.Fail.Restricted(it) }
 
         val wearpos1 = Wearpos[type.wearpos1] ?: return HeldEquipResult.Fail.InvalidObj
         val wearpos2 = Wearpos[type.wearpos2]?.takeUnless { it.isClientOnly }

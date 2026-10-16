@@ -47,3 +47,35 @@ name = "Wizard Sinina"
 id = "npc.traiborn"
 inherit = "npc.traiborn"
 name = "Wizard Traiborn"
+
+[[npc]]
+id = "npc.nezikchened"
+inherit = "npc.nezikchened"
+combatLevel = 110
+hitpoints = 120
+attack = 60
+strength = 60
+defence = 90
+ranged = 1
+magic = 110
+respawnRate = 0
+wanderRange = 0
+
+[npc.params]
+"param.npc_attack_type"="category.attacktype_magic"
+
+[[npc]]
+id = "npc.delrith"
+inherit = "npc.delrith"
+combatLevel = 130
+hitpoints = 150
+attack = 110
+strength = 105
+defence = 100
+ranged = 1
+magic = 1
+respawnRate = 0
+wanderRange = 0
+
+[npc.params]
+"param.npc_attack_type"="category.attacktype_slash"

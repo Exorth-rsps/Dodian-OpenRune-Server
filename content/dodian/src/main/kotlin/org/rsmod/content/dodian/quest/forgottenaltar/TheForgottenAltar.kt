@@ -8,6 +8,7 @@ import org.rsmod.api.player.dialogue.Dialogue
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.repo.obj.ObjRepository
 import org.rsmod.api.script.onOpNpc1
+import org.rsmod.content.dodian.quest.common.SharedTalk.onSharedTalk
 import org.rsmod.content.quest.manager.ItemRewardDisplay
 import org.rsmod.content.quest.manager.QuestScript
 import org.rsmod.content.quest.manager.rewards
@@ -45,7 +46,10 @@ class TheForgottenAltar @Inject constructor(private val objRepo: ObjRepository) 
         }
         onOpNpc1(SININA) { startDialogue(it.npc) { sinina() } }
         onOpNpc1(PERSTEN) { startDialogue(it.npc) { persten() } }
-        onOpNpc1(TRAIBORN) { startDialogue(it.npc) { traiborn() } }
+        onSharedTalk(TRAIBORN, priority = 0) {
+            traiborn()
+            true
+        }
     }
 
     override fun subTitle(): String =

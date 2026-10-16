@@ -26,12 +26,51 @@ dodian_regio_23 = 30122
 [gamevals.dbrow]
 quest_slayers_eye = 63450
 quest_forgotten_altar = 63451
+quest_piece_of_cake = 63452
+quest_order_in_the_court = 63453
+quest_spinning_a_yarn = 63454
+quest_darkened_shield = 63455
+quest_frozen_passage = 63456
+quest_lost_circle = 63457
+quest_silver_blade = 63458
 
 [gamevals.inv]
 dodian_aubury_runeshop = 1102
+dodian_silk_shop = 1103
+dodian_silk_shop_wool = 1104
 
 [gamevals.varp]
 dodian_slayers_eye = 63800
+dodian_piece_of_cake = 63801
+dodian_order_in_the_court = 63802
+dodian_spinning_a_yarn = 63803
+dodian_darkened_shield = 63804
+dodian_frozen_passage = 63805
+dodian_lost_circle = 63806
+dodian_silver_blade = 63807
 
 [gamevals.varbit]
 dodian_slayers_eye_progress = 63800
+dodian_piece_of_cake_progress = 63801
+dodian_order_in_the_court_progress = 63802
+dodian_spinning_a_yarn_progress = 63803
+dodian_darkened_shield_progress = 63804
+dodian_frozen_passage_progress = 63805
+dodian_lost_circle_progress = 63806
+dodian_silver_blade_progress = 63807
+dodian_piece_of_cake_egg_given = 63810
+dodian_piece_of_cake_milk_given = 63811
+dodian_piece_of_cake_flour_given = 63812
+dodian_order_in_the_court_talked_bartender = 63813
+dodian_order_in_the_court_found_flax = 63814
+dodian_order_in_the_court_talked_salesman = 63815
+dodian_order_in_the_court_talked_flaxkeeper = 63816
+dodian_order_in_the_court_talked_seer = 63817
+dodian_order_in_the_court_found_poison = 63818
+dodian_spinning_a_yarn_wool_given = 63819
+dodian_frozen_passage_clay_given = 63820
+dodian_frozen_passage_bars_given = 63821
+dodian_frozen_passage_nails_given = 63822
+dodian_silver_blade_traiborn_bones = 63823
+dodian_silver_blade_traiborn_key = 63824
+dodian_silver_blade_rovin_key = 63825
