@@ -17,10 +17,10 @@ class QuestVisibilityScript : PluginScript() {
     private var Player.questPointsMax by intVarBit("varbit.qp_max")
     private var Player.questsTotalCount by intVarBit("varbit.quests_total_count")
 
-    private val totalQuestPoints: Int by lazy { Quest.all().sumOf { it.questPoints } }
+    private val totalQuestPoints: Int by lazy { Quest.playable().sumOf { it.questPoints } }
 
     private val totalQuests: Int by lazy {
-        Quest.all().count { QuestRow.getRow(it.rowID).type != MINIQUEST_TYPE }
+        Quest.playable().count { QuestRow.getRow(it.rowID).type != MINIQUEST_TYPE }
     }
 
     override fun ScriptContext.startup() {

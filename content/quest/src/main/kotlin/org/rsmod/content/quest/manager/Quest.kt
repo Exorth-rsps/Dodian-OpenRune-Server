@@ -68,7 +68,19 @@ data class Quest(
 
         fun getById(id: Int): Quest? = questsByKey.values.find { it.id == id }
 
+        private val startedKeys = mutableSetOf<String>()
+
         fun all(): Collection<Quest> = questsByKey.values
+
+        /**
+         * Quests whose script actually started. A quest can be registered without being playable,
+         * e.g. when its class is also bound as a hook but its package is disabled for the gamemode.
+         */
+        fun playable(): Collection<Quest> = questsByKey.values.filter { it.key in startedKeys }
+
+        fun markStarted(quest: Quest) {
+            startedKeys += quest.key
+        }
 
         fun register(
             rowKey: String,

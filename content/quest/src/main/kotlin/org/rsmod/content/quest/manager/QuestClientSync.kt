@@ -25,7 +25,7 @@ object QuestClientSync {
     }
 
     private fun filter(player: Player): String {
-        val quests = Quest.all().sortedBy { it.id }
+        val quests = Quest.playable().sortedBy { it.id }
         if (quests.isEmpty()) {
             return NO_QUESTS
         }

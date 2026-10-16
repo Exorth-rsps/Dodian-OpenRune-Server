@@ -103,6 +103,7 @@ abstract class QuestScript(
 
     override fun ScriptContext.startup() {
         RSCM.requireRSCM(RSCMType.DBROW, "dbrow.${questKey}")
+        Quest.markStarted(quest)
 
         QuestJournalRegistry.register(
             quest,
