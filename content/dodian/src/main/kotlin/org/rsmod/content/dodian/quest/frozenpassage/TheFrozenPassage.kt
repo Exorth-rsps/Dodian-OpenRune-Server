@@ -106,6 +106,10 @@ class TheFrozenPassage @Inject constructor(private val locRepo: LocRepository) :
             telejump(destination, TeleportType.Exempt)
             return
         }
+        if (entrance.shapeId !in WALL_SHAPES) {
+            mes("The tunnel beyond is still being cleared out. Doric will let you know when it's ready.")
+            return
+        }
         val otherSide = DoorTranslations.translateOpen(entrance.coords, entrance.shape, entrance.angle)
         swingThrough(locRepo, entrance, if (entrance.isOnDoorTileSide(coords)) otherSide else entrance.coords)
     }
@@ -341,6 +345,7 @@ class TheFrozenPassage @Inject constructor(private val locRepo: LocRepository) :
         const val SMITHING_XP = 1000.0
 
         private const val CLAY_NEEDED = 4
+        private val WALL_SHAPES = 0..3
         private const val BARS_NEEDED = 2
         private const val NAILS_NEEDED = 15
 

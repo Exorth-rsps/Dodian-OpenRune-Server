@@ -3,13 +3,14 @@
 
 # The Frozen Passage: the entrance of the tunnel under the Ice Mountain (closed until Doric's supports
 # are fixed) and the deepest support at the far end of the tunnel ("Inspect").
-frozen_passage_tunnel_entrance = []
-frozen_passage_deepest_support = []
+frozen_passage_tunnel_entrance = ["loc.tunnelstairstop"]
+frozen_passage_deepest_support = ["loc.mm2_target_a"]
 # Where the tunnel entrance takes the player once it is open: level_mapsquareX_mapsquareZ_localX_localZ.
+# Leave empty while the tunnel is not built; a door entrance then swings open instead.
 frozen_passage_tunnel_destination = ""
 
 # Order in the Court: the bales of flax beside the Flax keeper's house, where the poison is hidden.
-order_in_the_court_flax_bales = []
+order_in_the_court_flax_bales = ["loc.haystack", "loc.haystack2", "loc.haystack3", "loc.haybail"]
 
 # The Lost Circle: the cauldron raw meat is dipped in.
 lost_circle_cauldron = ["loc.cauldron_of_thunder"]

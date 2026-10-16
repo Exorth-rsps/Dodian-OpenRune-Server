@@ -235,11 +235,6 @@ coords = "0_38_53_41_9"
 wander = 5
 
 [[spawn]]
-npc = "npc.foresters_bartender"
-coords = "0_39_53_6_39"
-wander = 5
-
-[[spawn]]
 npc = "npc.man"
 coords = "0_39_53_3_38"
 wander = 5
@@ -304,3 +299,43 @@ wander = 0
 npc = "npc.tote_persten_alkharid_child"
 coords = "3_39_52_14_14"
 wander = 5
+
+[[spawn]]
+npc = "npc.king_arthur"
+coords = "0_39_53_46_13"
+wander = 0
+
+[[spawn]]
+npc = "npc.foresters_bartender"
+coords = "0_39_53_7_39"
+wander = 3
+
+[[spawn]]
+npc = "npc.poison_salesman"
+coords = "0_39_53_2_33"
+wander = 3
+
+[[spawn]]
+npc = "npc.diary_flax_keeper"
+coords = "0_39_52_55_52"
+wander = 5
+
+[[spawn]]
+npc = "npc.seer"
+coords = "0_39_53_14_17"
+wander = 3
+
+[[spawn]]
+npc = "npc.kaqemeex"
+coords = "0_41_52_17_34"
+wander = 3
+
+[[spawn]]
+npc = "npc.sanfew"
+coords = "1_41_52_16_37"
+wander = 3
+
+[[spawn]]
+npc = "npc.sir_prysin"
+coords = "0_39_53_49_21"
+wander = 3
