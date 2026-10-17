@@ -3,13 +3,15 @@ package org.rsmod.api.instances.region
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import org.rsmod.api.instances.InstanceArea
+import org.rsmod.api.instances.InstanceRegionAliases
 
 @Singleton
 class InstanceAreaResolver @Inject constructor() {
     fun resolve(area: InstanceArea): Result =
         when (area) {
             is InstanceArea.Template -> Result.Ready(area.toPlacement())
-            is InstanceArea.CopyRegions -> Result.Ready(area.toPlacement())
+            is InstanceArea.CopyRegions ->
+                Result.Ready(InstanceRegionAliases.apply(area).toPlacement())
         }
 
     fun release(area: InstanceArea, placement: InstancePlacement) = Unit

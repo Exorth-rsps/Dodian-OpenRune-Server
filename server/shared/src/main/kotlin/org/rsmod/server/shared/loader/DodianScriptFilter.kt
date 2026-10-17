@@ -13,14 +13,24 @@ import org.rsmod.api.server.config.ServerConfig
  * Decides which plugin scripts may start for the active `gamemode` in `game.yml`.
  *
  * Normal mode skips only Dodian content, so the server behaves exactly like upstream. Dodian mode
- * additionally skips every package listed in `.data/dodian/disabled-content.toml`. Classes stay on
+ * additionally skips every package listed in `.data/dodian/disabled-content.toml`, except the ones
+ * under `enabled` there. Classes stay on
  * the classpath either way, so shared helpers (e.g. quest state used by skills) keep working.
  */
-class DodianScriptFilter(private val disabledPrefixes: List<String>) {
+class DodianScriptFilter(
+    private val disabledPrefixes: List<String>,
+    private val enabledPrefixes: List<String> = emptyList(),
+) {
     fun allows(clazz: Class<*>): Boolean {
         val name = clazz.name
-        return disabledPrefixes.none { name == it || name.startsWith("$it.") }
+        if (enabledPrefixes.any { name.matchesPackage(it) }) {
+            return true
+        }
+        return disabledPrefixes.none { name.matchesPackage(it) }
     }
+
+    private fun String.matchesPackage(prefix: String): Boolean =
+        this == prefix || startsWith("$prefix.")
 
     companion object {
         private const val DODIAN_PACKAGE = "org.rsmod.content.dodian"
@@ -34,9 +44,10 @@ class DodianScriptFilter(private val disabledPrefixes: List<String>) {
             if (mode == GameMode.Normal) {
                 return DodianScriptFilter(listOf(DODIAN_PACKAGE))
             }
-            val disabled = readDisabledPackages()
-            logger.info { "Dodian gamemode: skipping scripts in $disabled" }
-            return DodianScriptFilter(disabled)
+            val disabled = readPackages("packages")
+            val enabled = readPackages("enabled")
+            logger.info { "Dodian gamemode: skipping scripts in $disabled, except $enabled" }
+            return DodianScriptFilter(disabled, enabled)
         }
 
         private fun warnOnCacheMismatch(mode: GameMode) {
@@ -50,13 +61,13 @@ class DodianScriptFilter(private val disabledPrefixes: List<String>) {
             }
         }
 
-        private fun readDisabledPackages(): List<String> {
+        private fun readPackages(key: String): List<String> {
             if (!disabledContentFile.exists()) {
                 logger.warn { "Dodian gamemode: $disabledContentFile not found, no content disabled." }
                 return emptyList()
             }
             val tree = TomlMapper().readTree(disabledContentFile.toFile())
-            return tree.path("packages").map { it.asText().trim() }.filter { it.isNotEmpty() }
+            return tree.path(key).map { it.asText().trim() }.filter { it.isNotEmpty() }
         }
     }
 }

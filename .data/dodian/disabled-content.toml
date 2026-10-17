@@ -11,3 +11,9 @@ packages = [
     # Dodian's own guild door (content/dodian DodianGuildDoors) asks for the level only.
     "org.rsmod.content.skills.crafting.CraftingGuildDoor",
 ]
+
+# Packages that do start in dodian mode even though a listed package above contains them.
+enabled = [
+    # Scurrius, in the copied arena in the Yanille mine (content/dodian DodianInstances).
+    "org.rsmod.content.bosses.scurrius",
+]
