@@ -33,6 +33,11 @@ magic = 110
 respawnRate = 500
 wanderRange = 0
 
+[npc.params]
+"param.attack_anim"="seq.rock_avatar_attack"
+"param.defend_anim"="seq.rock_avatar_block"
+"param.death_anim"="seq.rock_avatar_death"
+
 [[npc]]
 id = "npc.gem_merchant_ardougne"
 inherit = "npc.gem_merchant_ardougne"
@@ -81,3 +86,690 @@ wanderRange = 0
 
 [npc.params]
 "param.npc_attack_type"="category.attacktype_slash"
+
+# Combat animations for npcs on the Dodian maps that had none (copied from npcs with the same
+# stand animation, or matched by animation name). Without them npcs fall back to a human punch.
+
+[[npc]]
+id = "npc.air_wizard"
+inherit = "npc.air_wizard"
+
+[npc.params]
+"param.attack_anim"="seq.human_castwave"
+"param.defend_anim"="seq.barrows_quarterstaff_defend"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.akd_barbarian_1"
+inherit = "npc.akd_barbarian_1"
+
+[npc.params]
+"param.attack_anim"="seq.human_dhsword_chop"
+"param.defend_anim"="seq.human_dhsword_block"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.akd_barbarian_2"
+inherit = "npc.akd_barbarian_2"
+
+[npc.params]
+"param.attack_anim"="seq.barrow_dharok_crush"
+"param.defend_anim"="seq.human_unarmedblock"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.akd_barbarian_3"
+inherit = "npc.akd_barbarian_3"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.akd_barbarian_4"
+inherit = "npc.akd_barbarian_4"
+
+[npc.params]
+"param.attack_anim"="seq.human_castwave"
+"param.defend_anim"="seq.barrows_quarterstaff_defend"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.akd_barbarian_5"
+inherit = "npc.akd_barbarian_5"
+
+[npc.params]
+"param.attack_anim"="seq.human_castwave"
+"param.defend_anim"="seq.barrows_quarterstaff_defend"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.akd_barbarian_warlord"
+inherit = "npc.akd_barbarian_warlord"
+
+[npc.params]
+"param.attack_anim"="seq.barrow_dharok_crush"
+"param.defend_anim"="seq.human_unarmedblock"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.battlefield_terrorbird_mountedspear"
+inherit = "npc.battlefield_terrorbird_mountedspear"
+
+[npc.params]
+"param.attack_anim"="seq.mounted_terrorbird_attack"
+"param.defend_anim"="seq.mounted_terrorbird_defend"
+"param.death_anim"="seq.mounted_terrorbird_death"
+
+[[npc]]
+id = "npc.battlefield_terrorbird_mountedspear2"
+inherit = "npc.battlefield_terrorbird_mountedspear2"
+
+[npc.params]
+"param.attack_anim"="seq.mounted_terrorbird_attack"
+"param.defend_anim"="seq.mounted_terrorbird_defend"
+"param.death_anim"="seq.mounted_terrorbird_death"
+
+[[npc]]
+id = "npc.battlefield_terrorbird_mountedspear3"
+inherit = "npc.battlefield_terrorbird_mountedspear3"
+
+[npc.params]
+"param.attack_anim"="seq.mounted_terrorbird_attack"
+"param.defend_anim"="seq.mounted_terrorbird_defend"
+"param.death_anim"="seq.mounted_terrorbird_death"
+
+[[npc]]
+id = "npc.calf"
+inherit = "npc.calf"
+
+[npc.params]
+"param.attack_anim"="seq.cow_update_attack"
+"param.defend_anim"="seq.cow_update_defend"
+"param.death_anim"="seq.cow_update_death"
+
+[[npc]]
+id = "npc.chaos_druid"
+inherit = "npc.chaos_druid"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.darkbear"
+inherit = "npc.darkbear"
+
+[npc.params]
+"param.attack_anim"="seq.bear_rework_attack"
+"param.death_anim"="seq.bear_rework_death"
+"param.defend_anim"="seq.bear_rework_defend"
+
+[[npc]]
+id = "npc.druid"
+inherit = "npc.druid"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.dwarf_normal"
+inherit = "npc.dwarf_normal"
+
+[npc.params]
+"param.attack_anim"="seq.dwarf_attack"
+"param.defend_anim"="seq.dwarf_block"
+"param.death_anim"="seq.dwarf_death"
+
+[[npc]]
+id = "npc.earth_wizard"
+inherit = "npc.earth_wizard"
+
+[npc.params]
+"param.attack_anim"="seq.human_castwave"
+"param.defend_anim"="seq.barrows_quarterstaff_defend"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_1"
+inherit = "npc.fai_barbarian_1"
+
+[npc.params]
+"param.attack_anim"="seq.barrow_dharok_crush"
+"param.defend_anim"="seq.human_unarmedblock"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_10"
+inherit = "npc.fai_barbarian_10"
+
+[npc.params]
+"param.attack_anim"="seq.human_dhsword_chop"
+"param.defend_anim"="seq.human_dhsword_block"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_11"
+inherit = "npc.fai_barbarian_11"
+
+[npc.params]
+"param.attack_anim"="seq.human_dhsword_chop"
+"param.defend_anim"="seq.human_dhsword_block"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_12"
+inherit = "npc.fai_barbarian_12"
+
+[npc.params]
+"param.attack_anim"="seq.barrow_dharok_crush"
+"param.defend_anim"="seq.human_unarmedblock"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_13"
+inherit = "npc.fai_barbarian_13"
+
+[npc.params]
+"param.attack_anim"="seq.human_dhsword_chop"
+"param.defend_anim"="seq.human_dhsword_block"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_14"
+inherit = "npc.fai_barbarian_14"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_2"
+inherit = "npc.fai_barbarian_2"
+
+[npc.params]
+"param.attack_anim"="seq.human_dhsword_chop"
+"param.defend_anim"="seq.human_dhsword_block"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_3"
+inherit = "npc.fai_barbarian_3"
+
+[npc.params]
+"param.attack_anim"="seq.barrow_dharok_crush"
+"param.defend_anim"="seq.human_unarmedblock"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_4"
+inherit = "npc.fai_barbarian_4"
+
+[npc.params]
+"param.attack_anim"="seq.human_dhsword_chop"
+"param.defend_anim"="seq.human_dhsword_block"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_5"
+inherit = "npc.fai_barbarian_5"
+
+[npc.params]
+"param.attack_anim"="seq.barrow_dharok_crush"
+"param.defend_anim"="seq.human_unarmedblock"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_6"
+inherit = "npc.fai_barbarian_6"
+
+[npc.params]
+"param.attack_anim"="seq.human_dhsword_chop"
+"param.defend_anim"="seq.human_dhsword_block"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_7"
+inherit = "npc.fai_barbarian_7"
+
+[npc.params]
+"param.attack_anim"="seq.barrow_dharok_crush"
+"param.defend_anim"="seq.human_unarmedblock"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_8"
+inherit = "npc.fai_barbarian_8"
+
+[npc.params]
+"param.attack_anim"="seq.human_dhsword_chop"
+"param.defend_anim"="seq.human_dhsword_block"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_female_1"
+inherit = "npc.fai_barbarian_female_1"
+
+[npc.params]
+"param.attack_anim"="seq.human_castwave"
+"param.defend_anim"="seq.barrows_quarterstaff_defend"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_female_2"
+inherit = "npc.fai_barbarian_female_2"
+
+[npc.params]
+"param.attack_anim"="seq.human_castwave"
+"param.defend_anim"="seq.barrows_quarterstaff_defend"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_female_3"
+inherit = "npc.fai_barbarian_female_3"
+
+[npc.params]
+"param.attack_anim"="seq.human_castwave"
+"param.defend_anim"="seq.barrows_quarterstaff_defend"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_barbarian_female_4"
+inherit = "npc.fai_barbarian_female_4"
+
+[npc.params]
+"param.attack_anim"="seq.human_castwave"
+"param.defend_anim"="seq.barrows_quarterstaff_defend"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.fai_falador_dwarf_normal1"
+inherit = "npc.fai_falador_dwarf_normal1"
+
+[npc.params]
+"param.attack_anim"="seq.dwarf_attack"
+"param.defend_anim"="seq.dwarf_block"
+"param.death_anim"="seq.dwarf_death"
+
+[[npc]]
+id = "npc.fai_falador_dwarf_normal2"
+inherit = "npc.fai_falador_dwarf_normal2"
+
+[npc.params]
+"param.attack_anim"="seq.dwarf_attack"
+"param.defend_anim"="seq.dwarf_block"
+"param.death_anim"="seq.dwarf_death"
+
+[[npc]]
+id = "npc.fai_falador_dwarf_normal3"
+inherit = "npc.fai_falador_dwarf_normal3"
+
+[npc.params]
+"param.attack_anim"="seq.dwarf_attack"
+"param.defend_anim"="seq.dwarf_block"
+"param.death_anim"="seq.dwarf_death"
+
+[[npc]]
+id = "npc.farm_chicken_brown"
+inherit = "npc.farm_chicken_brown"
+
+[npc.params]
+"param.attack_anim"="seq.lore_chicken_attack"
+"param.defend_anim"="seq.lore_chicken_defend"
+"param.death_anim"="seq.lore_chicken_death"
+
+[[npc]]
+id = "npc.farm_chicken_dark_brown"
+inherit = "npc.farm_chicken_dark_brown"
+
+[npc.params]
+"param.attack_anim"="seq.lore_chicken_attack"
+"param.defend_anim"="seq.lore_chicken_defend"
+"param.death_anim"="seq.lore_chicken_death"
+
+[[npc]]
+id = "npc.farm_chicken_tan"
+inherit = "npc.farm_chicken_tan"
+
+[npc.params]
+"param.attack_anim"="seq.lore_chicken_attack"
+"param.defend_anim"="seq.lore_chicken_defend"
+"param.death_anim"="seq.lore_chicken_death"
+
+[[npc]]
+id = "npc.fire_wizard"
+inherit = "npc.fire_wizard"
+
+[npc.params]
+"param.attack_anim"="seq.human_castwave"
+"param.defend_anim"="seq.barrows_quarterstaff_defend"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.giant"
+inherit = "npc.giant"
+
+[npc.params]
+"param.attack_anim"="seq.giant_update_basic_attack"
+"param.defend_anim"="seq.giant_update_basic_defend"
+"param.death_anim"="seq.giant_update_basic_death"
+
+[[npc]]
+id = "npc.giant2"
+inherit = "npc.giant2"
+
+[npc.params]
+"param.attack_anim"="seq.giant_update_basic_attack"
+"param.defend_anim"="seq.giant_update_basic_defend"
+"param.death_anim"="seq.giant_update_basic_death"
+
+[[npc]]
+id = "npc.giant3"
+inherit = "npc.giant3"
+
+[npc.params]
+"param.attack_anim"="seq.giant_update_basic_attack"
+"param.defend_anim"="seq.giant_update_basic_defend"
+"param.death_anim"="seq.giant_update_basic_death"
+
+[[npc]]
+id = "npc.giant4"
+inherit = "npc.giant4"
+
+[npc.params]
+"param.attack_anim"="seq.giant_update_basic_attack"
+"param.defend_anim"="seq.giant_update_basic_defend"
+"param.death_anim"="seq.giant_update_basic_death"
+
+[[npc]]
+id = "npc.giant5"
+inherit = "npc.giant5"
+
+[npc.params]
+"param.attack_anim"="seq.giant_update_basic_attack"
+"param.defend_anim"="seq.giant_update_basic_defend"
+"param.death_anim"="seq.giant_update_basic_death"
+
+[[npc]]
+id = "npc.giant6"
+inherit = "npc.giant6"
+
+[npc.params]
+"param.attack_anim"="seq.giant_update_basic_attack"
+"param.defend_anim"="seq.giant_update_basic_defend"
+"param.death_anim"="seq.giant_update_basic_death"
+
+[[npc]]
+id = "npc.giantrat2"
+inherit = "npc.giantrat2"
+
+[npc.params]
+"param.attack_anim"="seq.giant_rat_update_attack"
+"param.defend_anim"="seq.giant_rat_update_defend"
+"param.death_anim"="seq.giant_rat_update_death"
+
+[[npc]]
+id = "npc.giantrat3"
+inherit = "npc.giantrat3"
+
+[npc.params]
+"param.attack_anim"="seq.giant_rat_update_attack"
+"param.defend_anim"="seq.giant_rat_update_defend"
+"param.death_anim"="seq.giant_rat_update_death"
+
+[[npc]]
+id = "npc.guthix_mage"
+inherit = "npc.guthix_mage"
+
+[npc.params]
+"param.attack_anim"="seq.gnome_attackunarmed"
+"param.defend_anim"="seq.gnome_block"
+"param.death_anim"="seq.gnome_death"
+
+[[npc]]
+id = "npc.hero"
+inherit = "npc.hero"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.hero_f"
+inherit = "npc.hero_f"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.man4"
+inherit = "npc.man4"
+
+[npc.params]
+"param.attack_anim"="seq.human_castwave"
+"param.defend_anim"="seq.barrows_quarterstaff_defend"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.monk"
+inherit = "npc.monk"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.mossgiant"
+inherit = "npc.mossgiant"
+
+[npc.params]
+"param.attack_anim"="seq.giant_update_moss_attack"
+"param.defend_anim"="seq.giant_update_moss_defend"
+"param.death_anim"="seq.giant_update_moss_death"
+
+[[npc]]
+id = "npc.mossgiant2"
+inherit = "npc.mossgiant2"
+
+[npc.params]
+"param.attack_anim"="seq.giant_update_moss_attack"
+"param.defend_anim"="seq.giant_update_moss_defend"
+"param.death_anim"="seq.giant_update_moss_death"
+
+[[npc]]
+id = "npc.mossgiant3"
+inherit = "npc.mossgiant3"
+
+[npc.params]
+"param.attack_anim"="seq.giant_update_moss_attack"
+"param.defend_anim"="seq.giant_update_moss_defend"
+"param.death_anim"="seq.giant_update_moss_death"
+
+[[npc]]
+id = "npc.mossgiant4"
+inherit = "npc.mossgiant4"
+
+[npc.params]
+"param.attack_anim"="seq.giant_update_moss_attack"
+"param.defend_anim"="seq.giant_update_moss_defend"
+"param.death_anim"="seq.giant_update_moss_death"
+
+[[npc]]
+id = "npc.poh_demon"
+inherit = "npc.poh_demon"
+
+[npc.params]
+"param.attack_anim"="seq.demon_update_fireball_cast"
+"param.defend_anim"="seq.demon_block"
+"param.death_anim"="seq.demon_death"
+
+[[npc]]
+id = "npc.poh_ogre"
+inherit = "npc.poh_ogre"
+
+[npc.params]
+"param.attack_anim"="seq.ogre_attack"
+"param.defend_anim"="seq.ogre_block"
+"param.death_anim"="seq.ogre_death"
+
+[[npc]]
+id = "npc.poh_troll"
+inherit = "npc.poh_troll"
+
+[npc.params]
+"param.attack_anim"="seq.troll_attack"
+"param.defend_anim"="seq.troll_block"
+"param.death_anim"="seq.troll_death"
+
+[[npc]]
+id = "npc.saradomin_mage"
+inherit = "npc.saradomin_mage"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.skeleton_unagressive"
+inherit = "npc.skeleton_unagressive"
+
+[npc.params]
+"param.attack_anim"="seq.skeleton_update_attack_weapon"
+"param.defend_anim"="seq.skeleton_update_defend"
+"param.death_anim"="seq.skeleton_update_death"
+
+[[npc]]
+id = "npc.skeleton_unagressive2"
+inherit = "npc.skeleton_unagressive2"
+
+[npc.params]
+"param.attack_anim"="seq.skeleton_update_attack_weapon"
+"param.defend_anim"="seq.skeleton_update_defend"
+"param.death_anim"="seq.skeleton_update_death"
+
+[[npc]]
+id = "npc.skeleton_unagressive3"
+inherit = "npc.skeleton_unagressive3"
+
+[npc.params]
+"param.attack_anim"="seq.skeleton_update_attack_weapon"
+"param.defend_anim"="seq.skeleton_update_defend"
+"param.death_anim"="seq.skeleton_update_death"
+
+[[npc]]
+id = "npc.terrorbird"
+inherit = "npc.terrorbird"
+
+[npc.params]
+"param.attack_anim"="seq.pog_terror_bird_attack"
+"param.defend_anim"="seq.pog_terror_bird_defend"
+"param.death_anim"="seq.pog_terror_bird_death"
+
+[[npc]]
+id = "npc.terrorbird2"
+inherit = "npc.terrorbird2"
+
+[npc.params]
+"param.attack_anim"="seq.pog_terror_bird_attack"
+"param.defend_anim"="seq.pog_terror_bird_defend"
+"param.death_anim"="seq.pog_terror_bird_death"
+
+[[npc]]
+id = "npc.terrorbird3"
+inherit = "npc.terrorbird3"
+
+[npc.params]
+"param.attack_anim"="seq.pog_terror_bird_attack"
+"param.defend_anim"="seq.pog_terror_bird_defend"
+"param.death_anim"="seq.pog_terror_bird_death"
+
+[[npc]]
+id = "npc.terrorbird_mountedspear"
+inherit = "npc.terrorbird_mountedspear"
+
+[npc.params]
+"param.attack_anim"="seq.mounted_terrorbird_attack"
+"param.defend_anim"="seq.mounted_terrorbird_defend"
+"param.death_anim"="seq.mounted_terrorbird_death"
+
+[[npc]]
+id = "npc.ungadulu_good"
+inherit = "npc.ungadulu_good"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.viyeldi"
+inherit = "npc.viyeldi"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.water_wizard"
+inherit = "npc.water_wizard"
+
+[npc.params]
+"param.attack_anim"="seq.human_castwave"
+"param.defend_anim"="seq.barrows_quarterstaff_defend"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.whitewolf"
+inherit = "npc.whitewolf"
+
+[npc.params]
+"param.attack_anim"="seq.dog_update_wolf_attack"
+"param.death_anim"="seq.dog_update_wolf_death_quick"
+"param.defend_anim"="seq.dog_update_wolf_defend"
+
+[[npc]]
+id = "npc.whitewolf_sentry"
+inherit = "npc.whitewolf_sentry"
+
+[npc.params]
+"param.attack_anim"="seq.dog_update_wolf_attack"
+"param.death_anim"="seq.dog_update_wolf_death_quick"
+"param.defend_anim"="seq.dog_update_wolf_defend"
+
+[[npc]]
+id = "npc.yanille_soldier"
+inherit = "npc.yanille_soldier"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.yanille_watchman"
+inherit = "npc.yanille_watchman"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
+
+[[npc]]
+id = "npc.zamorak_mage"
+inherit = "npc.zamorak_mage"
+
+[npc.params]
+"param.attack_anim"="seq.human_unarmedpunch"
+"param.defend_anim"="seq.human_unarmed_def"
+"param.death_anim"="seq.human_death"
