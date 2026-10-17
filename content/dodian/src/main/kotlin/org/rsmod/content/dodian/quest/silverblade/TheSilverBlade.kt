@@ -4,6 +4,7 @@ import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
 import jakarta.inject.Inject
 import org.rsmod.api.player.dialogue.Dialogue
+import org.rsmod.api.player.events.PlayerHitEvents
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.protect.ProtectedAccessLauncher
@@ -13,6 +14,7 @@ import org.rsmod.api.player.vars.intVarBit
 import org.rsmod.api.player.worn.EquipGates
 import org.rsmod.api.repo.obj.ObjRepository
 import org.rsmod.api.script.onAiTimer
+import org.rsmod.api.script.onEvent
 import org.rsmod.api.script.onModifyNpcHit
 import org.rsmod.api.script.onOpNpc1
 import org.rsmod.api.script.onOpNpc3
@@ -95,11 +97,21 @@ constructor(
                 return@onModifyNpcHit
             }
             val attacker = hit.sourceSlot?.let { playerList[it] } ?: return@onModifyNpcHit
-            val silverlight =
-                hit.type == HitType.Melee && attacker.righthand?.id == SILVERLIGHT.asRSCM()
-            if (!silverlight) {
+            if (hit.type == HitType.Melee && attacker.wieldsSilverlight()) {
+                val minimum = (npc.baseHitpointsLvl * SILVERLIGHT_MIN_HIT_FRACTION).toInt()
+                hit.damage = maxOf(hit.damage * SILVERLIGHT_DAMAGE_MULTIPLIER, minimum)
+            } else {
                 hit.damage = 0
                 attacker.mes("Your attack doesn't seem to hurt Delrith at all.")
+            }
+        }
+        onEvent<PlayerHitEvents.Modify> {
+            if (!hit.isFromNpc || !player.wieldsSilverlight()) {
+                return@onEvent
+            }
+            val delrith = foes.active(player, DELRITH) ?: return@onEvent
+            if (hit.sourceSlot == delrith.slotId) {
+                hit.damage /= SILVERLIGHT_DAMAGE_REDUCTION
             }
         }
         foes.onKill { npc, killer -> if (npc.isType(DELRITH)) delrithWeakened(npc, killer) }
@@ -152,6 +164,8 @@ constructor(
         }
 
     private fun stage(player: Player): Int = quest.getQuestStage(player)
+
+    private fun Player.wieldsSilverlight(): Boolean = righthand?.id == SILVERLIGHT.asRSCM()
 
     private suspend fun ProtectedAccess.oziachTrade(npc: Npc) {
         if (quest.isQuestCompleted(player)) {
@@ -671,6 +685,13 @@ constructor(
         private const val BONES_NEEDED = 25
         private const val WEAKENED_CYCLES = 50
         private const val REVIVE_HITPOINTS_FRACTION = 0.25
+
+        /** Delrith is weak to Silverlight whatever its level: every hit lands hard... */
+        private const val SILVERLIGHT_DAMAGE_MULTIPLIER = 3
+        private const val SILVERLIGHT_MIN_HIT_FRACTION = 0.08
+
+        /** ...and the blade's light halves its own hits on whoever wields it. */
+        private const val SILVERLIGHT_DAMAGE_REDUCTION = 2
 
         private val INCANTATION = listOf("Carlem", "Aber", "Camerinthum", "Purchai", "Gabindo")
         private val INCANTATION_TEXT = INCANTATION.joinToString(", ")
