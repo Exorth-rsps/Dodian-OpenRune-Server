@@ -16,4 +16,6 @@ packages = [
 enabled = [
     # Scurrius, in the copied arena in the Yanille mine (content/dodian DodianInstances).
     "org.rsmod.content.bosses.scurrius",
+    # Sets the multiway indicator for the areas in .data/dodian/map/area.
+    "org.rsmod.content.areas.misc.multiway",
 ]

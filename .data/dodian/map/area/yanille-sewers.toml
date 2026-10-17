@@ -1,0 +1,12 @@
+[[area]]
+name = "Scurrius lair"
+area_id = "area.multiway"
+levels = [0]
+
+[[area.polygons]]
+vertices = [
+    [2515, 9536],
+    [2559, 9536],
+    [2559, 9599],
+    [2515, 9599],
+]
