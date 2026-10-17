@@ -46,7 +46,7 @@ class DodianSewers @Inject constructor(private val locRepo: LocRepository) : Plu
         const val SEWER_LADDER = "loc.fai_varrock_manhole_ladder"
         const val MANHOLE_OPEN_CYCLES = 500
 
-        val SEWER_ARRIVAL = CoordGrid(2470, 9539, 0)
+        val SEWER_ARRIVAL = CoordGrid(2469, 9539, 0)
         val MANHOLE_ARRIVAL = CoordGrid(2652, 3236, 0)
     }
 }
