@@ -1,0 +1,9 @@
+# The world map drop-down: list position -> world map area id (see .data/dodian/worldmap/areas.toml).
+[[enum]]
+id = "enum.world_map_dropdown_list"
+keyType = "INT"
+valueType = "MAPAREA"
+
+[enum.values]
+0 = 0
+1 = 53

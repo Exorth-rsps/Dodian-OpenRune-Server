@@ -1,0 +1,41 @@
+# World map areas in dodian mode. Run `gradlew buildCache` after changing this file.
+#
+# All OSRS areas except the surface ("main") are emptied and left out of the drop-down; the surface
+# keeps its sections and only gets
+# the name below. [underground] is rebuilt from every Dodian map square that is not on the
+# surface map, so new dungeons show up on it by themselves.
+surface_name = "UB3R Surface"
+
+#   id      = world map area id; must be unused, the OSRS areas keep 0-52
+#   name    = internal name, also the `area` of labels in labels.toml
+#   display = name in the world map drop-down
+#   origin  = [x, y, level] where the map opens when picked from the drop-down
+#   zoom    = 50, 75, 100 or 200
+[underground]
+id = 53
+name = "ub3r_underground"
+display = "UB3R Underground"
+origin = [2580, 9522, 0]
+zoom = 100
+
+# [[underground.move]] draws squares somewhere else on the map, so far-away dungeons sit next to
+# the others instead of in an empty corner. Squares are 64x64 tiles: square = tile / 64.
+#   from = [x, y] first source square, to = [x, y] where it is drawn, size = [w, h] in squares
+
+# Ice Queen lair
+[[underground.move]]
+from = [4, 138]
+to = [40, 138]
+size = [2, 2]
+
+# Giant mole
+[[underground.move]]
+from = [27, 80]
+to = [38, 142]
+size = [1, 2]
+
+# Runecrafting altars and the rune essence mine
+[[underground.move]]
+from = [33, 75]
+to = [33, 144]
+size = [13, 1]

@@ -1,0 +1,311 @@
+# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat"
+coords = "0_38_149_32_10"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat"
+coords = "0_38_149_49_12"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat"
+coords = "0_39_149_2_12"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat"
+coords = "0_38_149_21_16"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat2"
+coords = "0_38_149_18_9"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat2"
+coords = "0_38_149_36_14"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat2"
+coords = "0_38_149_46_8"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat2"
+coords = "0_38_149_57_16"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat3"
+coords = "0_38_149_52_14"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat3"
+coords = "0_38_149_40_10"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat3"
+coords = "0_38_149_26_18"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.sos_fam_giantrat3"
+coords = "0_38_149_23_5"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.wrath_skeleton"
+coords = "0_38_149_43_19"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.wrath_skeleton"
+coords = "0_38_149_44_29"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.wrath_skeleton"
+coords = "0_38_149_42_38"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.wrath_skeleton_axe"
+coords = "0_38_149_44_35"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.wrath_skeleton_axe"
+coords = "0_38_149_43_24"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.zombie_unarmed"
+coords = "0_38_149_51_37"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.zombie_unarmed2"
+coords = "0_38_149_52_43"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.zombie_unarmed3"
+coords = "0_38_149_50_47"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.zombie_unarmed4"
+coords = "0_38_149_56_48"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.zombie_unarmed5"
+coords = "0_38_149_51_52"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.zombie_unarmed6"
+coords = "0_38_149_54_50"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.zombie_unarmed6"
+coords = "0_38_149_56_36"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.zombie_unarmed_city1"
+coords = "0_38_149_62_36"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.zombie_unarmed_city2"
+coords = "0_39_149_4_36"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.zombie_unarmed_city3"
+coords = "0_39_149_8_37"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.chaos_druid"
+coords = "0_39_149_16_33"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.chaos_druid"
+coords = "0_39_149_21_36"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.chaos_druid"
+coords = "0_39_149_13_38"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.chaos_druid"
+coords = "0_39_149_18_40"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.chaos_druid"
+coords = "0_39_149_17_44"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.chaos_druid"
+coords = "0_39_149_17_48"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.chaos_druid_warrior"
+coords = "0_39_149_10_56"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.chaos_druid_warrior"
+coords = "0_39_149_4_59"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.chaos_druid_warrior"
+coords = "0_38_149_54_60"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.chaos_druid_warrior"
+coords = "0_38_149_48_60"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.chaos_druid_warrior"
+coords = "0_38_149_51_60"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_31_43"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_28_42"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_31_37"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_32_31"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_34_50"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_30_48"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_24_48"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_24_52"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_12_52"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_10_48"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_8_50"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.deadly_red_spider"
+coords = "0_38_149_3_52"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.nzone_elvarg_normal"
+coords = "0_38_149_11_28"
+face = "north"
+wander = 8

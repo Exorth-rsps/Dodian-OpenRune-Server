@@ -47,3 +47,8 @@ wander = 2
 npc = "npc.slayer_master_2_mazchna"
 coords = "0_38_49_56_59"
 wander = 2
+
+[[spawn]]
+npc = "npc.doric"
+coords = "0_39_50_4_31"
+wander = 3

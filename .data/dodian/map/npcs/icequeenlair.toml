@@ -1,0 +1,375 @@
+# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
+
+[[spawn]]
+npc = "npc.icegiant"
+coords = "0_4_139_47_17"
+wander = 3
+
+[[spawn]]
+npc = "npc.icegiant2"
+coords = "0_4_139_53_16"
+wander = 3
+
+[[spawn]]
+npc = "npc.icegiant3"
+coords = "0_4_139_47_8"
+wander = 3
+
+[[spawn]]
+npc = "npc.icegiant"
+coords = "0_4_139_49_4"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_138_22_56"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_138_18_61"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_139_18_4"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_139_17_13"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_139_18_19"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_139_18_25"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_139_20_30"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_139_21_38"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_138_19_49"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_138_13_44"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_138_5_45"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_138_4_52"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_138_3_58"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_139_3_3"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_139_2_10"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_spider"
+coords = "0_4_139_3_17"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_48_29"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_53_31"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_57_36"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_42_35"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_44_40"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_50_43"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_55_40"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_138_11_60"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_11_4"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_11_13"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_9_19"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_11_25"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_9_30"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_13_35"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_11_40"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_13_45"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_16_50"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_22_50"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_28_49"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_35_49"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_41_52"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_49_53"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_54_52"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_57_52"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_60_49"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_2_47"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_3_43"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_5_39"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_7_34"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_11_30"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_11_26"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_10_19"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_7_17"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_4_15"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_7_20"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_10_16"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_4_12"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_6_10"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_5_139_2_9"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_63_5"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_139_61_2"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_138_59_63"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_138_57_60"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_138_56_58"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_138_53_55"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_138_50_54"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_138_45_54"
+wander = 3
+
+[[spawn]]
+npc = "npc.icewarrior_queen"
+coords = "0_4_138_41_56"
+wander = 3
+
+[[spawn]]
+npc = "npc.icegiant"
+coords = "0_4_139_28_24"
+wander = 3
+
+[[spawn]]
+npc = "npc.icegiant"
+coords = "0_4_139_29_21"
+wander = 3
+
+[[spawn]]
+npc = "npc.icegiant"
+coords = "0_4_139_26_14"
+wander = 3
+
+[[spawn]]
+npc = "npc.icegiant"
+coords = "0_4_139_29_12"
+wander = 3
+
+[[spawn]]
+npc = "npc.icegiant"
+coords = "0_4_139_27_9"
+wander = 3
+
+[[spawn]]
+npc = "npc.ice_queen"
+coords = "0_4_139_50_33"
+wander = 5

@@ -1,0 +1,103 @@
+# NPC spawns in dodian mode. Edited by tools/dodian-editor; hand edits are fine too, but the
+# editor rewrites the whole file (comments included) when you save it there.
+# coords = "level_mapsquareX_mapsquareZ_localX_localZ"; run `gradlew buildCache` after changes.
+# Optional: face = "north" | "northeast" | ... (spawn direction), wander = tiles (0 = stands still);
+# left out = the npc type's default. These two only need a server restart, no buildCache.
+
+[[spawn]]
+npc = "npc.firegiant"
+coords = "0_40_148_39_14"
+wander = 5
+
+[[spawn]]
+npc = "npc.firegiant"
+coords = "0_40_148_52_10"
+wander = 5
+
+[[spawn]]
+npc = "npc.firegiant"
+coords = "0_40_148_60_17"
+wander = 5
+
+[[spawn]]
+npc = "npc.firegiant2"
+coords = "0_40_148_45_13"
+wander = 5
+
+[[spawn]]
+npc = "npc.firegiant2"
+coords = "0_40_148_52_16"
+wander = 5
+
+[[spawn]]
+npc = "npc.firegiant2"
+coords = "0_40_148_60_22"
+wander = 5
+
+[[spawn]]
+npc = "npc.firegiant3"
+coords = "0_40_148_56_13"
+wander = 5
+
+[[spawn]]
+npc = "npc.firegiant3"
+coords = "0_40_148_48_13"
+wander = 5
+
+[[spawn]]
+npc = "npc.deserttreasure_mummy_2"
+coords = "0_40_148_18_27"
+wander = 5
+
+[[spawn]]
+npc = "npc.deserttreasure_mummy_2"
+coords = "0_40_148_26_26"
+wander = 5
+
+[[spawn]]
+npc = "npc.deserttreasure_mummy_3"
+coords = "0_40_148_19_32"
+wander = 5
+
+[[spawn]]
+npc = "npc.deserttreasure_mummy_3"
+coords = "0_40_148_31_26"
+wander = 5
+
+[[spawn]]
+npc = "npc.deserttreasure_mummy_4"
+coords = "0_40_148_22_26"
+wander = 5
+
+[[spawn]]
+npc = "npc.deserttreasure_mummy_4"
+coords = "0_40_148_38_22"
+wander = 5
+
+[[spawn]]
+npc = "npc.deserttreasure_mummy_5"
+coords = "0_40_148_34_25"
+wander = 5
+
+[[spawn]]
+npc = "npc.deserttreasure_mummy_5"
+coords = "0_40_148_20_35"
+wander = 5
+
+[[spawn]]
+npc = "npc.san_tojalon"
+coords = "0_40_148_54_50"
+face = "south"
+wander = 5
+
+[[spawn]]
+npc = "npc.black_knight_titan"
+coords = "0_40_148_5_36"
+face = "east"
+wander = 5
+
+[[spawn]]
+npc = "npc.mm_demon"
+coords = "0_40_148_11_56"
+face = "south"
+wander = 5

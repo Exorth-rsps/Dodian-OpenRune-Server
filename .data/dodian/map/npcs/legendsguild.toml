@@ -160,3 +160,8 @@ wander = 0
 npc = "npc.radimus_erkle"
 coords = "0_42_51_41_17"
 wander = 5
+
+[[spawn]]
+npc = "npc.oziach"
+coords = "0_42_51_42_51"
+wander = 3

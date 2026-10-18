@@ -7,6 +7,7 @@ import dev.openrune.cache.tools.TaskPriority
 import dev.openrune.cache.tools.WorldMapPacker
 import dev.openrune.cache.tools.incremental.PackedMapSquares
 import dev.openrune.cache.tools.tasks.CacheTask
+import dev.openrune.cache.worldmap.worldmap.MapsquareSingleSection
 import dev.openrune.cache.worldmap.worldmap.WorldMapArea
 import dev.openrune.cache.worldmap.worldmap.WorldMapAreaDetails
 import dev.openrune.cache.worldmap.worldmap.WorldMapElement
@@ -29,12 +30,20 @@ import readCacheRevision
  * 1. Writes the labels from `.data/dodian/worldmap/labels.toml` as map element configs, appended
  *    after the last OSRS element (the client loads element ids `0 until fileCount`, so they must
  *    stay contiguous). Earlier Dodian elements are recognised by [LABEL_MARKER] and replaced.
- * 2. Regenerates every area from the squares still in the cache. The upstream incremental
+ * 2. Empties every OSRS area except the surface (their names stay, Jagex clientscripts refer to
+ *    them, but they cover no tile and the drop-down enum leaves them out) and regenerates the surface from the squares
+ *    still in the cache, renamed after `.data/dodian/worldmap/areas.toml`. The upstream incremental
  *    [dev.openrune.cache.tools.tasks.impl.PackWorldMap] keeps the old image of removed squares.
- * 3. Deletes geography/ground files of squares no area references any more; the client would
+ * 3. Builds the underground area from every Dodian square the surface does not show, with the
+ *    moves from `areas.toml` pulling far-away squares next to the rest.
+ * 4. Deletes geography/ground files of squares no area references any more; the client would
  *    otherwise still draw their icons on an empty background.
  */
-public class DodianWorldMap(private val packDir: File, private val labelFile: File) : CacheTask() {
+public class DodianWorldMap(
+    private val packDir: File,
+    private val labelFile: File,
+    private val areasFile: File,
+) : CacheTask() {
     override val priority: TaskPriority = TaskPriority.MAPS
 
     override fun init(cache: Cache) {
@@ -44,13 +53,17 @@ public class DodianWorldMap(private val packDir: File, private val labelFile: Fi
         }
         val keep = DodianMapClear.packedSquares(packDir)
         val labelText = if (labelFile.exists()) labelFile.readText() else ""
-        val fingerprint = "${keep.sorted().hashCode()}:${labelText.hashCode()}"
+        val areasText = if (areasFile.exists()) areasFile.readText() else ""
+        val fingerprint =
+            "${keep.sorted().hashCode()}:${labelText.hashCode()}:${areasText.hashCode()}"
         val squaresChanged = PackedMapSquares.packed.isNotEmpty()
         if (!squaresChanged && stateFile.takeIf { it.exists() }?.readText() == fingerprint) {
             return
         }
 
         val labels = DodianLabels.parse(labelFile)
+        val layout = DodianWorldAreas.parse(areasFile)
+        val main = areas.firstOrNull { it.isMain } ?: return
         val (firstCustomId, customIds) = writeLabelElements(cache, labels.labels)
 
         val config =
@@ -61,46 +74,98 @@ public class DodianWorldMap(private val packDir: File, private val labelFile: Fi
         val providers = WorldMapPacker(cache, progress).buildProviders()
         val worldMap = WorldMap(config, cache)
         for (area in areas) {
-            if (!worldMap.exists(providers, area.id, area.internalName)) {
-                continue
+            if (!area.isMain && area.id != layout.underground?.id) {
+                hideArea(cache, area)
             }
-            val custom =
-                labels.labels.indices
-                    .filter { labels.labels[it].area == area.internalName }
-                    .map { index ->
-                        val label = labels.labels[index]
-                        WorldMapElement(
-                            customIds[index],
-                            Coordinate(label.x, label.y, label.level),
-                            false,
-                        )
-                    }
-            worldMap.update(
-                area.id,
-                area.internalName,
-                providers,
-                detailsTransformer = { it },
-                labelsTransformer = { existing ->
-                    val osrs =
-                        if (labels.keepOsrsLabels) {
-                            existing.filter {
-                                it.elementId < firstCustomId && it.location.square() in keep
-                            }
-                        } else {
-                            emptyList()
-                        }
-                    osrs + custom
-                },
-                regenerateGeography = squaresChanged,
-            )
         }
-        removeUnusedGeography(cache, providers, areas, config.cacheRevision)
+        fun customLabels(areaName: String): List<WorldMapElement> =
+            labels.labels.indices
+                .filter { labels.labels[it].area == areaName }
+                .map { index ->
+                    val label = labels.labels[index]
+                    WorldMapElement(customIds[index], Coordinate(label.x, label.y, label.level), false)
+                }
+        val surface = layout.surfaceName?.let { main.copy(displayName = it) } ?: main
+        worldMap.update(
+            main.id,
+            main.internalName,
+            providers,
+            detailsTransformer = { it.copy(displayName = surface.displayName) },
+            labelsTransformer = { existing ->
+                val osrs =
+                    if (labels.keepOsrsLabels) {
+                        existing.filter {
+                            it.elementId < firstCustomId && it.location.square() in keep
+                        }
+                    } else {
+                        emptyList()
+                    }
+                osrs + customLabels(main.internalName)
+            },
+            regenerateGeography = squaresChanged,
+        )
+        val built = mutableListOf(surface)
+        val underground = layout.underground?.let { undergroundDetails(it, main, keep) }
+        if (underground != null) {
+            worldMap.add(providers, underground, customLabels(underground.internalName))
+            built += underground
+        }
+        removeUnusedGeography(cache, providers, built, config.cacheRevision)
         cache.update()
         stateFile.writeText(fingerprint)
         println(
-            "Dodian world map: rebuilt ${areas.size} areas, ${labels.labels.size} custom labels, " +
+            "Dodian world map: kept ${built.joinToString { it.displayName }}, emptied " +
+                "${areas.size - built.size} OSRS areas, ${labels.labels.size} custom labels, " +
                 "OSRS labels ${if (labels.keepOsrsLabels) "kept" else "removed"}."
         )
+    }
+
+    private fun undergroundDetails(
+        area: DodianWorldAreas.Area,
+        surface: WorldMapAreaDetails,
+        keep: Set<Int>,
+    ): WorldMapAreaDetails? {
+        val squares =
+            keep
+                .filter { square ->
+                    val x = (square shr 8) * 64
+                    val y = (square and 0xFF) * 64
+                    surface.sections.none { it.containsSourceCoord(0, x, y) }
+                }
+                .sorted()
+        if (squares.isEmpty()) {
+            return null
+        }
+        return WorldMapAreaDetails(
+            id = area.id,
+            internalName = area.name,
+            displayName = area.display,
+            origin = Coordinate(area.originX, area.originY, area.originLevel),
+            backgroundColour = 0,
+            zoom = area.zoom,
+            sections =
+                squares.map { square ->
+                    val destination = area.destination(square)
+                    MapsquareSingleSection(
+                        0,
+                        LEVELS,
+                        square shr 8,
+                        square and 0xFF,
+                        destination shr 8,
+                        destination and 0xFF,
+                    )
+                },
+        )
+    }
+
+    private fun hideArea(cache: Cache, area: WorldMapAreaDetails) {
+        if (area.sections.isEmpty()) {
+            return
+        }
+        val buffer = Unpooled.buffer()
+        area.copy(sections = emptyList()).encode(buffer)
+        val bytes = ByteArray(buffer.readableBytes()).also(buffer::readBytes)
+        cache.write(WORLDMAPAREAS, WorldMapFormat.detailsGroupId(), area.id, bytes)
     }
 
     private fun writeLabelElements(
@@ -202,6 +267,7 @@ public class DodianWorldMap(private val packDir: File, private val labelFile: Fi
         const val LABEL_CATEGORY = 1129
         const val WORLD_MAP_GEOGRAPHY = 18
         const val WORLD_MAP_GROUND = 20
+        const val LEVELS = 4
         val stateFile = File("../.data/cache/dodian-worldmap.txt")
     }
 }

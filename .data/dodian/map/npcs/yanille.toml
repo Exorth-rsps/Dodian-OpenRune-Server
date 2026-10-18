@@ -715,3 +715,8 @@ wander = 5
 npc = "npc.watchtower_wizard"
 coords = "2_40_50_53_42"
 wander = 5
+
+[[spawn]]
+npc = "npc.captain_rovin"
+coords = "0_40_50_39_25"
+wander = 3
